@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+// import Login from "./components/Login/Login";
+import { useDispatch, useSelector } from "react-redux";
+import { loadUser } from "./store/Actions/User";
+import Header from "./components/Header/Header";
+import Login from "../src/Auth/Signup";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  // const dispatch = useDispatch();
+  // // const user = useSelector((state) => state.user);
+  // const { loading, user, isAuthenticated, error } = useSelector(
+  //   (state) => state.user
+  // );
+  // useEffect(() => {
+  //   dispatch(loadUser());
+  // }, []);
+  // return <>{isAuthenticated ? <Header /> : <Login />}</>;
 }
 
 export default App;

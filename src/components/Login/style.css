@@ -1,0 +1,24 @@
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-primary {
+  background-color: red;
+  padding: 9px 15px;
+  background-color: green;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+.input-border {
+  border: 2px;
+  border-color: green;
+}
+.link {
+  color: #0000ee;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+}
