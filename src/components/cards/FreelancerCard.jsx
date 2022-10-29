@@ -1,0 +1,244 @@
+import React from "react";
+// import { Link } from "react-router-dom";
+import image from "../../assests/images/main-banner.jpg";
+// import CustomText from "../CustomText";
+// import CustomLink from "./CustomLink";
+import { Card, Typography, Rating } from "@mui/material";
+import styled from "@emotion/styled";
+import BannerImage from "../../assests/images/main-banner.jpg";
+
+const FreelancerCard = ({ cat }) => {
+  return (
+    <>
+      <Card style={{ width: "286px", height: "430px" }}>
+        <div
+          style={{
+            height: "70%",
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            backgroundColor: "#f7f7f7",
+          }}
+        >
+          <div
+            style={{
+              height: "50%",
+              width: "90%",
+              paddingTop: "20px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <img
+              src={BannerImage}
+              style={{ height: "100%", borderRadius: "50%", width: "50%" }}
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              paddingTop: "10px",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "18px",
+                fontWeight: 500,
+                color: "#16113A",
+              }}
+            >
+              Waqas
+            </Typography>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              paddingTop: "16px",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "14px",
+                fontWeight: 400,
+                color: "#16113A",
+                marginLeft: "8px",
+              }}
+            >
+              UK - WordPress Expert | Shopify Specialist | PHP | JS | CSS
+            </Typography>
+          </div>
+          {/* // country wrapper */}
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              height: "70px",
+              paddingTop: "27px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                width: "20%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src={BannerImage}
+                style={{ height: "70%", width: "50%", borderRadius: "50px" }}
+              />
+            </div>
+            <div
+              style={{ display: "flex", width: "80%", alignItems: "center" }}
+            >
+              Pakistan
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            backgroundColor: "white",
+            height: "30%",
+            boxShadow: "2px 2px #EAEBED",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              height: "80%",
+              width: "100%",
+              flexDirection: "column",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                height: "45%",
+                width: "100%",
+                // backgroundColor: "green",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginTop: "15px",
+                  marginLeft: "10px",
+                }}
+              >
+                <Typography component="legend"></Typography>
+                <Rating name="read-only" value={3} readOnly />
+                <Typography
+                  sx={{
+                    fontSize: "12px",
+                    fontWeight: 400,
+                    marginLeft: "5px",
+                    marginTop: "2px",
+                  }}
+                >
+                  (34 people's revies)
+                </Typography>
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+              }}
+            >
+              <div
+                style={{
+                  marginTop: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                }}
+              >
+                <StyledTypography1
+                  sx={{
+                    fontSize: "12px",
+                    fontWeight: 300,
+                    color: "white",
+                    bgcolor: "#025e73",
+                    padding: "4px 8px",
+                    marginLeft: 5,
+                  }}
+                >
+                  animation
+                </StyledTypography1>
+                <StyledTypography
+                  sx={{
+                    fontSize: "12px",
+                    fontWeight: 300,
+                    color: "white",
+                    bgcolor: "#f2a71b",
+                    padding: "5px 10px",
+                    marginLeft: 5,
+                  }}
+                >
+                  Shopify Design
+                </StyledTypography>
+              </div>
+            </div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              height: "20%",
+              width: "100%",
+              justifyContent: "space-between",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginLeft: "15px",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  marginRight: "10px",
+                }}
+              >
+                231 Project Completed
+              </Typography>
+            </div>
+            {/* <div style={{display:'flex',alignItems:'center'}}>
+                <CustomText label={'$22/hr'} fontSize={14} fontWeight={500}/>
+            </div> */}
+          </div>
+        </div>
+      </Card>
+    </>
+  );
+};
+
+export default FreelancerCard;
+
+const StyledTypography = styled(Typography)`
+  background-color: #f2a71b;
+  cursor: pointer;
+  color: #fff;
+  &:hover {
+    background-color: #025e73;
+  }
+`;
+const StyledTypography1 = styled(Typography)`
+  background-color: #025e73;
+  cursor: pointer;
+  color: #fff;
+  &:hover {
+    background-color: #f2a71b;
+  }
+`;

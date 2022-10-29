@@ -6,10 +6,14 @@ import store from "./store/index";
 import App from "./App";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme";
+import { BrowserRouter } from "react-router-dom";
+import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <Provider store={store}>
-    <App />
-  // </Provider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>
 );
