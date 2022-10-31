@@ -12,12 +12,12 @@ const Banner = () => {
         sx={{
           width: "100%",
           minHeight: "100vh",
-          backgroundImage: `url(${BannerImage})`,
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(${BannerImage})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           display: "flex",
           position: "relative",
-          filter: "blur(3px)",
+          // filter: "blur(3px)",
         }}
       ></Box>
       <Box>

@@ -21,6 +21,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import IconButton from "@mui/material/IconButton";
+import Header from "../Header/Header";
 
 const theme = createTheme();
 
@@ -38,103 +39,110 @@ const Login = () => {
   };
 
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      sx={{ backgroundColor: "#F7F7F7", boxShadow: "2px 2px 2px 2px #C0C0C0" }}
-    >
-      <CssBaseline />
-      <Box
+    <>
+      <Header />
+      <Container
+        component="main"
+        maxWidth="xs"
         sx={{
-          marginTop: 5,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          minHeight: "70vh",
+          backgroundColor: "#F7F7F7",
+          boxShadow: "2px 2px 2px 2px #C0C0C0",
+          marginTop: "30px",
         }}
       >
-        <Avatar sx={{ mt: 6, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
-          Sign in
-        </Typography>
-        <Box component="form">
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-
-          <FormControl sx={{ mt: 2, width: "100%" }}>
-            <InputLabel htmlFor="outlined-adornment-password">
-              Password
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={values.showPassword ? "text" : "password"}
-              value={values.password}
-              //onChange={handleChange('password')}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 5,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            minHeight: "70vh",
+          }}
+        >
+          <Avatar sx={{ mt: 6, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
+            Sign in
+          </Typography>
+          <Box component="form">
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
             />
-          </FormControl>
 
-          <Grid container sx={{ mt: "15px" }}>
-            <Grid
-              display={"flex"}
-              direction="column"
-              justifyContent="flex-end"
-              alignItems="flex-end"
-              item
-              xs
-            >
-              <Typography variant="body2">Forgot password?</Typography>
-            </Grid>
-          </Grid>
+            <FormControl sx={{ mt: 2, width: "100%" }}>
+              <InputLabel htmlFor="outlined-adornment-password">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={values.showPassword ? "text" : "password"}
+                value={values.password}
+                //onChange={handleChange('password')}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid
-              display={"flex"}
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-              item
-              xs
-              sx={{ mt: 3 }}
-            >
-              <Typography variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Typography>
+            <Grid container sx={{ mt: "15px" }}>
+              <Grid
+                display={"flex"}
+                direction="column"
+                justifyContent="flex-end"
+                alignItems="flex-end"
+                item
+                xs
+              >
+                <Typography variant="body2">Forgot password?</Typography>
+              </Grid>
             </Grid>
-          </Grid>
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid
+                display={"flex"}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                item
+                xs
+                sx={{ mt: 3 }}
+              >
+                <Typography variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </>
   );
 };
 

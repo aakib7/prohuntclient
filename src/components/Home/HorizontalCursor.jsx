@@ -1,32 +1,17 @@
 import Carousel from "react-elastic-carousel";
 import React from "react";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
 import Banner from "../../assests/images/main-banner.jpg";
+import { Link } from "react-router-dom";
+import CategoryCard from "../cards/CategoryCard";
 
 export default function HorizontalCursor() {
   return (
     <Carousel breakPoints={breakPoints} pagination={false}>
       {categories.map((cat) => {
         return (
-          <Card sx={{ maxWidth: 250 }}>
-            <CardHeader
-              title="Technology"
-              sx={{
-                color: "black",
-                paddingLeft: 8,
-                bgcolor: "#025e73",
-                color: "white",
-              }}
-            />
-            <CardMedia
-              component="img"
-              height="194"
-              image={`${Banner}`}
-              alt="Paella dish"
-            />
-          </Card>
+          <Link to={`sub-categories/${cat.category}`}>
+            <CategoryCard title={cat.category} image={Banner} />
+          </Link>
         );
       })}
     </Carousel>

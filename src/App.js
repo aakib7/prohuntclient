@@ -6,12 +6,14 @@ import Login from "./components/Login/Login";
 import HeaderPanel from "./panel/HeaderPanel";
 // import SubHeader from "./components/Header/SubHeader";
 import Home from "./components/Home/Home";
-import About from "./panel/src/pages/About";
 import Analytics from "./panel/src/pages/Analytics";
 import Dashboard from "./panel/src/pages/Dashboard";
 import { Routes, Route, Link } from "react-router-dom";
-import Main from "./panel/src/Main";
-import Sidebar from "./panel/src/components/sidebar/SideBar";
+import SubCategories from "./components/SubCategories/SubCategories";
+import Gig from "./panel/src/components/gig/Gig";
+import SingleGigCard from "./components/cards/SingleGigCard";
+import GigsList from "./components/Gigs/GigsList";
+import SingleGig from "./components/Gigs/SingleGig/SingleGig";
 
 function App() {
   // const dispatch = useDispatch();
@@ -27,10 +29,19 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/sub-categories/:category" element={<SubCategories />} />
+        <Route
+          path="/sub-categories/:category/:subcategory/gigs"
+          element={<GigsList />}
+        />
+        <Route
+          path="/sub-categories/:category/:subcategory/gigs/:id"
+          element={<SingleGig />}
+        />
         // Adnim Freelancer and Employer
         <Route path="panel" element={<HeaderPanel />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="about" element={<About />} />
+          <Route path="" element={<Dashboard />} />
+          <Route path="gig" element={<Gig />} />
           <Route path="analytics" element={<Analytics />} />
         </Route>
       </Routes>

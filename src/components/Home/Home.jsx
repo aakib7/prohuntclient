@@ -71,7 +71,9 @@ const Home = () => {
         </Box>
       </Box>
 
-      <Box>{/* <Footer /> */}</Box>
+      <Box>
+        <Footer />
+      </Box>
     </>
   );
 };

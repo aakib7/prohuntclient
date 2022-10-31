@@ -8,118 +8,86 @@ import styled from "@emotion/styled";
 const Footer = () => {
   return (
     <>
-      <Box
-        style={{
+      <Grid
+        container
+        sx={{
           border: "0.5px solid",
           backgroundColor: "#025e73",
           color: "white",
-          marginTop: "70px",
+          mt: 20,
         }}
       >
-        <Grid container>
-          <Grid item xs={12}>
-            <h1 style={{ marginLeft: "30px", color: "#f2a71b" }}>Prohunt</h1>
-          </Grid>
+        <Grid Item xs={12}>
+          <Typography
+            variant="h3"
+            sx={{ marginLeft: "30px", color: "#f2a71b" }}
+          >
+            Prohunt
+          </Typography>
         </Grid>
-
-        {/* Footer Body */}
-        <Grid container sx={{ mt: 2 }}>
-          <Grid item md={3} xs={12}>
-            <Grid container>
-              <Typography
-                sx={{
-                  fontSize: "19px",
-                  fontWeight: "600",
-                  //   padding: "4.8px 0px 12px",
-                  color: "white",
-                  marginLeft: 5,
-                }}
-              >
-                Product
-              </Typography>
-            </Grid>
-            <Grid container>
-              <Typography marginLeft={5}>Team</Typography>
-            </Grid>
-            <Grid container>
-              <Typography marginLeft={5}>About</Typography>
-            </Grid>
-            <Grid container>
-              <Typography marginLeft={5}>Careers</Typography>
-            </Grid>
-          </Grid>
-          <Grid item md={3} xs={12}>
-            <Grid container>
-              <Typography
-                sx={{
-                  fontSize: "19px",
-                  fontWeight: "600",
-                  //   padding: "4.8px 0px 12px",
-                  color: "white",
-                  marginLeft: 5,
-                }}
-              >
-                Support
-              </Typography>
-            </Grid>
-            <Grid container>
-              <Typography marginLeft={5}>How its work</Typography>
-            </Grid>
-            <Grid container>
-              <Typography marginLeft={5}>Trust & Safty</Typography>
-            </Grid>
-            <Grid container marginLeft={5}>
-              Help Center
-            </Grid>
-          </Grid>
-          <Grid item md={3} xs={12}>
-            <Grid container>
-              <Typography
-                sx={{
-                  fontSize: "19px",
-                  fontWeight: "600",
-                  //   padding: "4.8px 0px 12px",
-                  color: "white",
-                  marginLeft: 5,
-                }}
-              >
-                Discover
-              </Typography>
-            </Grid>
-            <Grid container>
-              <Typography marginLeft={5}>Guides</Typography>
-            </Grid>
-            <Grid container>
-              <Typography marginLeft={5}>Stories</Typography>
-            </Grid>
-            <Grid container>
-              <Typography marginLeft={5}>News</Typography>
-            </Grid>
-          </Grid>
-          <Grid item md={3} xs={12}>
-            <Grid container>
-              <Typography
-                sx={{
-                  fontSize: "19px",
-                  fontWeight: "600",
-                  //   padding: "4.8px 0px 12px",
-                  color: "white",
-                  marginLeft: 5,
-                }}
-              >
-                Resources
-              </Typography>
-            </Grid>
-            <Grid container>
-              <Typography marginLeft={5}>Customers Stories</Typography>
-            </Grid>
-            <Grid container>
-              <Typography marginLeft={5}>Business Card</Typography>
-            </Grid>
-            <Grid container>
-              <Typography marginLeft={5}>Start Up Cities</Typography>
-            </Grid>
-          </Grid>
+        <Grid item xs={12} md={3}>
+          <Typography
+            sx={{
+              fontSize: "19px",
+              fontWeight: "600",
+              //   padding: "4.8px 0px 12px",
+              color: "white",
+              marginLeft: 5,
+            }}
+          >
+            Product
+          </Typography>
+          <Typography marginLeft={5}>Team</Typography>
+          <Typography marginLeft={5}>About</Typography>
+          <Typography marginLeft={5}>About</Typography>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Typography
+            sx={{
+              fontSize: "19px",
+              fontWeight: "600",
+              //   padding: "4.8px 0px 12px",
+              color: "white",
+              marginLeft: 5,
+            }}
+          >
+            Support
+          </Typography>
+          <Typography marginLeft={5}>How its work</Typography>
+          <Typography marginLeft={5}>Trust & Safty</Typography>
+          <Typography marginLeft={5}>Help Center</Typography>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Typography
+            sx={{
+              fontSize: "19px",
+              fontWeight: "600",
+              //   padding: "4.8px 0px 12px",
+              color: "white",
+              marginLeft: 5,
+            }}
+          >
+            Discover
+          </Typography>
+          <Typography marginLeft={5}>Guides</Typography>
+          <Typography marginLeft={5}>Stories</Typography>
+          <Typography marginLeft={5}>News</Typography>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Typography
+            sx={{
+              fontSize: "19px",
+              fontWeight: "600",
+              //   padding: "4.8px 0px 12px",
+              color: "white",
+              marginLeft: 5,
+            }}
+          >
+            Resources
+          </Typography>
+          <Typography marginLeft={5}>Customer Sites</Typography>
+          <Typography marginLeft={5}>Bussiness</Typography>
+          <Typography marginLeft={5}>Startup Cities</Typography>
         </Grid>
 
         {/* Icons */}
@@ -129,16 +97,18 @@ const Footer = () => {
               <FacebookIconStyled />
             </span>
             <span style={{ marginRight: "20px" }}>
-              <InstagramIconStyled />
+              <LinkedInIconStyled />
             </span>
             <span style={{ marginRight: "20px" }}>
-              <LinkedInIconStyled />
+              <InstagramIconStyled />
             </span>
             <TwitterIconStyled />
           </Grid>
         </Grid>
 
-        <hr style={{ backgroundColor: "white", height: "1.5px" }} />
+        <hr
+          style={{ backgroundColor: "white", height: "1.5px", width: "100%" }}
+        />
         {/* Privacy Policy */}
         <Grid container style={{ padding: "20px" }}>
           <Grid
@@ -160,7 +130,7 @@ const Footer = () => {
             </Typography>
           </Grid>
         </Grid>
-      </Box>
+      </Grid>
     </>
   );
 };

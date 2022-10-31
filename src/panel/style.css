@@ -9,20 +9,18 @@ main {
   padding: 20px;
 }
 .sidebar {
-  background: #000;
+  background: #025e73;
   color: #fff;
   height: 100vh;
-  width: 200px;
+  width: 230px;
   transition: all 0.5s;
 }
 .top_section {
   display: flex;
   align-items: center;
-  padding: 20px 15px;
+  padding: 20px 10px;
 }
-.logo {
-  font-size: 30px;
-}
+
 .bars {
   display: flex;
   font-size: 25px;
@@ -36,14 +34,14 @@ main {
   transition: all 0.5s;
 }
 .link:hover {
-  background: lightskyblue;
-  color: #000;
+  background: #f2a71b;
+  color: #011f26;
   transition: all 0.5s;
 }
-.active {
+/* .active {
   background: lightskyblue;
   color: #000;
-}
+} */
 .icon,
 .link_text {
   font-size: 20px;
