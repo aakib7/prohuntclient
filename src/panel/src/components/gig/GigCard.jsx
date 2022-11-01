@@ -74,7 +74,7 @@ const GigCard = () => {
             <Box
               sx={{
                 display: { xs: "none", lg: "block" },
-                marginLeft: { lg: 8 },
+                marginLeft: { lg: 4 },
               }}
             >
               <StyledButtonDelete startIcon={<DeleteIcon />}>
@@ -97,7 +97,7 @@ const GigCard = () => {
             <Box
               sx={{
                 display: { xs: "none", lg: "block" },
-                marginLeft: { lg: 8 },
+                marginLeft: { lg: 4 },
               }}
             >
               <StyledButtonEdit startIcon={<EditIcon />}>

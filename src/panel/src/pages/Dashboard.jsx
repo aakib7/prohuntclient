@@ -1,12 +1,10 @@
 import React from "react";
-
+import { useSelector } from "react-redux";
 const Dashboard = () => {
+  const { user } = useSelector((state) => state.user);
   return (
     <div>
-      <h1>
-        dashboard page das dashboard page dashboard page dashboard pagehboard
-        page dashboard page dashboard page dashboard page dashboard page
-      </h1>
+      <h1>{user.role}</h1>
     </div>
   );
 };

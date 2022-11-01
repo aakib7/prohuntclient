@@ -7,7 +7,14 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Grid, Avatar, Rating, Divider } from "@mui/material";
 
-export default function SingleGigCard({ title, imgage, avatar, author }) {
+export default function SingleGigCard({
+  title,
+  imgage,
+  avatar,
+  author,
+  price,
+  rating,
+}) {
   return (
     <Card sx={{ maxWidth: 400 }}>
       <CardMedia
@@ -25,11 +32,11 @@ export default function SingleGigCard({ title, imgage, avatar, author }) {
             <Avatar alt={author} src={avatar} />
           </Grid>
           <Grid item xs={8}>
-            <Typography sx={{ paddingLeft: 1 }}>by {author}</Typography>
-            <Rating name="read-only" value={4} readOnly />
+            <Typography sx={{ paddingLeft: 1 }}>By {author}</Typography>
+            <Rating name="read-only" value={rating} readOnly />
           </Grid>
           <Grid item xs={2}>
-            <Typography variant="h6">$15</Typography>
+            <Typography variant="h6">${price}</Typography>
           </Grid>
 
           <Grid item xs={12}>

@@ -12,6 +12,8 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import Footer from "../Footer/Footer";
 import ExperOpinion from "./ExperOpinion";
 import Header from "../Header/Header";
+import axios from "axios";
+
 const Home = () => {
   return (
     <>

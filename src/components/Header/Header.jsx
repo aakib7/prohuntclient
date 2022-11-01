@@ -20,13 +20,12 @@ import { Button } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import { render } from "react-dom";
 import { Link } from "react-router-dom";
-
 import { useSelector } from "react-redux";
 
 export default function Header() {
-  const isAuth = false;
-  // const isAuth = useSelector((state) => state.user);
-  console.log(isAuth);
+  // const isAuth = false;
+  const { isAuthenticated } = useSelector((state) => state.user);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -190,7 +189,7 @@ export default function Header() {
           {/* //notification and messages */}
 
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {isAuth ? (
+            {isAuthenticated ? (
               <>
                 <IconButton
                   size="large"
@@ -244,7 +243,7 @@ export default function Header() {
                 </Link>
               </Box>
             )}
-            {isAuth ? (
+            {isAuthenticated ? (
               <IconButton
                 size="large"
                 edge="end"
@@ -292,7 +291,7 @@ export default function Header() {
           </Box>
         </Toolbar>
       </AppBar>
-      {isAuth ? renderMobileMenuAuth : renderMobileMenuUnAuth}
+      {isAuthenticated ? renderMobileMenuAuth : renderMobileMenuUnAuth}
       {/* //sub profile in mobile */}
       {renderMenu}
     </Box>

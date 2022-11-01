@@ -40,3 +40,45 @@ const StyledButton = styled(Button)`
     background-color: #025e73;
   }
 `;
+
+// toast
+
+const [open, setOpen] = React.useState(false);
+const [severity, setSeverity] = React.useState("error");
+const [message, setMessage] = React.useState("");
+
+//use where u want
+setOpen(true);
+setSeverity("error");
+setMessage("Please fill Email And Password feildes");
+
+// in return at the top
+<Snackbar open={open} autoHideDuration={6000} onClose={() => setOpen(false)}>
+  <Alert
+    onClose={() => setOpen(false)}
+    severity={severity}
+    sx={{ width: "100%" }}
+  >
+    {message}
+  </Alert>
+</Snackbar>;
+
+// end
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+// axios
+
+const config = {
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Content-type": "application/json",
+    "x-auth-token": user.token,
+  },
+};
+
+const { data } = await axios.get(`/api/user?search=${search}`, config);
+setLoading(false);
+console.log(data);
+setSearchResult(data);

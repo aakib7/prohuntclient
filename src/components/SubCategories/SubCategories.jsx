@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography, Grid } from "@mui/material";
 import Header from "../Header/Header";
 import SubHeader from "../Header/SubHeader";
@@ -7,9 +7,24 @@ import Footer from "../Footer/Footer";
 import { Link, useParams, NavLink } from "react-router-dom";
 import CategoryCard from "../cards/CategoryCard";
 import image from "../../assests/images/main-banner1.jpg";
+import axios from "axios";
+
 const SubCategories = () => {
-  const { category } = useParams();
-  const x = "webdevelopment";
+  const { categoryId, categoryName } = useParams();
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchSubCategories() {
+      const request = await axios.get(`/category/${categoryId}`);
+      setCategories(request.data.category.subCategories);
+      setLoading(false);
+      return request;
+    }
+    fetchSubCategories();
+  }, [categoryId]);
+  // categories.map((cat) => console.log(cat));
+
   return (
     <Box>
       {/* main Nav  */}
@@ -21,7 +36,9 @@ const SubCategories = () => {
       {/* heading */}
       <Box>
         <Box sx={{ display: "flex", justifyContent: "center", mt: 7 }}>
-          <Typography variant="h5">Popular {category} Categories</Typography>
+          <Typography variant="h5">
+            Popular {categoryName} Categories
+          </Typography>
         </Box>
       </Box>
 
@@ -35,32 +52,23 @@ const SubCategories = () => {
         }}
       >
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={4} md={4} lg={3}>
-            <Link to={`${x}/gigs`}>
-              <CategoryCard title={"Web Development"} image={image} />
-            </Link>
-          </Grid>
-          <Grid item xs={12} sm={4} md={4} lg={3}>
-            <CategoryCard title={"Texhnology"} image={image} />
-          </Grid>
-          <Grid item xs={12} sm={4} md={4} lg={3}>
-            <CategoryCard title={"Texhnology"} image={image} />
-          </Grid>
-          <Grid item xs={12} sm={4} md={4} lg={3}>
-            <CategoryCard title={"Texhnology"} image={image} />
-          </Grid>
-          <Grid item xs={12} sm={4} md={4} lg={3}>
-            <CategoryCard title={"Texhnology"} image={image} />
-          </Grid>
-          <Grid item xs={12} sm={4} md={4} lg={3}>
-            <CategoryCard title={"Texhnology"} image={image} />
-          </Grid>
-          <Grid item xs={12} sm={4} md={4} lg={3}>
-            <CategoryCard title={"Texhnology"} image={image} />
-          </Grid>
-          <Grid item xs={12} sm={4} md={4} lg={3}>
-            <CategoryCard title={"Texhnology"} image={image} />
-          </Grid>
+          {!loading && categories.length === 0 && <h1>No Sub Categories</h1>}
+          {loading ? (
+            <h1>Loading...</h1>
+          ) : (
+            categories.map((category) => (
+              <>
+                <Grid item xs={12} sm={4} md={4} lg={3}>
+                  <Link to={`${category.name}/gigs`}>
+                    <CategoryCard
+                      title={category.name}
+                      image={`http://localhost:4000/${category.imageUrl}`}
+                    />
+                  </Link>
+                </Grid>
+              </>
+            ))
+          )}
         </Grid>
       </Box>
 

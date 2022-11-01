@@ -1,19 +1,38 @@
 import Carousel from "react-elastic-carousel";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Banner from "../../assests/images/main-banner.jpg";
 import { Link } from "react-router-dom";
 import CategoryCard from "../cards/CategoryCard";
+import axios from "axios";
 
 export default function HorizontalCursor() {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      setLoading(true);
+      const request = await axios.get("/category");
+      setCategories(request.data.categories);
+      setLoading(false);
+      return request;
+    }
+    fetchCategories();
+  }, []);
   return (
     <Carousel breakPoints={breakPoints} pagination={false}>
-      {categories.map((cat) => {
-        return (
-          <Link to={`sub-categories/${cat.category}`}>
-            <CategoryCard title={cat.category} image={Banner} />
-          </Link>
-        );
-      })}
+      {!loading && categories.length == 0 && <h1>No Categories</h1>}
+      {loading ? (
+        <h1>Loading</h1>
+      ) : (
+        categories.map((category) => {
+          return (
+            <Link to={`/${category.name.replace(/ /g, "")}/${category._id}`}>
+              <CategoryCard title={category.name} image={category.imageUrl} />
+            </Link>
+          );
+        })
+      )}
     </Carousel>
   );
 }
