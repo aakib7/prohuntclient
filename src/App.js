@@ -33,10 +33,7 @@ function App() {
           path="/:categoryName/:categoryId/:subcategory/gigs"
           element={<GigsList />}
         />
-        <Route
-          path="/sub-categories/:category/:subcategory/gigs/:id"
-          element={<SingleGig />}
-        />
+        <Route path="gig/:gigId" element={<SingleGig />} />
         // Adnim Freelancer and Employer
         <Route path="panel" element={<HeaderPanel />}>
           <Route path="" element={<Dashboard />} />

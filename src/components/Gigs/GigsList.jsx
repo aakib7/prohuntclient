@@ -53,7 +53,10 @@ const GigsList = () => {
             : gigs.map((gig) => (
                 <>
                   <Grid item xs={12} md={6} lg={4}>
-                    <Link to={`${id}`} style={{ textTransform: "capitalize" }}>
+                    <Link
+                      to={`/gig/${gig._id}`}
+                      style={{ textTransform: "capitalize" }}
+                    >
                       <SingleGigCard
                         title={gig.title}
                         imgage={image}

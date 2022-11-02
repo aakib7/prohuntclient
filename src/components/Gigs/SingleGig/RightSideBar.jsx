@@ -14,7 +14,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 import React from "react";
 
-const RightSideBar = () => {
+const RightSideBar = ({ price, deliverTime, responce, authorName }) => {
   return (
     <Box
       bgcolor={"#f7f7f7"}
@@ -22,7 +22,7 @@ const RightSideBar = () => {
     >
       <Grid container spacing={0} align="center" justify="center">
         <Grid item xs={12} padding={3}>
-          <Typography variant="h3">$15</Typography>
+          <Typography variant="h3">${price}</Typography>
         </Grid>
         <Grid item xs={12} mt={2}>
           <StyledButton variant="contained" fullWidth={true}>
@@ -31,7 +31,7 @@ const RightSideBar = () => {
         </Grid>
         <Grid item xs={4} mt={2}>
           <TelegramIcon />
-          <Typography>Delivery in 1 day</Typography>
+          <Typography>Deliver in {deliverTime}</Typography>
         </Grid>
         <Grid item xs={4} mt={2}>
           <ThumbUpOffAltIcon />
@@ -39,19 +39,14 @@ const RightSideBar = () => {
         </Grid>
         <Grid item xs={4} mt={2}>
           <AccessTimeIcon />
-          <Typography>Response time within a few hours</Typography>
+          <Typography>Response time {responce}</Typography>
         </Grid>
       </Grid>
       <Grid item xs={12}>
         <Divider />
         <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">
-              R
-            </Avatar>
-          }
-          title="John Doe"
-          subheader="September 14, 2022"
+          avatar={<Avatar sx={{ bgcolor: "red" }} aria-label=""></Avatar>}
+          title={authorName}
         />
         <Divider />
       </Grid>

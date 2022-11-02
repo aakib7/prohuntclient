@@ -42,7 +42,6 @@ const StyledButton = styled(Button)`
 `;
 
 // toast
-
 const [open, setOpen] = React.useState(false);
 const [severity, setSeverity] = React.useState("error");
 const [message, setMessage] = React.useState("");
@@ -82,3 +81,19 @@ const { data } = await axios.get(`/api/user?search=${search}`, config);
 setLoading(false);
 console.log(data);
 setSearchResult(data);
+
+/// use ? in map
+
+{
+  reviews?.map((review) => (
+    <>
+      <Divider />
+      <Review
+        comment={review.comment}
+        rating={review.rating}
+        author={review.name}
+      />
+      <Divider />
+    </>
+  ));
+}

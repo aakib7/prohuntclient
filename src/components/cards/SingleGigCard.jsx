@@ -33,7 +33,7 @@ export default function SingleGigCard({
           </Grid>
           <Grid item xs={8}>
             <Typography sx={{ paddingLeft: 1 }}>By {author}</Typography>
-            <Rating name="read-only" value={rating} readOnly />
+            <Rating name="read-only" value={rating} precision={0.5} readOnly />
           </Grid>
           <Grid item xs={2}>
             <Typography variant="h6">${price}</Typography>
