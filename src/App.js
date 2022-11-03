@@ -34,11 +34,12 @@ function App() {
           element={<GigsList />}
         />
         <Route path="gig/:gigId" element={<SingleGig />} />
-        // Adnim Freelancer and Employer
-        <Route path="panel" element={<HeaderPanel />}>
-          <Route path="" element={<Dashboard />} />
-          <Route path="gig" element={<Gig />} />
-          <Route path="analytics" element={<Analytics />} />
+
+        {/* // Adnim Freelancer and Employer */}
+        <Route exact path="panel" element={<HeaderPanel />}>
+          <Route exact path="" element={<Dashboard />} />
+          <Route exact path="gig" element={<Gig />} />
+          <Route exact path="analytics" element={<Analytics />} />
         </Route>
       </Routes>
     </>

@@ -14,12 +14,17 @@ const GigsList = () => {
   const [gigs, setGigs] = useState();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    async function fetchCategories() {
+    function fetchCategories() {
       setLoading(true);
-      const request = await axios.get("/gigs?category=" + subcategory);
-      setGigs(request.data.Gigs);
-      setLoading(false);
-      return request;
+      axios
+        .get("/gigs?category=" + subcategory)
+        .then((response) => {
+          setGigs(response.data.Gigs);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
     }
     fetchCategories();
   }, []);

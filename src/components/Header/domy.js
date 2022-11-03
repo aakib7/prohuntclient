@@ -97,3 +97,30 @@ setSearchResult(data);
     </>
   ));
 }
+
+
+
+/// req
+const handleLike = () => {
+  const config = {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+  };
+
+  axios
+    .get(`http://localhost:4000/gigs/gig/${gigId}/like`, config)
+    .then((response) => {
+      setLike((pre) => !pre);
+      setSeverity("success");
+      setMessage(response.data.message);
+      setOpen(true);
+    })
+    .catch((error) => {
+      setSeverity("error");
+      setMessage(error);
+      setOpen(true);
+    });
+};

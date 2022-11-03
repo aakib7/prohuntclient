@@ -19,10 +19,15 @@ const SubHeader = () => {
   useEffect(() => {
     async function fetchCategories() {
       setLoading(true);
-      const request = await axios.get("/category");
-      setCategories(request.data.categories);
-      setLoading(false);
-      return request;
+      axios
+        .get(`/category`)
+        .then((response) => {
+          setCategories(response.data.categories);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
     }
     fetchCategories();
   }, []);

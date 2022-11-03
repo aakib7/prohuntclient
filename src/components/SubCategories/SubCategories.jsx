@@ -16,10 +16,16 @@ const SubCategories = () => {
 
   useEffect(() => {
     async function fetchSubCategories() {
-      const request = await axios.get(`/category/${categoryId}`);
-      setCategories(request.data.category.subCategories);
-      setLoading(false);
-      return request;
+      setLoading(true);
+      axios
+        .get(`/category/${categoryId}`)
+        .then((response) => {
+          setCategories(response.data.category.subCategories);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
     }
     fetchSubCategories();
   }, [categoryId]);
