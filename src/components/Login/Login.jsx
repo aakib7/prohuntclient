@@ -67,7 +67,7 @@ const Login = () => {
     setOpen(true);
     setSeverity("success");
     setMessage("Welcome");
-    navigate(`/panel`);
+    navigate(`/`);
   };
 
   return (
