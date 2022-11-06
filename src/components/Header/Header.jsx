@@ -1,30 +1,31 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import DesktopMacIcon from "@mui/icons-material/DesktopMac";
-import { Button } from "@mui/material";
+import { Snackbar, Alert } from "@mui/material";
 import Divider from "@mui/material/Divider";
-import { render } from "react-dom";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   // const isAuth = false;
   const { isAuthenticated } = useSelector((state) => state.user);
+  let navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+  const [severity, setSeverity] = React.useState("error");
+  const [message, setMessage] = React.useState("");
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -43,10 +44,35 @@ export default function Header() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+    logout();
   };
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const logout = () => {
+    const config = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+
+    axios
+      .get(`http://localhost:4000/user/logout`, config)
+      .then((response) => {
+        setSeverity("success");
+        setMessage(response.data.message);
+        setOpen(true);
+        window.location.reload(true);
+      })
+      .catch((error) => {
+        setSeverity("error");
+        setMessage(error);
+        setOpen(true);
+      });
   };
 
   const menuId = "primary-search-account-menu";
@@ -163,6 +189,19 @@ export default function Header() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert
+          onClose={() => setOpen(false)}
+          severity={severity}
+          sx={{ width: "100%" }}
+        >
+          {message}
+        </Alert>
+      </Snackbar>
       <AppBar position="static" style={{ backgroundColor: "#025e73" }}>
         <Toolbar>
           <Link to={"/"} style={{ textDecoration: "none" }}>
