@@ -44,7 +44,6 @@ export default function Header() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-    logout();
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -93,8 +92,17 @@ export default function Header() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link to={"/panel"}>My account</Link>
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          handleMenuClose();
+          logout();
+        }}
+      >
+        Log Out
+      </MenuItem>
     </Menu>
   );
 

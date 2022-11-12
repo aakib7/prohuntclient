@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Pagination, Typography } from "@mui/material";
-import Header from "../Header/Header";
-import SubHeader from "../Header/SubHeader";
-import HeroSection from "../Header/HeroSection";
-import Footer from "../Footer/Footer";
+import { Box, Grid, Pagination } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import image from "../../assests/images/main-banner1.jpg";
 import SingleGigCard from "../cards/SingleGigCard";
-import FilterSideBar from "./FilterSideBar";
 import axios from "axios";
 const GigsList = () => {
   const { subcategory } = useParams();
@@ -28,20 +23,51 @@ const GigsList = () => {
     }
     fetchCategories();
   }, []);
-  const id = 23;
   return (
     <Box>
       {/* main Nav  */}
-      <Box>
+
+      {/* <Box>
         <Header />
         <SubHeader />
         <HeroSection />
-      </Box>
-      <Box>
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 7 }}>
-          <FilterSideBar />
-        </Box>
-      </Box>
+      </Box> */}
+
+      {/* <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flextStart",
+          mt: 7,
+          ml: { xs: 4, md: 10 },
+        }}
+      >
+        <FilterSideBar />
+        <StyledButton
+          startIcon={<BadgeIcon />}
+          sx={{
+            ml: { xs: 4, md: 10 },
+          }}
+        >
+          Gigs
+        </StyledButton>
+        <StyledButton
+          startIcon={<WorkIcon />}
+          sx={{
+            ml: { xs: 4, md: 10 },
+          }}
+        >
+          Jobs
+        </StyledButton>
+        <StyledButton
+          startIcon={<ArticleIcon />}
+          sx={{
+            ml: { xs: 4, md: 10 },
+          }}
+        >
+          Blogs
+        </StyledButton>
+      </Box> */}
+
       {/* Cards */}
       <Box
         sx={{
@@ -76,21 +102,26 @@ const GigsList = () => {
               ))}
         </Grid>
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: 10,
-        }}
-      >
-        <Pagination count={10} variant="outlined" shape="rounded" />
-      </Box>
-      {/* Footer */}
-      <Box>
-        <Footer />
-      </Box>
+      {gigs?.length >= 12 && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: 10,
+          }}
+        >
+          <Pagination count={10} variant="outlined" shape="rounded" />
+        </Box>
+      )}
     </Box>
   );
 };
 
 export default GigsList;
+// const StyledButton = styled(Button)`
+//   background-color: #f2a71b;
+//   color: #fff;
+//   &:hover {
+//     background-color: #025e73;
+//   }
+// `;

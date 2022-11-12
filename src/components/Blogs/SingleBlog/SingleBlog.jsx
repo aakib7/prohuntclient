@@ -1,16 +1,25 @@
-import { Grid, Snackbar, Alert } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import RightSideBar from "./RightSideBar";
-import GigDetail from "./GigDetail";
+import React, { useState, useEffect } from "react";
+import BlogDetail from "./BlogDetail";
+import BlogRightSide from "./BlogRightSide";
+import { useParams } from "react-router-dom";
+import {
+  Snackbar,
+  Box,
+  Grid,
+  Alert as MuiAlert,
+  Typography,
+} from "@mui/material";
 import Header from "../../Header/Header";
 import SubHeader from "../../Header/SubHeader";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+import FullPageLoading from "../../others/FullPageLoading";
 
-const SingleGig = () => {
-  let { gigId } = useParams();
+const SingleBlog = () => {
+  let { blogId } = useParams();
+
   const [loading, setLoading] = useState(true);
-  const [gig, setGig] = useState([]);
+  const [error, setError] = useState(false);
+  const [blog, setBlog] = useState([]);
   const [like, setLike] = useState(false);
   const [comment, setComment] = useState(false);
   // for toast
@@ -26,7 +35,6 @@ const SingleGig = () => {
       setMessage("Comment Add Successfully");
     }
   };
-
   const handleLike = () => {
     console.log("like");
     const config = {
@@ -38,10 +46,10 @@ const SingleGig = () => {
     };
 
     axios
-      .get(`http://localhost:4000/gigs/gig/${gigId}/like`, config)
+      .get(`http://localhost:4000/blog/${blogId}/likes`, config)
       .then((response) => {
         setLike((pre) => !pre);
-        setSeverity("success");
+        setSeverity(response.data.success ? "success" : "error");
         setMessage(response.data.message);
         setOpen(true);
       })
@@ -56,17 +64,19 @@ const SingleGig = () => {
     async function fetchGig() {
       setLoading(true);
       axios
-        .get(`http://localhost:4000/gigs/${gigId}`)
+        .get(`http://localhost:4000/blog/${blogId}`)
         .then((response) => {
-          setGig(response.data.gig);
+          setBlog(response.data.post);
+          // console.log("khj" + response.data);
           setLoading(false);
         })
         .catch((error) => {
           setLoading(false);
+          setError(true);
         });
     }
     fetchGig();
-  }, [gigId, like, comment]);
+  }, [blogId, comment, like]);
   return (
     <>
       <Header />
@@ -84,10 +94,8 @@ const SingleGig = () => {
           {message}
         </Alert>
       </Snackbar>
-      {!loading && gig.length === 0 && <h1>Gig Not Found</h1>}
-      {loading ? (
-        <h1>Loading ...</h1>
-      ) : (
+      {loading && !error && <FullPageLoading />}
+      {!error ? (
         <>
           <Grid
             container
@@ -97,43 +105,51 @@ const SingleGig = () => {
               mt: 6,
             }}
           >
-            <Grid item md={8}>
-              <GigDetail
-                title={gig.title}
-                numberOfLikes={gig.likes.length}
-                gigDescription={gig.description}
-                loading={loading}
-                reviews={gig.reviews}
+            <Grid item md={9}>
+              <BlogDetail
+                title={blog.title}
+                blogDescription={blog.description}
+                numberOfLikes={blog.likes?.length}
+                handleComment={handleComment}
                 handleLike={handleLike}
-                likes={gig.likes}
-                handComment={handleComment}
-                price={gig.price}
-                deliverTime={"2 days"}
-                responce={"with in hour"}
-                authorName={gig.owner.firstName + " " + gig.owner.lastName}
+                loading={loading}
+                reviews={blog.reviews}
               />
             </Grid>
             <Grid
               item
-              md={4}
+              md={2}
               sx={{
                 display: { xs: "none", md: "block" },
                 position: { md: "fixed" },
-                right: 0,
+                right: 50,
+                // backgroundColor: "yellow",
+                width: "100%",
               }}
             >
-              <RightSideBar
-                price={gig.price}
-                deliverTime={"2 days"}
-                responce={"with in hour"}
-                authorName={gig.owner.firstName + " " + gig.owner.lastName}
-                loading={loading}
-              />
+              <BlogRightSide />
             </Grid>
           </Grid>
         </>
+      ) : (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            // alignItems: "center",
+            alignItems: "center",
+            height: "100%",
+            mt: 10,
+          }}
+        >
+          <Typography>Blog Not Found</Typography>
+        </Box>
       )}
     </>
   );
 };
-export default SingleGig;
+
+export default SingleBlog;
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});

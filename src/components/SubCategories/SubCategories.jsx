@@ -6,7 +6,7 @@ import HeroSection from "../Header/HeroSection";
 import Footer from "../Footer/Footer";
 import { Link, useParams, NavLink } from "react-router-dom";
 import CategoryCard from "../cards/CategoryCard";
-import image from "../../assests/images/main-banner1.jpg";
+// import image from "../../assests/images/main-banner1.jpg";
 import axios from "axios";
 
 const SubCategories = () => {
@@ -65,7 +65,7 @@ const SubCategories = () => {
             categories.map((category) => (
               <>
                 <Grid item xs={12} sm={4} md={4} lg={3}>
-                  <Link to={`${category.name}/gigs`}>
+                  <Link to={`${category.name}`}>
                     <CategoryCard
                       title={category.name}
                       image={`http://localhost:4000/${category.imageUrl}`}

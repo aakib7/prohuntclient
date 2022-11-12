@@ -3,23 +3,25 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Grid, Avatar, Rating, Divider } from "@mui/material";
+import image from "../../assests/images/main-banner.jpg";
 
 export default function SingleGigCard({
-  title,
+  title = "want freelancer want freelancer want freelancer want freelancer want freelancer want freelancer want freelancer want freelancer want freelancer frjbjcbbj",
   imgage,
-  avatar,
-  author,
-  price,
-  rating,
+  avatar = "aaqib",
+  author = "ajmehdi",
+  price = 123,
+  rating = 4,
 }) {
   return (
     <Card sx={{ maxWidth: 400 }}>
       <CardMedia
         component="img"
         height="270px"
-        image={imgage}
+        image={image}
         alt="green iguana"
       />
       <CardContent sx={{ height: "117px", overflow: "hidden" }}>

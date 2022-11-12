@@ -13,6 +13,13 @@ import Gig from "./panel/src/components/gig/Gig";
 import SingleGigCard from "./components/cards/SingleGigCard";
 import GigsList from "./components/Gigs/GigsList";
 import SingleGig from "./components/Gigs/SingleGig/SingleGig";
+import AddGig from "./panel/src/components/forms/AddGig";
+import SignupForm from "./components/Registration/SignupForm";
+import LinaerStepper from "./components/Registration/LinaerStepper";
+import UserProfile from "./components/UserProfile/UserProfile";
+import SingleJonCard from "./components/cards/SingleJobCard";
+import ListHeader from "./components/SubCategories/ListHeader";
+import SingleBlog from "./components/Blogs/SingleBlog/SingleBlog";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,17 +37,28 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/:categoryName/:categoryId" element={<SubCategories />} />
         <Route
-          path="/:categoryName/:categoryId/:subcategory/gigs"
-          element={<GigsList />}
+          path="/:categoryName/:categoryId/:subcategory"
+          element={<ListHeader />}
         />
-        <Route path="gig/:gigId" element={<SingleGig />} />
-
+        <Route path="/gig/:gigId" element={<SingleGig />} />
+        <Route path="/blog/:blogId" element={<SingleBlog />} />
         {/* // Adnim Freelancer and Employer */}
-        <Route exact path="panel" element={<HeaderPanel />}>
+        <Route
+          exact
+          path="panel"
+          element={isAuthenticated ? <HeaderPanel /> : <Login />}
+        >
           <Route exact path="" element={<Dashboard />} />
           <Route exact path="gig" element={<Gig />} />
           <Route exact path="analytics" element={<Analytics />} />
         </Route>
+
+        {/* // registration */}
+        <Route
+          path="/registration"
+          element={isAuthenticated ? <Home /> : <SignupForm />}
+        />
+        <Route path="/registration/:role" element={<LinaerStepper />} />
       </Routes>
     </>
   );

@@ -27,7 +27,9 @@ import { loginUser } from "../../store/Actions/User";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { error, isAuthenticated } = useSelector((state) => state.user);
+  const { error, isAuthenticated, loading, user } = useSelector(
+    (state) => state.user
+  );
   let navigate = useNavigate();
 
   const [values, setValues] = React.useState({ showPassword: false });
@@ -59,16 +61,21 @@ const Login = () => {
     }
 
     dispatch(loginUser(email, password));
+  };
+  useEffect(() => {
     if (error) {
       setOpen(true);
       setSeverity("error");
       setMessage(error);
+      console.log("err");
     }
-    setOpen(true);
-    setSeverity("success");
-    setMessage("Welcome");
-    navigate(`/`);
-  };
+    if (isAuthenticated) {
+      setOpen(true);
+      setSeverity("success");
+      setMessage("Welcome " + user.firstName);
+      navigate("/");
+    }
+  }, [error, isAuthenticated]);
 
   return (
     <>
@@ -80,6 +87,7 @@ const Login = () => {
         <Alert
           onClose={() => setOpen(false)}
           severity={severity}
+          style={{ textTransform: "capitalize" }}
           sx={{ width: "100%" }}
         >
           {message}

@@ -1,11 +1,19 @@
-import { Box, Grid, Typography, Checkbox, Divider } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Typography,
+  Checkbox,
+  Divider,
+  Snackbar,
+  Alert as MuiAlert,
+} from "@mui/material";
 import React from "react";
 import pic from "../../../assests/images/main-banner1.jpg";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-import Review from "../../Reviews/Review";
-import AddReview from "../../Reviews/AddReview";
+import Review from "../Reviews/Review";
+import AddReview from "../Reviews/AddReview";
 import RightSideBar from "./RightSideBar";
 import { useSelector } from "react-redux";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
@@ -26,8 +34,26 @@ const GigDetail = ({
 }) => {
   const { isAuthenticated } = useSelector((state) => state.user);
 
+  const [open, setOpen] = React.useState(false);
+  const [severity, setSeverity] = React.useState("error");
+  const [message, setMessage] = React.useState("");
+
   return (
     <>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert
+          onClose={() => setOpen(false)}
+          severity={severity}
+          sx={{ width: "100%" }}
+        >
+          {message}
+        </Alert>
+      </Snackbar>
+      ;
       <Grid container sx={{ paddingLeft: { xs: 3, md: 5 } }}>
         <Grid item xs={12} bgcolor={"#f7f7f7"}>
           <Typography variant="h4" fontWeight={600} lineHeight={"50px"}>
@@ -57,17 +83,24 @@ const GigDetail = ({
               <IconButton
                 aria-label="add to favorites"
                 onClick={() => {
-                  handleLike();
+                  if (isAuthenticated) {
+                    handleLike();
+                  } else {
+                    setOpen(true);
+                    setSeverity("error");
+                    setMessage("Please Login First");
+                  }
                 }}
               >
                 <Checkbox
                   icon={<ThumbUpAltIcon />}
-                  checkedIcon={<ThumbUpAltIcon sx={{ color: "red" }} />}
+                  checkedIcon={<ThumbUpAltIcon sx={{ color: "blue" }} />}
+                  disabled={!isAuthenticated}
                 />
               </IconButton>
             </CardActions>
             <Box sx={{ border: "1px solid", padding: "2px" }}>
-              <Typography>{numberOfLikes} Likes</Typography>
+              <Typography> {numberOfLikes} Likes</Typography>
             </Box>
           </Stack>
           <hr style={{ height: "2px", paddingRight: "5px" }} />
@@ -112,3 +145,7 @@ const GigDetail = ({
 };
 
 export default GigDetail;
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});

@@ -4,7 +4,7 @@ const Dashboard = () => {
   const { user } = useSelector((state) => state.user);
   return (
     <div>
-      <h1>{user.role}</h1>
+      <h1>{user?.role}</h1>
     </div>
   );
 };

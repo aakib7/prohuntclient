@@ -2,11 +2,11 @@ import { Grid, Box } from "@mui/material";
 import React from "react";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Search from "../Home/Search";
 
 const HeroSection = () => {
-  const { category, subcategory } = useParams();
+  const { categoryName, subcategory, categoryId } = useParams();
   return (
     <Grid
       container
@@ -18,17 +18,32 @@ const HeroSection = () => {
           color="white"
           sx={{ fontSize: { xs: 12, md: 16 } }}
         >
-          <Typography sx={{ fontSize: { xs: 12, md: 16 } }}>Home</Typography>
-          <Typography sx={{ fontSize: { xs: 12, md: 16 } }}>
+          <Link style={{ color: "white" }} to={"/"}>
+            <Typography sx={{ fontSize: { xs: 12, md: 16 } }}>Home</Typography>
+          </Link>
+
+          {/* <Typography sx={{ fontSize: { xs: 12, md: 16 } }}>
             Categories
-          </Typography>
-          <Typography sx={{ fontSize: { xs: 12, md: 16 } }}>
-            {category}
-          </Typography>
+          </Typography> */}
+          {categoryName && (
+            <Link
+              style={{ color: "white" }}
+              to={`/${categoryName}/${categoryId}`}
+            >
+              <Typography sx={{ fontSize: { xs: 12, md: 16 } }}>
+                {categoryName}
+              </Typography>
+            </Link>
+          )}
           {subcategory && (
-            <Typography sx={{ fontSize: { xs: 12, md: 16 } }}>
-              {subcategory}
-            </Typography>
+            <Link
+              style={{ color: "white" }}
+              to={`/${categoryName}/${categoryId}/${subcategory}`}
+            >
+              <Typography sx={{ fontSize: { xs: 12, md: 16 } }}>
+                {subcategory}
+              </Typography>
+            </Link>
           )}
         </Breadcrumbs>
       </Grid>
@@ -40,7 +55,7 @@ const HeroSection = () => {
             color: "white",
           }}
         >
-          Technology & Programming
+          {categoryName}
         </Typography>
         <Typography
           sx={{
@@ -49,8 +64,8 @@ const HeroSection = () => {
             color: "white",
           }}
         >
-          Looking for technology & programming offers and services?
-          PeoplePerHour has you covered.
+          Looking for offers and services?
+          <strong> Prohunt</strong> has you covered.
         </Typography>
       </Grid>
       <Grid item xs={12} ml={5}>

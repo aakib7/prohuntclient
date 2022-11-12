@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import styled from "@emotion/styled";
 
 import BannerImage from "../../assests/images/main-banner.jpg";
-const SingleBlogPost = () => {
+const SingleBlogPost = ({ title, description, img }) => {
   return (
     <Card sx={{ maxWidth: 340 }}>
       <CardMedia
@@ -24,12 +24,18 @@ const SingleBlogPost = () => {
             cursor: "pointer",
           }}
         >
-          Start an online business and work from home
+          {!title && <>Start an online business and work from home</>}
+          {title}
         </TypographyStyles>
         <Typography variant="body2" sx={{ color: "white" }}>
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {!description && (
+            <>
+              This impressive paella is a perfect party dish and a fun meal to
+              cook together with your guests. Add 1 cup of frozen peas along
+              with the mussels, if you like.
+            </>
+          )}
+          {description}
         </Typography>
       </CardContent>
     </Card>
