@@ -52,6 +52,7 @@ const Login = () => {
 
   const loginHandler = (e) => {
     e.preventDefault();
+    console.log("handle Login");
 
     if (!email || !password) {
       setOpen(true);
@@ -67,7 +68,7 @@ const Login = () => {
       setOpen(true);
       setSeverity("error");
       setMessage(error);
-      console.log("err");
+      console.log("err" + error);
     }
     if (isAuthenticated) {
       setOpen(true);

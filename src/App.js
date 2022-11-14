@@ -15,11 +15,14 @@ import GigsList from "./components/Gigs/GigsList";
 import SingleGig from "./components/Gigs/SingleGig/SingleGig";
 import AddGig from "./panel/src/components/forms/AddGig";
 import SignupForm from "./components/Registration/SignupForm";
-import LinaerStepper from "./components/Registration/LinaerStepper";
 import UserProfile from "./components/UserProfile/UserProfile";
 import SingleJonCard from "./components/cards/SingleJobCard";
 import ListHeader from "./components/SubCategories/ListHeader";
 import SingleBlog from "./components/Blogs/SingleBlog/SingleBlog";
+import SignUp from "./components/Registration/SignUp";
+import FreelancerDetail from "./components/Registration/FreelancerDetail";
+import ClientSignup from "./components/Registration/ClientSignup";
+import ProfilePicture from "./components/Registration/ProfilePicture";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +30,7 @@ function App() {
   const { loading, user, isAuthenticated, error } = useSelector(
     (state) => state.user
   );
+
   useEffect(() => {
     dispatch(loadUser());
   }, []);
@@ -58,7 +62,26 @@ function App() {
           path="/registration"
           element={isAuthenticated ? <Home /> : <SignupForm />}
         />
-        <Route path="/registration/:role" element={<LinaerStepper />} />
+        <Route path="/registration/:role" element={<SignUp />} />
+
+        <Route
+          path="/registration/:role/detail"
+          element={
+            isAuthenticated ? (
+              user?.role === "client" ? (
+                <ClientSignup />
+              ) : (
+                <FreelancerDetail />
+              )
+            ) : (
+              <Login />
+            )
+          }
+        />
+        <Route
+          path="/registration/:role/detail/profilepicture"
+          element={isAuthenticated ? <ProfilePicture /> : <Login />}
+        />
       </Routes>
     </>
   );

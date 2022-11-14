@@ -176,7 +176,10 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <Link to={""} style={{ textDecoration: "none", color: "black" }}>
+        <Link
+          to={"/registration"}
+          style={{ textDecoration: "none", color: "black" }}
+        >
           Sign Up
         </Link>
       </MenuItem>
@@ -318,7 +321,12 @@ export default function Header() {
                     color: "#f7f7f7",
                   }}
                 >
-                  Sign Up
+                  <Link
+                    to={"/registration"}
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    Sign Up
+                  </Link>
                 </Typography>
               </Box>
             )}

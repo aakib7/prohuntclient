@@ -98,8 +98,6 @@ setSearchResult(data);
   ));
 }
 
-
-
 /// req
 const handleLike = () => {
   const config = {
@@ -124,3 +122,9 @@ const handleLike = () => {
       setOpen(true);
     });
 };
+
+// use navigation
+
+import { useNavigate } from "react-router-dom";
+let navigate = useNavigate();
+navigate("/");

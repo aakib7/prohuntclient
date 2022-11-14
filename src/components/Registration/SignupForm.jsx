@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import Header from "../Header/Header";
+import SubHeader from "../Header/SubHeader";
 
 const SignupForm = () => {
   const [freelancer, setFreelancer] = React.useState();
@@ -40,6 +41,7 @@ const SignupForm = () => {
   return (
     <>
       <Header />
+      <SubHeader />
       <Container
         component={"main"}
         maxWidth={"sm"}
@@ -47,7 +49,7 @@ const SignupForm = () => {
           backgroundColor: "white",
           boxShadow: "2px 2px 2px 2px lightgray",
           borderRadius: "10px",
-          mt: 10,
+          mt: 7,
         }}
       >
         <CssBaseline />
