@@ -8,11 +8,13 @@ import {
   Grid,
   CssBaseline,
   responsiveFontSizes,
+  styled,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import Header from "../Header/Header";
 import SubHeader from "../Header/SubHeader";
+import Footer from "../Footer/Footer";
 
 const SignupForm = () => {
   const [freelancer, setFreelancer] = React.useState();
@@ -39,21 +41,27 @@ const SignupForm = () => {
   }, [choice]);
 
   return (
-    <>
+    <Box
+      style={{
+        backgroundImage:
+          "linear-gradient(to right, rgba(2, 94, 115, 0.25),rgba(255, 255, 255, 0.8),rgba(2, 94, 115, 0.3))",
+      }}
+    >
       <Header />
       <SubHeader />
       <Container
         component={"main"}
         maxWidth={"sm"}
         sx={{
-          backgroundColor: "white",
-          boxShadow: "2px 2px 2px 2px lightgray",
-          borderRadius: "10px",
+          backgroundImage:
+            "linear-gradient(to top, rgba(2, 94, 115, 0.20),#fff)",
+          boxShadow: "1px 1px 1px 1px #C0C0C0",
+
           mt: 7,
         }}
       >
         <CssBaseline />
-        <Box sx={{ mt: 10 }}>
+        <Box>
           <Typography
             variant="h4"
             align="center"
@@ -72,9 +80,9 @@ const SignupForm = () => {
                     justifyContent: "center",
                     backgroundColor: "",
                     border: 2,
-                    borderColor: client ? "green" : "lightgray",
+                    borderColor: client ? "#f2a71b" : "lightgray",
                     "&:hover": {
-                      borderColor: "green",
+                      borderColor: "#f2a71b",
                       opacity: [0.9, 0.8, 0.7],
                     },
                   }}
@@ -82,7 +90,8 @@ const SignupForm = () => {
                   <Typography
                     variant="h6"
                     align="center"
-                    marginTop={5}
+                    fontWeight={400}
+                    padding={2}
                     sx={{ pb: { xs: "34px", md: "0" } }}
                   >
                     I’m a client, hiring for a project
@@ -93,11 +102,10 @@ const SignupForm = () => {
                 <Box
                   onClick={handleFreelancer}
                   sx={{
-                    backgroundColor: "white",
                     border: 2,
-                    borderColor: freelancer ? "green" : "lightgray",
+                    borderColor: freelancer ? "#f2a71b" : "lightgray",
                     "&:hover": {
-                      borderColor: "green",
+                      borderColor: "#f2a71b",
                       opacity: [0.9, 0.8, 0.7],
                     },
                   }}
@@ -105,7 +113,8 @@ const SignupForm = () => {
                   <Typography
                     variant="h6"
                     align="center"
-                    marginTop={5}
+                    fontWeight={400}
+                    padding={2}
                     sx={{ pb: { xs: "34px", md: "0" } }}
                   >
                     I’m a freelancer, looking for work
@@ -117,7 +126,7 @@ const SignupForm = () => {
 
           <Grid container direction="row" justifyContent="center " mt={3}>
             <Link to={`${choice}`}>
-              <Button
+              <StyledButton
                 variant="contained"
                 color="success"
                 size="large"
@@ -125,22 +134,30 @@ const SignupForm = () => {
                 sx={{ width: { xs: 110, md: 200 }, marginBottom: "20px" }}
               >
                 Join As {client && "client"} {freelancer && "freelancer"}
-              </Button>
+              </StyledButton>
             </Link>
           </Grid>
 
           <Grid>
             <Stack direction="row" justifyContent="center" mt={2}>
               <Typography sx={{ marginBottom: "20px", marginRight: "2px" }}>
-                Already have an account
+                Already have an account? <Link to={"/login"}>Login</Link>
               </Typography>
-              <Typography>Login?</Typography>
             </Stack>
           </Grid>
         </Box>
       </Container>
-    </>
+      <Footer />
+    </Box>
   );
 };
 
 export default SignupForm;
+
+const StyledButton = styled(Button)`
+  background-color: #f2a71b;
+  color: #fff;
+  &:hover {
+    background-color: #025e73;
+  }
+`;

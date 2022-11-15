@@ -23,6 +23,7 @@ import SignUp from "./components/Registration/SignUp";
 import FreelancerDetail from "./components/Registration/FreelancerDetail";
 import ClientSignup from "./components/Registration/ClientSignup";
 import ProfilePicture from "./components/Registration/ProfilePicture";
+import EmailVarification from "./EmailVarification/EmailVarification";
 
 function App() {
   const dispatch = useDispatch();
@@ -82,6 +83,7 @@ function App() {
           path="/registration/:role/detail/profilepicture"
           element={isAuthenticated ? <ProfilePicture /> : <Login />}
         />
+        <Route path="/user/:id/verify/:token" element={<EmailVarification />} />
       </Routes>
     </>
   );

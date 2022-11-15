@@ -128,3 +128,18 @@ const handleLike = () => {
 import { useNavigate } from "react-router-dom";
 let navigate = useNavigate();
 navigate("/");
+
+
+// 
+// main
+style={{
+        backgroundImage:
+          "linear-gradient(to right, #fff,rgba(2, 94, 115, 0.4))",
+      }}
+
+      sx={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(2, 94, 115, 0.4),#fff)",
+          boxShadow: "1px 1px 1px 1px #C0C0C0",
+          marginTop: "65px",
+        }}

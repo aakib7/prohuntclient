@@ -5,6 +5,9 @@ export const loginUser = (email, password) => async (dispatch) => {
     dispatch({
       type: "LoginRequest",
     });
+    if (!email || !password) {
+      return;
+    }
 
     const { data } = await axios.post(
       "/user/login",

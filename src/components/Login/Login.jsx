@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme } from "@mui/material/styles";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import {
@@ -16,6 +15,7 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  styled,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
@@ -24,12 +24,11 @@ import IconButton from "@mui/material/IconButton";
 import Header from "../Header/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/Actions/User";
+import Footer from "../Footer/Footer";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { error, isAuthenticated, loading, user } = useSelector(
-    (state) => state.user
-  );
+  const { error, isAuthenticated } = useSelector((state) => state.user);
   let navigate = useNavigate();
 
   const [values, setValues] = React.useState({ showPassword: false });
@@ -52,15 +51,6 @@ const Login = () => {
 
   const loginHandler = (e) => {
     e.preventDefault();
-    console.log("handle Login");
-
-    if (!email || !password) {
-      setOpen(true);
-      setSeverity("error");
-      setMessage("Please fill Email And Password feildes");
-      return;
-    }
-
     dispatch(loginUser(email, password));
   };
   useEffect(() => {
@@ -68,18 +58,23 @@ const Login = () => {
       setOpen(true);
       setSeverity("error");
       setMessage(error);
-      console.log("err" + error);
+      dispatch({ type: "clearErrors" });
     }
     if (isAuthenticated) {
       setOpen(true);
       setSeverity("success");
-      setMessage("Welcome " + user.firstName);
+      setMessage("Welcome ");
       navigate("/");
     }
-  }, [error, isAuthenticated]);
+  }, [error, dispatch, isAuthenticated]);
 
   return (
-    <>
+    <Box
+      style={{
+        backgroundImage:
+          "linear-gradient(to right, rgba(2, 94, 115, 0.25),rgba(255, 255, 255, 0.8),rgba(2, 94, 115, 0.3))",
+      }}
+    >
       <Snackbar
         open={open}
         autoHideDuration={6000}
@@ -100,37 +95,35 @@ const Login = () => {
         component="main"
         maxWidth="xs"
         sx={{
-          backgroundColor: "#F7F7F7",
-          boxShadow: "2px 2px 2px 2px #C0C0C0",
-          marginTop: "30px",
+          backgroundImage:
+            "linear-gradient(to right, rgba(2, 94, 115, 0.3),#fff)",
+          boxShadow: "1px 1px 1px 1px #C0C0C0",
+          marginTop: "65px",
         }}
       >
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 5,
+            marginTop: 7,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            minHeight: "70vh",
           }}
         >
-          <Avatar sx={{ mt: 6, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ mt: 0, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
+          <Typography component="h1" variant="h5" sx={{ mt: 2, mb: 3 }}>
             Sign in
           </Typography>
-          <Box component="form">
+          <Box component="form" onSubmit={loginHandler}>
             <TextField
-              margin="normal"
               required
               fullWidth
               id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -143,6 +136,7 @@ const Login = () => {
                 id="outlined-adornment-password"
                 type={values.showPassword ? "text" : "password"}
                 value={password}
+                required
                 onChange={(e) => setPassword(e.target.value)}
                 //onChange={handleChange('password')}
                 endAdornment={
@@ -174,15 +168,15 @@ const Login = () => {
               </Grid>
             </Grid>
 
-            <Button
+            <StyledButton
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={loginHandler}
+              // onClick={loginHandler}
             >
               Sign In
-            </Button>
+            </StyledButton>
             <Grid container>
               <Grid
                 display={"flex"}
@@ -201,7 +195,8 @@ const Login = () => {
           </Box>
         </Box>
       </Container>
-    </>
+      <Footer />
+    </Box>
   );
 };
 
@@ -210,3 +205,10 @@ export default Login;
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
+const StyledButton = styled(Button)`
+  background-color: #f2a71b;
+  color: #fff;
+  &:hover {
+    background-color: #025e73;
+  }
+`;

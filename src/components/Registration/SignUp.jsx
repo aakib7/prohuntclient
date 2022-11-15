@@ -25,16 +25,21 @@ import {
   IconButton,
   Snackbar,
   Alert as MuiAlert,
+  styled,
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useParams, useNavigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 export default function SignUp() {
   const [open, setOpen] = React.useState(false);
   const [severity, setSeverity] = React.useState("error");
   const [message, setMessage] = React.useState("");
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  // const dispatch = useDispatch();
   const { role } = useParams();
   let navigate = useNavigate();
 
@@ -85,7 +90,7 @@ export default function SignUp() {
     if (!user.email.trim()) {
       errors.email = "Email is required";
     } else if (!user.email.match(mailformat)) {
-      errors.email = `Please ingress a valid email address ${user.email}`;
+      errors.email = `Please enter a valid email address `;
     } else {
       errors.email = "";
     }
@@ -164,24 +169,27 @@ export default function SignUp() {
       },
       withCredentials: true,
     };
+    setLoading(true);
     axios
       .post(`http://localhost:4000/user/register`, user, config)
       .then((response) => {
         setSeverity(response.data.success ? "success" : "error");
-
+        console.log(response.data.success);
         setMessage(
           response.data.success
             ? "Register Success fully"
             : response.data.message
         );
         setOpen(true);
+        setLoading(false);
+
         if (response.data.success) {
-          dispatch(loadUser());
-          navigate("detail");
+          navigate("/login");
         }
       })
       .catch((error) => {
         setMessage(error.message);
+        setLoading(false);
         setOpen(true);
       });
   };
@@ -206,7 +214,13 @@ export default function SignUp() {
   }, [user.confirmPassword]);
 
   return (
-    <>
+    <Box
+      style={{
+        backgroundImage:
+          "linear-gradient(to right, rgba(2, 94, 115, 0.2),rgba(255, 255, 255, 0.8),rgba(2, 94, 115, 0.3))",
+      }}
+    >
+      <Header />
       <Snackbar
         open={open}
         autoHideDuration={6000}
@@ -221,7 +235,16 @@ export default function SignUp() {
         </Alert>
       </Snackbar>
 
-      <Container component="main" maxWidth="xs">
+      <Container
+        component="main"
+        maxWidth="xs"
+        sx={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(2, 94, 115, 0.3),#fff)",
+          boxShadow: "1px 1px 1px 1px #C0C0C0",
+          marginTop: "30px",
+        }}
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -234,7 +257,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Signing up as {role}
           </Typography>
 
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -405,6 +428,14 @@ export default function SignUp() {
                   >
                     <MenuItem value={"pakistan"}>Pakistan</MenuItem>
                     <MenuItem value={"india"}>India</MenuItem>
+                    <MenuItem value={"Bangladesh"}>Bangladesh</MenuItem>
+                    <MenuItem value={"Srilanks"}>Srilanks</MenuItem>
+                    <MenuItem value={"india"}>India</MenuItem>
+                    {/* <MenuItem value={"india"}>India</MenuItem>
+                    <MenuItem value={"india"}>India</MenuItem>
+                    <MenuItem value={"india"}>India</MenuItem>
+                    <MenuItem value={"india"}>India</MenuItem>
+                    <MenuItem value={"india"}>India</MenuItem> */}
                   </Select>
                 </FormControl>
               </Grid>
@@ -421,15 +452,18 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
-            <Button
+
+            <StyledButton
               type="submit"
               fullWidth
-              disabled={false}
+              disabled={loading}
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
-            </Button>
+              {loading ? "Sending Email" : "Sign Up"}
+              {loading && <CircularProgress style={{ ml: 2 }} />}
+            </StyledButton>
+
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link to="/login" variant="body2">
@@ -442,9 +476,18 @@ export default function SignUp() {
 
         {/* <Copyright sx={{ mt: 5 }} /> */}
       </Container>
-    </>
+      <Footer />
+    </Box>
   );
 }
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
+
+const StyledButton = styled(Button)`
+  background-color: #f2a71b;
+  color: #fff;
+  &:hover {
+    background-color: #025e73;
+  }
+`;
