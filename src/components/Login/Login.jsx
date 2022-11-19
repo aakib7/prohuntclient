@@ -17,7 +17,7 @@ import {
   OutlinedInput,
   styled,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
@@ -25,6 +25,7 @@ import Header from "../Header/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/Actions/User";
 import Footer from "../Footer/Footer";
+import ForgetPasswordModel from "../Registration/ForgetPasswordModel";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,10 @@ const Login = () => {
   const [open, setOpen] = React.useState(false);
   const [severity, setSeverity] = React.useState("error");
   const [message, setMessage] = React.useState("");
+
+  const [openModel, setOpenModel] = React.useState(false);
+  const handleOpen = () => setOpenModel(true);
+  const handleClose = () => setOpenModel(false);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -90,13 +95,12 @@ const Login = () => {
         </Alert>
       </Snackbar>
       <Header />
-
       <Container
         component="main"
         maxWidth="xs"
         sx={{
           backgroundImage:
-            "linear-gradient(to right, rgba(2, 94, 115, 0.3),#fff)",
+            "linear-gradient(to top,rgba(192, 192, 192, 0.3) ,#fff)",
           boxShadow: "1px 1px 1px 1px #C0C0C0",
           marginTop: "65px",
         }}
@@ -104,13 +108,13 @@ const Login = () => {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 7,
+            marginTop: 5,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ mt: 0, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ mt: 0, bgcolor: "#025e73" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5" sx={{ mt: 2, mb: 3 }}>
@@ -164,7 +168,17 @@ const Login = () => {
                 item
                 xs
               >
-                <Typography variant="body2">Forgot password?</Typography>
+                <Typography
+                  variant="body2"
+                  style={{
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                    color: "#551A8B",
+                  }}
+                  onClick={handleOpen}
+                >
+                  Forgot password?
+                </Typography>
               </Grid>
             </Grid>
 
@@ -187,15 +201,25 @@ const Login = () => {
                 xs
                 sx={{ mt: 3 }}
               >
-                <Typography variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Typography>
+                <Link
+                  to={"/registration"}
+                  style={{ textDecoration: "underline" }}
+                >
+                  <Typography variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Typography>
+                </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
       </Container>
       <Footer />
+      <ForgetPasswordModel
+        open={openModel}
+        handleClose={handleClose}
+        handleOpen={handleOpen}
+      />
     </Box>
   );
 };

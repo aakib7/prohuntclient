@@ -140,9 +140,11 @@ const SignupForm = () => {
 
           <Grid>
             <Stack direction="row" justifyContent="center" mt={2}>
-              <Typography sx={{ marginBottom: "20px", marginRight: "2px" }}>
-                Already have an account? <Link to={"/login"}>Login</Link>
-              </Typography>
+              <Link to={"/login"} style={{ textDecoration: "underline" }}>
+                <Typography sx={{ marginBottom: "20px", marginRight: "2px" }}>
+                  Already have an account? Login
+                </Typography>
+              </Link>
             </Stack>
           </Grid>
         </Box>

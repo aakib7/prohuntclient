@@ -24,6 +24,7 @@ import FreelancerDetail from "./components/Registration/FreelancerDetail";
 import ClientSignup from "./components/Registration/ClientSignup";
 import ProfilePicture from "./components/Registration/ProfilePicture";
 import EmailVarification from "./EmailVarification/EmailVarification";
+import ResetPassword from "./components/Registration/ResetPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -84,6 +85,7 @@ function App() {
           element={isAuthenticated ? <ProfilePicture /> : <Login />}
         />
         <Route path="/user/:id/verify/:token" element={<EmailVarification />} />
+        <Route path="/password-reset/:id/:token" element={<ResetPassword />} />
       </Routes>
     </>
   );

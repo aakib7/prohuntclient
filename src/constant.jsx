@@ -4,6 +4,7 @@
 //     color2: "#011f26",
 //     color3: "#a5a692",
 //     color4: "#f2a71b",
+// linkcolor:"#551A8B";
 //   },
 //   combination2: {
 //     color1: "#f75940",
