@@ -35,7 +35,7 @@ function App() {
 
   useEffect(() => {
     dispatch(loadUser());
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <Routes>
@@ -64,10 +64,13 @@ function App() {
           path="/registration"
           element={isAuthenticated ? <Home /> : <SignupForm />}
         />
-        <Route path="/registration/:role" element={<SignUp />} />
+        <Route
+          path="/registration/:role"
+          element={isAuthenticated ? <Home /> : <SignUp />}
+        />
 
         <Route
-          path="/registration/:role/detail"
+          path="/registration/detail"
           element={
             isAuthenticated ? (
               user?.role === "client" ? (

@@ -240,8 +240,7 @@ export default function SignUp() {
         maxWidth="xs"
         sx={{
           backgroundImage:
-            "linear-gradient(to right, rgba(2, 94, 115, 0.3),#fff)",
-          boxShadow: "1px 1px 1px 1px #C0C0C0",
+            "linear-gradient(to top,rgba(192, 192, 192, 0.3) ,#fff)",
           marginTop: "30px",
         }}
       >
@@ -460,9 +459,18 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              {loading ? "Sending Email" : "Sign Up"}
-              {loading && <CircularProgress style={{ ml: 2 }} />}
+              {loading ? "Sending Email..." : "Sign Up"}
             </StyledButton>
+            <Box
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                martinY: 1,
+              }}
+            >
+              {loading && <CircularProgress />}
+            </Box>
 
             <Grid container justifyContent="flex-end">
               <Grid item>

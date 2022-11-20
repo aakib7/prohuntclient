@@ -136,7 +136,7 @@ style={{
 
       sx={{
           backgroundImage:
-            "linear-gradient(to right, rgba(2, 94, 115, 0.4),#fff)",
+            "linear-gradient(to top,rgba(192, 192, 192, 0.3) ,#fff)",
           boxShadow: "1px 1px 1px 1px #C0C0C0",
           marginTop: "65px",
         }}

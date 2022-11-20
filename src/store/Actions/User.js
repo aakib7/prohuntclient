@@ -43,11 +43,6 @@ export const loadUser = () => async (dispatch) => {
       type: "LoadUserSuccess",
       payload: data.user,
     });
-
-    dispatch({
-      type: "LoadUserSuccess",
-      payload: data.user,
-    });
   } catch (error) {
     dispatch({
       type: "LoadUserFailure",

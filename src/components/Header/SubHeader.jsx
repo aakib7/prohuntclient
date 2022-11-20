@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
@@ -40,19 +40,21 @@ const SubHeader = () => {
           display: { xs: "none", lg: "flex" },
         }}
       >
-        {!loading && categories.length == 0 && <h1>No Categories</h1>}
+        {!loading && categories.length == 0 && (
+          <Typography variant="h6">No Categories Found</Typography>
+        )}
 
         {loading ? (
-          <h1>Loading...</h1>
+          <Typography variant="h6">Loading...</Typography>
         ) : (
           categories.map((category) => (
             <Link
-              style={{ color: "black" }}
+              sx={{
+                color: "black",
+              }}
               to={`/${category.name.replace(/ /g, "")}/${category._id}`}
             >
-              <Typography sx={{ paddingLeft: "25px" }}>
-                {category.name}
-              </Typography>
+              <StyledTypography>{category.name}</StyledTypography>
             </Link>
           ))
         )}
@@ -89,3 +91,9 @@ const SubHeader = () => {
 };
 
 export default SubHeader;
+const StyledTypography = styled(Typography)`
+color: black;
+padding-left: 25px;
+  &:hover {
+    text-decoration: underline;
+`;

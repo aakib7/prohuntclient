@@ -8,6 +8,7 @@ import {
   Typography,
   Snackbar,
   Alert as MuiAlert,
+  styled,
 } from "@mui/material";
 
 import React, { useState } from "react";
@@ -15,6 +16,9 @@ import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import img1 from "../../assests/images/profile.jpeg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Header from "../Header/Header";
+import SubHeader from "../Header/SubHeader";
+import Footer from "../Footer/Footer";
 
 const ProfilePicture = () => {
   const [progress, setProgess] = useState(0);
@@ -64,7 +68,14 @@ const ProfilePicture = () => {
     }
   };
   return (
-    <>
+    <Box
+      style={{
+        backgroundImage:
+          "linear-gradient(to right, #fff,rgba(2, 94, 115, 0.4))",
+      }}
+    >
+      <Header />
+      <SubHeader />
       <Snackbar
         open={open}
         autoHideDuration={6000}
@@ -83,7 +94,10 @@ const ProfilePicture = () => {
         component="main"
         maxWidth="xs"
         sx={{
-          backgroundColor: "#F7F7F7",
+          backgroundImage:
+            "linear-gradient(to top,rgba(192, 192, 192, 0.5) ,#fff)",
+          boxShadow: "1px 1px 1px 1px #C0C0C0",
+          marginTop: "65px",
           boxShadow: "2px 2px 2px 2px #C0C0C0",
         }}
       >
@@ -93,13 +107,12 @@ const ProfilePicture = () => {
           component={"form"}
           onSubmit={handleChange}
           sx={{
-            marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "#025e73" }}>
             <AddAPhotoIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -122,6 +135,7 @@ const ProfilePicture = () => {
           <Grid container justifyContent="center">
             <Grid item xs={12} sm={6} mt={5}>
               <Typography fontWeight={500}>Select Picture</Typography>
+
               <input
                 accept="image/*"
                 type="file"
@@ -133,7 +147,7 @@ const ProfilePicture = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button
+              <StyledButton
                 type="submit"
                 fullWidth
                 disabled={image}
@@ -141,10 +155,10 @@ const ProfilePicture = () => {
                 sx={{ mt: 3, mb: 2 }}
               >
                 Skip
-              </Button>
+              </StyledButton>
             </Grid>
             <Grid item xs={12}>
-              <Button
+              <StyledButton
                 type="submit"
                 fullWidth
                 disabled={!image}
@@ -152,7 +166,7 @@ const ProfilePicture = () => {
                 sx={{ mt: 3, mb: 2 }}
               >
                 Submit
-              </Button>
+              </StyledButton>
             </Grid>
           </Grid>
         </Box>
@@ -164,7 +178,8 @@ const ProfilePicture = () => {
           </div>
         )}
       </Container>
-    </>
+      <Footer />
+    </Box>
   );
 };
 
@@ -173,3 +188,11 @@ export default ProfilePicture;
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
+
+const StyledButton = styled(Button)`
+  background-color: #f2a71b;
+  color: #fff;
+  &:hover {
+    background-color: #025e73;
+  }
+`;

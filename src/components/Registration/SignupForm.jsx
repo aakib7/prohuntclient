@@ -36,7 +36,6 @@ const SignupForm = () => {
 
   useEffect(() => {
     if (choice === "freelancer" || choice === "client") {
-      console.log(choice);
     }
   }, [choice]);
 
@@ -54,7 +53,7 @@ const SignupForm = () => {
         maxWidth={"sm"}
         sx={{
           backgroundImage:
-            "linear-gradient(to top, rgba(2, 94, 115, 0.20),#fff)",
+            "linear-gradient(to top,rgba(192, 192, 192, 0.3) ,#fff)",
           boxShadow: "1px 1px 1px 1px #C0C0C0",
 
           mt: 7,
