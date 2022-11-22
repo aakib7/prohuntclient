@@ -2,11 +2,14 @@ import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import React from "react";
 import styled from "@emotion/styled";
+import { useSelector } from "react-redux";
 
 import Button from "@mui/material/Button";
 import BannerImage from "../../assests/images/main-banner.jpg";
+import { Link } from "react-router-dom";
 
 const GetStartBanner = () => {
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   return (
     <>
       <Grid container sx={{ backgroundColor: "#a5a692" }}>
@@ -81,7 +84,18 @@ const GetStartBanner = () => {
                   marginTop: "24px",
                 }}
               >
-                Start Now
+                <Link
+                  style={{ color: "white" }}
+                  to={
+                    isAuthenticated
+                      ? user?.role === "freelancer"
+                        ? "panel/gig"
+                        : "employer/jobs"
+                      : "/registration"
+                  }
+                >
+                  Start Now
+                </Link>
               </StyledButton>
             </Grid>
           </Grid>

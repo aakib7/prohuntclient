@@ -93,7 +93,11 @@ const GigsList = () => {
                         imgage={image}
                         avatar={image}
                         price={gig.price}
-                        author={`${gig.owner.firstName} ${gig.owner.lastName}`}
+                        author={`${
+                          gig?.owner?.firstName ? gig?.owner?.firstName : "user"
+                        } ${
+                          gig?.owner?.lastName ? gig?.owner?.lastName : "user"
+                        }`}
                         rating={gig.rating}
                       />
                     </Link>

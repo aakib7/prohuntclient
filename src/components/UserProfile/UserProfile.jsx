@@ -1,125 +1,83 @@
-import React from "react";
-import "./userProfile.css";
-import { Link } from "react-router-dom";
-import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import DateRangeIcon from "@mui/icons-material/DateRange";
-import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
-import PublishIcon from "@mui/icons-material/Publish";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import Grid from "@mui/material/Grid";
+import {
+  Avatar,
+  Box,
+  Container,
+  Divider,
+  Grid,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
+import { useNavigate, useParams } from "react-router-dom";
+import About from "./About";
+import SideBar from "./SideBar";
+import axios from "axios";
 
 const UserProfile = () => {
+  const { userId } = useParams();
+  const navigate = useNavigate();
+  const [user, setUser] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const fetchUser = async () => {
+    try {
+      setLoading(true);
+      const url = `http://localhost:4000/user/user/${userId}`;
+      const { data } = await axios.get(url);
+      setLoading(false);
+      console.log(data);
+      setUser(data.user);
+    } catch (error) {
+      setLoading(false);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        // setError(error.response.data.message);
+        navigate("/404");
+        setError(true);
+      }
+    }
+  };
+  useEffect(() => {
+    fetchUser();
+  }, [userId]);
   return (
-    <Grid container className="page_size" spacing={2}>
-      <div className="user">
-        <div className="userContainer">
-          <div className="userShow">
-            <div className="userShowTop">
-              <Grid item md={4} xs={8} sm={8}>
-                <img
-                  src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-                  alt=""
-                  className="userShowImg"
-                />
-              </Grid>
-              <Grid item md={6} xs={4} sm={4}>
-                <div className="userShowTopTitle">
-                  <span className="userShowUsername">Anna Becker</span>
-                  {/* <span className="userShowUserTitle">Level 2 Seller</span>
-                  <button className="userAddButton">Be A Buyer</button> */}
-                </div>
-              </Grid>
-            </div>
-            <div className="userShowBottom">
-              <div className="userShowBottomActions">
-                <div className="userShowBottomActionWrapper">
-                  <PermIdentityIcon className="userShowBottomActionIcon" />
-                  <span className="userShowBottomActionTitle">Inbox</span>
-                </div>
+    <>
+      <Box
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #fff,rgba(2, 94, 115, 0.4))",
+        }}
+      >
+        <Header />
+        {loading && <Typography>Loading...</Typography>}
+        {!loading && error && <Typography>User Not Found</Typography>}
+        <Container
+          sx={{
+            width: "90%",
+            backgroundImage:
+              "linear-gradient(to top,rgba(192, 192, 192, 0.3) ,#fff)",
+            marginTop: 3,
+          }}
+        >
+          <Grid container spacing={2}>
+            <Grid item md={3}>
+              <SideBar user={user} />
+            </Grid>
 
-                <div className="userShowBottomActionWrapper">
-                  <PermIdentityIcon className="userShowBottomActionIcon" />
-                  <span className="userShowBottomActionTitle">Orders</span>
-                </div>
+            <Divider orientation="vertical" flexItem />
 
-                <div className="userShowBottomActionWrapper">
-                  <PermIdentityIcon className="userShowBottomActionIcon" />
-                  <span className="userShowBottomActionTitle">Gigs</span>
-                </div>
-
-                <div className="userShowBottomActionWrapper">
-                  <PermIdentityIcon className="userShowBottomActionIcon" />
-                  <span className="userShowBottomActionTitle">Payments</span>
-                </div>
-              </div>
-              <div className="userShowBottom1">
-                <span className="userShowTitle">Account Details</span>
-                <div className="userShowInfo">
-                  <PermIdentityIcon className="userShowIcon" />
-                  <span className="userShowInfoTitle">annabeck99</span>
-                </div>
-                <div className="userShowInfo">
-                  <DateRangeIcon className="userShowIcon" />
-                  <span className="userShowInfoTitle">10.12.1999</span>
-                </div>
-              </div>
-              <div className="userShowBottom2">
-                <span className="userShowTitle">Contact Details</span>
-                <div className="userShowInfo">
-                  <PhoneAndroidIcon className="userShowIcon" />
-                  <span className="userShowInfoTitle">+1 123 456 67</span>
-                </div>
-                <div className="userShowInfo">
-                  <MailOutlineIcon className="userShowIcon" />
-                  <span className="userShowInfoTitle">
-                    annabeck99@gmail.com
-                  </span>
-                </div>
-                <div className="userShowInfo">
-                  <LocationSearchingIcon className="userShowIcon" />
-                  <span className="userShowInfoTitle">New York | USA</span>
-                </div>
-              </div>
-              <div className="userShowBottom3">
-                <span className="userShowTitle">Revenue Generated</span>
-                <div className="userShowInfo">
-                  <AttachMoneyIcon className="userShowIcon" />
-                  <span className="userShowInfoTitle">26,000</span>
-                </div>
-              </div>
-              <div className="userShowBottom4">
-                <span className="userShowTitle">Gigs</span>
-                <div className="userShowInfo">
-                  <AttachMoneyIcon className="userShowIcon" />
-                  <span className="userShowInfoTitle">Live 3</span>
-                </div>
-                <div className="userShowInfo">
-                  <AttachMoneyIcon className="userShowIcon" />
-                  <span className="userShowInfoTitle">Offline 5</span>
-                </div>
-              </div>
-              <div className="userShowBottom5">
-                <span className="userShowTitle">Orders till date</span>
-                <div className="userShowInfo">
-                  <AttachMoneyIcon className="userShowIcon" />
-                  <span className="userShowInfoTitle">Completed 38</span>
-                </div>
-                <div className="userShowInfo">
-                  <AttachMoneyIcon className="userShowIcon" />
-                  <span className="userShowInfoTitle">Pending 4</span>
-                </div>
-                <div className="userShowInfo">
-                  <AttachMoneyIcon className="userShowIcon" />
-                  <span className="userShowInfoTitle">In Queue 6</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Grid>
+            <Grid item md={8}>
+              <About user={user} />
+            </Grid>
+          </Grid>
+        </Container>
+        <Footer />
+      </Box>
+    </>
   );
 };
 

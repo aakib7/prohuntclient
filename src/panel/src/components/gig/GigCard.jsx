@@ -1,113 +1,220 @@
 import React from "react";
-import { Box, Grid, Button, styled, Typography, Divider } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Button,
+  styled,
+  Typography,
+  Divider,
+  Snackbar,
+  Alert,
+} from "@mui/material";
+import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Tooltip from "@mui/material/Tooltip";
 import BannerImage from "../../../../assests/images/main-banner.jpg";
+import { Link } from "react-router-dom";
+import GigForm from "./GigForm";
+import { PrecisionManufacturingRounded } from "@mui/icons-material";
+import EditForm from "./EditForm";
 
-const GigCard = () => {
+const GigCard = ({ title, description, id }) => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [severity, setSeverity] = React.useState("error");
+  const [message, setMessage] = React.useState("");
+
+  const [openEdit, setOpenEdit] = React.useState(false);
+  const handleOpenEdit = () => setOpenEdit(true);
+  const handleCloseEdit = () => setOpenEdit(false);
+  const [delete1, setDelete1] = React.useState(false);
+
+  const handleDelete = () => {
+    const config = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+    axios
+      .delete(
+        `http://localhost:4000/gigs/deletegig/${id}`,
+
+        config
+      )
+      .then((response) => {
+        setOpenAlert(true);
+        setSeverity("success");
+        setMessage("Gig Deleted SuccessFully");
+        window.location.reload(true);
+      })
+      .catch((error) => {
+        setOpenAlert(true);
+        setSeverity("error");
+        setMessage(error.response.data.message);
+      });
+  };
+
   return (
-    <Grid
-      container
-      sx={{ backgroundColor: "#a5a692" }}
-      style={{
-        width: "100%",
-        height: "80px",
-        marginTop: "4px",
-      }}
-    >
+    <>
+      <Snackbar
+        open={openAlert}
+        autoHideDuration={6000}
+        onClose={() => setOpenAlert(false)}
+      >
+        <Alert
+          onClose={() => setOpenAlert(false)}
+          severity={severity}
+          sx={{ width: "100%" }}
+        >
+          {message}
+        </Alert>
+      </Snackbar>
+
       <Grid
-        item
+        container
+        sx={{ backgroundColor: "#a5a692" }}
         style={{
-          width: "20%",
-          height: "100%",
+          width: "100%",
+          height: "80px",
+          marginTop: "4px",
+          overflow: "hidden",
+          lineHeight: "1.43",
         }}
       >
-        <img style={{ height: "100%", width: "100%" }} src={BannerImage} />
-      </Grid>
-      <Grid
-        item
-        style={{
-          width: "60%",
-          height: "100%",
-        }}
-      >
-        <Grid container direction={"column"}>
-          <Grid item>
-            <Typography variant="h6" sx={{ ml: 2 }}>
-              I Make You a Responsive website.
-            </Typography>
-          </Grid>
-          <Grid
-            item
-            sx={{ display: { xs: "none", sm: "none", lg: "block" }, ml: 2 }}
-          >
-            <Typography variant="p" sx={{ textAlign: "center" }}>
-              I Make You a Responsive websiteI Make You a Responsive websiteI
-              Make You a Responsive websiteI Make You a Responsive website
-            </Typography>
+        <Grid
+          item
+          style={{
+            width: "20%",
+            height: "100%",
+          }}
+        >
+          <img style={{ height: "100%", width: "100%" }} src={BannerImage} />
+        </Grid>
+        <Grid
+          item
+          style={{
+            width: "60%",
+            height: "100%",
+          }}
+        >
+          <Grid container direction={"column"}>
+            <Grid item>
+              <Typography
+                variant={"body1"}
+                sx={{ ml: 2, fontSize: { md: "20px" }, fontWeight: "500" }}
+              >
+                {title}
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              sx={{
+                display: {
+                  xs: "none",
+                  sm: "none",
+                  lg: "block",
+                  overflowY: "hidden",
+                },
+                ml: 2,
+              }}
+            >
+              <Typography
+                variant="p"
+                sx={{ textAlign: "center", overflowY: "hidden" }}
+              >
+                {description}
+              </Typography>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid
-        item
-        style={{
-          width: "20%",
-          height: "100%",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Grid container direction={"column"}>
-          <Grid item>
-            <Box
-              sx={{
-                display: { xs: "block", lg: "none" },
-                marginLeft: 2,
-                mt: 1,
-              }}
-            >
-              <Tooltip title="Delete Gig">
-                <DeleteIcon />
-              </Tooltip>
-            </Box>
-            <Box
-              sx={{
-                display: { xs: "none", lg: "block" },
-                marginLeft: { lg: 4 },
-              }}
-            >
-              <StyledButtonDelete startIcon={<DeleteIcon />}>
-                Delete Gig
-              </StyledButtonDelete>
-            </Box>
-          </Grid>
-          <Grid item marginTop={"5px"}>
-            <Box
-              sx={{
-                display: { xs: "block", lg: "none" },
-                marginLeft: 2,
-                mt: 1,
-              }}
-            >
-              <Tooltip title="Edit Gig">
-                <EditIcon />
-              </Tooltip>
-            </Box>
-            <Box
-              sx={{
-                display: { xs: "none", lg: "block" },
-                marginLeft: { lg: 4 },
-              }}
-            >
-              <StyledButtonEdit startIcon={<EditIcon />}>
-                Edit Gig
-              </StyledButtonEdit>
-            </Box>
+        <Grid
+          item
+          style={{
+            width: "20%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Grid container direction={"column"}>
+            <Grid item>
+              <Box
+                sx={{
+                  display: { xs: "block", lg: "none" },
+                  marginLeft: 2,
+                  mt: 1,
+                }}
+              >
+                <Tooltip title="Delete Gig">
+                  <DeleteIcon />
+                </Tooltip>
+              </Box>
+              <Box
+                sx={{
+                  display: { xs: "none", lg: "flex" },
+                  justifyContent: "flex-end",
+                  marginLeft: { lg: 4 },
+                }}
+              >
+                <StyledButtonDelete
+                  startIcon={<DeleteIcon />}
+                  onClick={() => {
+                    handleDelete();
+                  }}
+                >
+                  Delete Gig
+                </StyledButtonDelete>
+              </Box>
+            </Grid>
+            <Grid item marginTop={"5px"}>
+              <Box
+                sx={{
+                  display: { xs: "block", lg: "none" },
+                  marginLeft: 2,
+                  mt: 1,
+                }}
+              >
+                <Tooltip title="Edit Gig">
+                  <EditIcon />
+                </Tooltip>
+              </Box>
+              <Box
+                sx={{
+                  display: { xs: "none", lg: "flex" },
+                  marginLeft: { lg: 4 },
+                  justifyContent: "flex-end",
+                }}
+              >
+                <StyledButtonEdit
+                  startIcon={<EditIcon />}
+                  onClick={() => {
+                    setOpenEdit((pre) => !pre);
+                  }}
+                >
+                  Edit Gig
+                </StyledButtonEdit>
+              </Box>
+            </Grid>
           </Grid>
         </Grid>
+        <GigForm
+          open={open}
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+        />
+        <EditForm
+          open={openEdit}
+          handleOpen={handleOpenEdit}
+          handleClose={handleCloseEdit}
+          id={id}
+        />
       </Grid>
-    </Grid>
+    </>
   );
 };
 

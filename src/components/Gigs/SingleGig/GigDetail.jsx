@@ -53,10 +53,15 @@ const GigDetail = ({
           {message}
         </Alert>
       </Snackbar>
-      ;
+
       <Grid container sx={{ paddingLeft: { xs: 3, md: 5 } }}>
         <Grid item xs={12} bgcolor={"#f7f7f7"}>
-          <Typography variant="h4" fontWeight={600} lineHeight={"50px"}>
+          <Typography
+            variant="h5"
+            fontWeight={500}
+            lineHeight={"50px"}
+            paddingLeft={1}
+          >
             {title}
           </Typography>
           <Box sx={{ display: { xs: "block", md: "none" } }}>

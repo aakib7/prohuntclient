@@ -6,6 +6,7 @@ import Header from "../../Header/Header";
 import SubHeader from "../../Header/SubHeader";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import profilePic from "../../../assests/images/profile.jpeg";
 
 const SingleGig = () => {
   let { gigId } = useParams();
@@ -97,7 +98,7 @@ const SingleGig = () => {
               mt: 6,
             }}
           >
-            <Grid item md={8}>
+            <Grid item md={8.5}>
               <GigDetail
                 title={gig.title}
                 numberOfLikes={gig.likes.length}
@@ -108,26 +109,36 @@ const SingleGig = () => {
                 likes={gig.likes}
                 handComment={handleComment}
                 price={gig.price}
-                deliverTime={"2 days"}
+                deliverTime={gig.deliveredTime ? gig.deliveredTime : "2 days"}
                 responce={"with in hour"}
-                authorName={gig.owner.firstName + " " + gig.owner.lastName}
+                authorName={
+                  gig.owner?.firstName ? gig.owner.firstName : "User" + " "
+                }
               />
             </Grid>
             <Grid
               item
-              md={4}
+              md={3.5}
               sx={{
                 display: { xs: "none", md: "block" },
                 position: { md: "fixed" },
                 right: 0,
+                top: 171,
               }}
             >
               <RightSideBar
                 price={gig.price}
-                deliverTime={"2 days"}
-                responce={"with in hour"}
-                authorName={gig.owner.firstName + " " + gig.owner.lastName}
+                authorImage={
+                  gig?.owner?.avatar.url
+                    ? "http://localhost:4000/" + gig?.owner?.avatar.url
+                    : profilePic
+                }
+                deliverTime={gig.deliveredTime ? gig.deliveredTime : "2 days"}
+                authorName={`${
+                  gig.owner?.firstName ? gig.owner.firstName : "user"
+                } ${gig.owner?.lastName ? gig.owner.lastName : "user"}`}
                 loading={loading}
+                userId={gig?.owner?._id}
               />
             </Grid>
           </Grid>

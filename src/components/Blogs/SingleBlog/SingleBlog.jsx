@@ -114,6 +114,7 @@ const SingleBlog = () => {
                 handleLike={handleLike}
                 loading={loading}
                 reviews={blog.reviews}
+                owner={blog?.owner}
               />
             </Grid>
             <Grid

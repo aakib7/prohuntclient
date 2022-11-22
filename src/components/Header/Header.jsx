@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   // const isAuth = false;
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   let navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [severity, setSeverity] = React.useState("error");
@@ -91,9 +91,13 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>
-        <Link to={"/panel"}>My account</Link>
+        <Link to={"/profile"}>Profile</Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link to={user?.role === "freelancer" ? "/panel" : "/employer"}>
+          My account
+        </Link>
       </MenuItem>
       <MenuItem
         onClick={() => {
@@ -154,6 +158,7 @@ export default function Header() {
         >
           <AccountCircle />
         </IconButton>
+        {/* // response */}
         <p>Profile</p>
       </MenuItem>
     </Menu>

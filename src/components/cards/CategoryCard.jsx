@@ -21,7 +21,7 @@ const CategoryCard = ({ title, image }) => {
           component="img"
           height="194"
           image={`${image}`}
-          alt="Paella dish"
+          alt={title}
         />
       </Card>
     </>

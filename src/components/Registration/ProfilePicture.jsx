@@ -19,8 +19,10 @@ import { useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
 import SubHeader from "../Header/SubHeader";
 import Footer from "../Footer/Footer";
+import { useSelector } from "react-redux";
 
 const ProfilePicture = () => {
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   const [progress, setProgess] = useState(0);
   const [sending, setSending] = useState(false);
   const [image, setImage] = useState("");
@@ -56,7 +58,9 @@ const ProfilePicture = () => {
         .then((response) => {
           setSending(false);
           if (response.data.success) {
-            navigate(`/panel`);
+            user?.role === "freelancer"
+              ? navigate(`/panel`)
+              : navigate(`/employer`);
           }
         })
         .catch((error) => {

@@ -29,7 +29,7 @@ import ForgetPasswordModel from "../Registration/ForgetPasswordModel";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { error, isAuthenticated } = useSelector((state) => state.user);
+  const { error, isAuthenticated, user } = useSelector((state) => state.user);
   let navigate = useNavigate();
 
   const [values, setValues] = React.useState({ showPassword: false });
@@ -65,13 +65,19 @@ const Login = () => {
       setMessage(error);
       dispatch({ type: "clearErrors" });
     }
-    if (isAuthenticated) {
+    if (isAuthenticated && user) {
       setOpen(true);
       setSeverity("success");
       setMessage("Welcome ");
-      navigate("/");
+      console.log("user skills" + user.skills.length);
+      if (!user.enterDetails) {
+        navigate("/registration/detail");
+      }
+      if (user.enterDetails) {
+        navigate("/");
+      }
     }
-  }, [error, dispatch, isAuthenticated]);
+  }, [error, dispatch, isAuthenticated, user]);
 
   return (
     <Box

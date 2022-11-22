@@ -15,6 +15,7 @@ export default function SingleGigCard({
   author = "ajmehdi",
   price = 123,
   rating = 4,
+  deliveredTime = "2 days",
 }) {
   return (
     <Card sx={{ maxWidth: 400 }}>
@@ -42,7 +43,7 @@ export default function SingleGigCard({
 
           <Grid item xs={12}>
             <Divider />
-            <Typography variant="p">delivery in 2 days</Typography>
+            <Typography variant="p">delivery in {deliveredTime}</Typography>
           </Grid>
         </Grid>
       </CardActions>

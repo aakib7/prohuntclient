@@ -43,7 +43,10 @@ const JobList = () => {
               <CircularProgress />
             </Box>
           ) : (
-            jobs.map((job) => (
+            // <h1>Hello</h1>
+            // jobs?.map((job) => <h1>{job.title}</h1>)
+
+            jobs?.map((job) => (
               <>
                 <Grid item xs={12} md={6} lg={4}>
                   <Link
@@ -55,8 +58,8 @@ const JobList = () => {
                       imgage={image}
                       avatar={image}
                       price={job.price}
-                      author={`${job.owner.firstName} ${job.owner.lastName}`}
-                      rating={job.rating}
+                      author={`${job.owner?.firstName} ${job.owner?.lastName}`}
+                      rating={job.rating ? job.rating : 0}
                     />
                   </Link>
                 </Grid>

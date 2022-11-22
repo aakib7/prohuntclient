@@ -25,9 +25,8 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 const ClientSignup = () => {
-  const [data, setData] = useState({ about: "" });
+  const [data, setData] = useState({ about: "", enterDetails: true });
   const navigate = useNavigate();
-  const { role } = useParams();
 
   const handleChange = (e) => {
     setData((pre) => ({ ...pre, [e.target.name]: e.target.value }));
@@ -46,7 +45,7 @@ const ClientSignup = () => {
       .then((response) => {
         console.log(response.data);
         if (response.data.success) {
-          navigate(`/registration/${role}/detail/profilepicture`);
+          navigate(`/registration/detail/profilepicture`);
         }
       })
       .catch((error) => {

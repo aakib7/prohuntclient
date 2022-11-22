@@ -10,7 +10,9 @@ import {
   Divider,
   Alert as MuiAlert,
   Snackbar,
+  Avatar,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import pic from "../../../assests/images/main-banner.jpg";
 import Comments from "./Comments";
@@ -24,6 +26,7 @@ const BlogDetail = ({
   loading,
   handleLike,
   reviews,
+  owner,
 }) => {
   const { isAuthenticated } = useSelector((state) => state.user);
 
@@ -67,6 +70,36 @@ const BlogDetail = ({
             src={pic}
             alt="mobile phone"
           />
+        </Grid>
+        <Grid item xs={12} mt={1}>
+          <Link to={`/profile/${owner?._id}`}>
+            <Stack
+              direction={"row"}
+              alignItems={"center"}
+              spacing={2}
+              marginY={1}
+              paddingX={3}
+            >
+              <Avatar
+                alt={`${owner?.firstName}`}
+                src={`http://localhost:4000/${owner?.avatar?.url}`}
+              />
+              <Typography
+                fontSize={18}
+                fontWeight={400}
+                mt={2}
+                style={{
+                  color: "black",
+                  textTransform: "capitalize",
+                  fontWeight: "400",
+                }}
+              >
+                {owner?.firstName}
+              </Typography>
+            </Stack>
+          </Link>
+
+          <Divider />
         </Grid>
         <Grid item xs={12} bgcolor={"white"}>
           <Stack direction="row" spacing={1} alignItems={"center"}>

@@ -21,8 +21,10 @@ import Header from "../Header/Header";
 import SubHeader from "../Header/SubHeader";
 import Footer from "../Footer/Footer";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const FreelancerDetail = () => {
+  const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [catagories, setCatagories] = useState();
@@ -53,7 +55,35 @@ const FreelancerDetail = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    expertise.skill = selectedOptions.map((e) => e.title);
+    expertise.skill = selectedOptions.map((e) => e.name);
+    expertise.skill.push(expertise.service);
+    const config = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+    axios
+      .put(
+        `http://localhost:4000/user/update`,
+        {
+          language: expertise.language,
+          skills: expertise.skill,
+          about: expertise.about,
+          enterDetails: true,
+        },
+        config
+      )
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.success) {
+          navigate(`/registration/detail/profilepicture`);
+        }
+      })
+      .catch((error) => {
+        console.log(error.data);
+      });
   };
   const getSubCategories = (service) => {
     catagories?.map((catagory) => {
@@ -68,12 +98,10 @@ const FreelancerDetail = () => {
     service: "",
     skill: [],
     about: "",
+    language: "",
   });
   const handleChange = (e) => {
     setExperties((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-  const updateS = (newVal) => {
-    setCatagories((prev) => [...prev, newVal]);
   };
   useEffect(() => {
     fetchCategiries();
@@ -152,7 +180,6 @@ const FreelancerDetail = () => {
 
               {subCatagories?.length > 0 && (
                 <>
-                  {/* {console.log(subCatagories.length)} */}
                   <Grid item xs={12}>
                     <Typography fontSize={18} fontWeight={400} padding={1}>
                       What skill do you offer to client
@@ -175,6 +202,33 @@ const FreelancerDetail = () => {
                   </Grid>
                 </>
               )}
+              <Grid item xs={12}>
+                <Typography fontSize={18} fontWeight={400} padding={1}>
+                  Language
+                </Typography>
+
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Language
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    name="language"
+                    value={expertise.language}
+                    label="language"
+                    required
+                    onChange={(e) => {
+                      handleChange(e);
+                    }}
+                  >
+                    <MenuItem value={"Urdu"}>Urdu</MenuItem>
+                    <MenuItem value={"English"}>English</MenuItem>
+                    <MenuItem value={"German"}>German</MenuItem>
+                    <MenuItem value={"Franch"}>Franch</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
 
               <Grid item xs={12}>
                 <Typography fontSize={18} fontWeight={400} padding={1}>
