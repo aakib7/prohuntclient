@@ -5,7 +5,7 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { Link, useParams } from "react-router-dom";
 import Search from "../Home/Search";
 
-const HeroSection = () => {
+const HeroSection = ({ setSearch }) => {
   const { categoryName, subcategory, categoryId } = useParams();
   return (
     <Grid
@@ -75,7 +75,7 @@ const HeroSection = () => {
             marginLeft: { xs: 0, md: 20 },
           }}
         >
-          <Search />
+          <Search setSearch={setSearch} />
         </Box>
       </Grid>
     </Grid>

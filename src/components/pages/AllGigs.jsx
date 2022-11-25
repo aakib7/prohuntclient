@@ -9,18 +9,26 @@ import SingleGigCard from "../cards/SingleGigCard";
 import image from "../../assests/images/main-banner.jpg";
 import FullPageLoading from "../others/FullPageLoading";
 import { Link } from "react-router-dom";
+import Pagination from "@mui/material/Pagination";
 
 const AllGigs = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [gigs, setGigs] = useState([]);
+  //pagination and search
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [search, setSearch] = useState("");
+  const [total, setTotla] = useState(0);
+
   const fetchGigs = async () => {
     try {
       setLoading(true);
-      const url = `http://localhost:4000/gigs`;
+      const url = `http://localhost:4000/gigs?page=${page}&limit=${limit}&search=${search}`;
       const { data } = await axios.get(url);
       setLoading(false);
       setGigs(data.Gigs);
+      setTotla(total);
     } catch (error) {
       setLoading(false);
       if (
@@ -35,12 +43,38 @@ const AllGigs = () => {
   };
   useEffect(() => {
     fetchGigs();
-  }, []);
+  }, [search, page]);
   return (
     <>
+      {!loading && error && (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <Typography>Somthing happend bad try again Later</Typography>
+        </Box>
+      )}
+      {!loading && gigs.length <= 0 && (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <Typography>No Blogs To show</Typography>
+        </Box>
+      )}
       <Header />
       <SubHeader />
-      <HeroSection />
+      <HeroSection setSearch={(search) => setSearch(search)} />
       {loading && (
         <Box
           sx={{
@@ -87,6 +121,24 @@ const AllGigs = () => {
             );
           })}
         </Grid>
+      )}
+      {gigs?.length > 0 && (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "60px",
+          }}
+        >
+          <Pagination
+            count={Math.ceil(total / limit)}
+            onChange={(event, value) => {
+              setPage(value);
+            }}
+            color="primary"
+          />
+        </Box>
       )}
       <Footer />
     </>

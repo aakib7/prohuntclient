@@ -1,73 +1,66 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Pagination } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import image from "../../assests/images/main-banner1.jpg";
 import SingleGigCard from "../cards/SingleGigCard";
 import axios from "axios";
-const GigsList = () => {
+import FullPageLoading from "../others/FullPageLoading";
+const GigsList = ({ search }) => {
   const { subcategory } = useParams();
   const [gigs, setGigs] = useState();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
   useEffect(() => {
     function fetchCategories() {
       setLoading(true);
+      const url = `http://localhost:4000/gigs?category=${subcategory}&search=${search}`;
       axios
-        .get("/gigs?category=" + subcategory)
+        .get(url)
         .then((response) => {
           setGigs(response.data.Gigs);
           setLoading(false);
         })
         .catch((error) => {
           setLoading(false);
+          setError(true);
         });
     }
     fetchCategories();
-  }, []);
+  }, [search]);
   return (
     <Box>
-      {/* main Nav  */}
-
-      {/* <Box>
-        <Header />
-        <SubHeader />
-        <HeroSection />
-      </Box> */}
-
-      {/* <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flextStart",
-          mt: 7,
-          ml: { xs: 4, md: 10 },
-        }}
-      >
-        <FilterSideBar />
-        <StyledButton
-          startIcon={<BadgeIcon />}
-          sx={{
-            ml: { xs: 4, md: 10 },
+      {loading && (
+        <Box>
+          <FullPageLoading />
+        </Box>
+      )}
+      {!loading && error && (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
           }}
         >
-          Gigs
-        </StyledButton>
-        <StyledButton
-          startIcon={<WorkIcon />}
-          sx={{
-            ml: { xs: 4, md: 10 },
+          <Typography>Somthing happend bad try again Later</Typography>
+        </Box>
+      )}
+      {!loading && gigs.length <= 0 && (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
           }}
         >
-          Jobs
-        </StyledButton>
-        <StyledButton
-          startIcon={<ArticleIcon />}
-          sx={{
-            ml: { xs: 4, md: 10 },
-          }}
-        >
-          Blogs
-        </StyledButton>
-      </Box> */}
-
+          <Typography>No Gigs To show</Typography>
+        </Box>
+      )}
       {/* Cards */}
       <Box
         sx={{
@@ -78,45 +71,29 @@ const GigsList = () => {
         }}
       >
         <Grid container spacing={2}>
-          {!loading && gigs.length == 0 && <h1>No Gigs</h1>}
-          {loading
-            ? "loading"
-            : gigs.map((gig) => (
-                <>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <Link
-                      to={`/gig/${gig._id}`}
-                      style={{ textTransform: "capitalize" }}
-                    >
-                      <SingleGigCard
-                        title={gig.title}
-                        imgage={image}
-                        avatar={image}
-                        price={gig.price}
-                        author={`${
-                          gig?.owner?.firstName ? gig?.owner?.firstName : "user"
-                        } ${
-                          gig?.owner?.lastName ? gig?.owner?.lastName : "user"
-                        }`}
-                        rating={gig.rating}
-                      />
-                    </Link>
-                  </Grid>
-                </>
-              ))}
+          {gigs?.map((gig) => (
+            <>
+              <Grid item xs={12} md={6} lg={4}>
+                <Link
+                  to={`/gig/${gig._id}`}
+                  style={{ textTransform: "capitalize" }}
+                >
+                  <SingleGigCard
+                    title={gig.title}
+                    imgage={image}
+                    avatar={image}
+                    price={gig.price}
+                    author={`${
+                      gig?.owner?.firstName ? gig?.owner?.firstName : "user"
+                    } ${gig?.owner?.lastName ? gig?.owner?.lastName : "user"}`}
+                    rating={gig.rating}
+                  />
+                </Link>
+              </Grid>
+            </>
+          ))}
         </Grid>
       </Box>
-      {gigs?.length >= 12 && (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: 10,
-          }}
-        >
-          <Pagination count={10} variant="outlined" shape="rounded" />
-        </Box>
-      )}
     </Box>
   );
 };

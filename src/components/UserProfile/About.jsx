@@ -2,8 +2,8 @@ import { Card, CardMedia, Grid, Rating, Typography } from "@mui/material";
 import React from "react";
 import { Box, Stack } from "@mui/system";
 import img1 from "../../assests/images/main-banner.jpg";
-import { useSelector } from "react-redux";
 import VerifiedIcon from "@mui/icons-material/Verified";
+
 const About = ({ user }) => {
   return (
     <>

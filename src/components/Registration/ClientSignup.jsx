@@ -6,7 +6,8 @@ import {
   Container,
   CssBaseline,
   Divider,
-  FormControl,
+  Alert as MuiAlert,
+  Snackbar,
   Grid,
   InputLabel,
   MenuItem,
@@ -15,17 +16,30 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import InfoIcon from "@mui/icons-material/Info";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+
 import SubHeader from "../Header/SubHeader";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import { useSelector, useDispatch } from "react-redux";
+import { loadUser } from "../../store/Actions/User";
 
 const ClientSignup = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  const { error, setError } = useState(false);
+  const isEditing = id ? true : false;
   const [data, setData] = useState({ about: "", enterDetails: true });
+  const [open, setOpen] = React.useState(false);
+  const [severity, setSeverity] = React.useState("error");
+  const [message, setMessage] = React.useState("");
+  const [disable, setDisable] = useState(false);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -43,15 +57,25 @@ const ClientSignup = () => {
     axios
       .put(`http://localhost:4000/user/update`, data, config)
       .then((response) => {
-        console.log(response.data);
-        if (response.data.success) {
+        if (response.data.success && !isEditing) {
           navigate(`/registration/detail/profilepicture`);
+        }
+        if (isEditing) {
+          setOpen(true);
+          setSeverity("success");
+          setMessage("User Profile Edit Success Fully");
+          setDisable(true);
         }
       })
       .catch((error) => {
-        console.log(error.data);
+        setError(true);
       });
   };
+  useEffect(() => {
+    if (isEditing) {
+      setData((pre) => ({ ...pre, about: user?.about }));
+    }
+  }, [id]);
   return (
     <Box
       style={{
@@ -63,6 +87,19 @@ const ClientSignup = () => {
       <SubHeader />
       <Container component="form" maxWidth="xs" onSubmit={handleSubmit}>
         <CssBaseline />
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={() => setOpen(false)}
+        >
+          <Alert
+            onClose={() => setOpen(false)}
+            severity={severity}
+            sx={{ width: "100%" }}
+          >
+            {message}
+          </Alert>
+        </Snackbar>
         <Box
           sx={{
             marginTop: 2,
@@ -106,13 +143,29 @@ const ClientSignup = () => {
               <StyledButton
                 type="submit"
                 fullWidth
-                disabled={false}
+                disabled={disable}
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Submit
               </StyledButton>
             </Grid>
+            {disable && (
+              <Grid item xs={12}>
+                <StyledButton
+                  onClick={() => {
+                    dispatch(loadUser());
+                    navigate("/profile");
+                  }}
+                  fullWidth
+                  disabled={!disable}
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  back to Profile
+                </StyledButton>
+              </Grid>
+            )}
           </Grid>
         </Box>
       </Container>
@@ -129,3 +182,7 @@ const StyledButton = styled(Button)`
     background-color: #025e73;
   }
 `;
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});

@@ -9,19 +9,24 @@ import image from "../../assests/images/main-banner.jpg";
 import FullPageLoading from "../others/FullPageLoading";
 import { Link } from "react-router-dom";
 import SingleJobCard from "../cards/SingleJobCard";
+import Pagination from "@mui/material/Pagination";
 
 const AllJobs = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [jobs, setJobs] = useState([]);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [search, setSearch] = useState("");
   const fetchJobs = async () => {
     try {
       setLoading(true);
-      const url = `http://localhost:4000/jobs/jobs`;
+      const url = `http://localhost:4000/jobs?page=${page}&limit=${limit}&search=${search}`;
       const { data } = await axios.get(url);
       setLoading(false);
-
-      setJobs(data.jobs);
+      setJobs(data.Jobs);
+      setTotal(data.total);
     } catch (error) {
       setLoading(false);
       if (
@@ -36,12 +41,39 @@ const AllJobs = () => {
   };
   useEffect(() => {
     fetchJobs();
-  }, []);
+  }, [search, page]);
   return (
     <>
+      {loading && <FullPageLoading />}
+      {!loading && error && (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <Typography>Somthing happend bad try again Later</Typography>
+        </Box>
+      )}
+      {!loading && jobs.length <= 0 && (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <Typography>No Jobs To show</Typography>
+        </Box>
+      )}
       <Header />
       <SubHeader />
-      <HeroSection />
+      <HeroSection setSearch={(search) => setSearch(search)} />
       {loading && (
         <Box
           sx={{
@@ -88,6 +120,24 @@ const AllJobs = () => {
             );
           })}
         </Grid>
+      )}
+      {jobs?.length > 0 && (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "60px",
+          }}
+        >
+          <Pagination
+            count={Math.ceil(total / 10)}
+            onChange={(event, value) => {
+              setPage(value);
+            }}
+            color="primary"
+          />
+        </Box>
       )}
       <Footer />
     </>

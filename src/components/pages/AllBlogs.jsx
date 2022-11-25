@@ -5,9 +5,8 @@ import Header from "../Header/Header";
 import HeroSection from "../Header/HeroSection";
 import SubHeader from "../Header/SubHeader";
 import { Grid, Typography, Box } from "@mui/material";
-
+import Pagination from "@mui/material/Pagination";
 import image from "../../assests/images/main-banner.jpg";
-
 import FullPageLoading from "../others/FullPageLoading";
 import { Link } from "react-router-dom";
 import SingleBlogPost from "../cards/SingleBlogPost";
@@ -16,13 +15,18 @@ const AllBlogs = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [blogs, setBlogs] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [search, setSearch] = useState("");
+  const [total, setTotla] = useState(0);
   const fetchBlogs = async () => {
     try {
       setLoading(true);
-      const url = `http://localhost:4000/blog`;
+      const url = `http://localhost:4000/blog?page=${page}&limit=${limit}&search=${search}`;
       const { data } = await axios.get(url);
       setLoading(false);
       setBlogs(data.post);
+      setTotla(data.total);
     } catch (error) {
       setLoading(false);
       if (
@@ -37,29 +41,44 @@ const AllBlogs = () => {
   };
   useEffect(() => {
     fetchBlogs();
-  }, []);
+  }, [page, search]);
   return (
     <>
       <Header />
       <SubHeader />
-      <HeroSection />
+      <HeroSection setSearch={(search) => setSearch(search)} />
       {loading && (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "80vh",
-          }}
-        >
+        <Box>
           <FullPageLoading />
         </Box>
       )}
       {!loading && error && (
-        <Typography>Somthing happend bad try again Later</Typography>
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <Typography>Somthing happend bad try again Later</Typography>
+        </Box>
       )}
-      {/* {!loading && gigs.length <= 0 && <Typography>No Gigs To Show</Typography>} */}
+      {!loading && blogs.length <= 0 && (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <Typography>No Blogs To show</Typography>
+        </Box>
+      )}
+
       {blogs && (
         <Grid container marginLeft={5}>
           {blogs?.map((blog) => {
@@ -81,6 +100,25 @@ const AllBlogs = () => {
             );
           })}
         </Grid>
+      )}
+
+      {blogs?.length > 0 && (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "60px",
+          }}
+        >
+          <Pagination
+            count={Math.ceil(total / limit)}
+            onChange={(event, value) => {
+              setPage(value);
+            }}
+            color="primary"
+          />
+        </Box>
       )}
       <Footer />
     </>

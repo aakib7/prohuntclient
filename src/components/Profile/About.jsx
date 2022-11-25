@@ -1,15 +1,26 @@
-import { Card, CardMedia, Grid, Rating, Typography } from "@mui/material";
+import {
+  Card,
+  CardMedia,
+  Grid,
+  Rating,
+  Typography,
+  Tooltip,
+} from "@mui/material";
 import React from "react";
 import { Box, Stack } from "@mui/system";
 import img1 from "../../assests/images/main-banner.jpg";
 import { useSelector } from "react-redux";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
+import ClientSignup from "../Registration/ClientSignup";
+import { useNavigate } from "react-router-dom";
 const About = () => {
   const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   return (
     <>
       <Grid container>
-        <Grid item xs={12}>
+        <Grid item xs={8}>
           <Typography
             variant="h6"
             fontWeight={600}
@@ -22,6 +33,16 @@ const About = () => {
               </span>
             )}
           </Typography>
+        </Grid>
+        <Grid item xs={4} display={"flex"} justifyContent={"flex-end"}>
+          <Tooltip title="Edit Profile" arrow>
+            <ModeEditOutlineRoundedIcon
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate("/registration/detail/" + user?._id);
+              }}
+            />
+          </Tooltip>
         </Grid>
         <Grid item xs={12}>
           <Typography fontSize={18} fontWeight={300}>

@@ -16,30 +16,11 @@ import GigsList from "../Gigs/GigsList";
 import JobList from "../Jobs/JobList";
 import BlogList from "../Blogs/BlogList";
 const ListHeader = () => {
-  const { subcategory } = useParams();
-  const [gigs, setGigs] = useState();
-  const [loading, setLoading] = useState(true);
-
   const [gigButton, setGigButton] = useState(true);
   const [jobButton, setJobButton] = useState(false);
   const [blogButton, setBlogButton] = useState(false);
+  const [search, setSearch] = useState("");
 
-  //
-  //   useEffect(() => {
-  //     function fetchCategories() {
-  //       setLoading(true);
-  //       axios
-  //         .get("/gigs?category=" + subcategory)
-  //         .then((response) => {
-  //           setGigs(response.data.Gigs);
-  //           setLoading(false);
-  //         })
-  //         .catch((error) => {
-  //           setLoading(false);
-  //         });
-  //     }
-  //     fetchCategories();
-  //   }, []);
   const handleGigClick = () => {
     if (jobButton || blogButton) {
       setGigButton(true);
@@ -67,7 +48,7 @@ const ListHeader = () => {
       <Box>
         <Header />
         <SubHeader />
-        <HeroSection />
+        <HeroSection setSearch={(search) => setSearch(search)} />
       </Box>
 
       <Box
@@ -109,9 +90,9 @@ const ListHeader = () => {
       </Box>
 
       {/* Cards */}
-      {gigButton && <GigsList />}
-      {jobButton && <JobList />}
-      {blogButton && <BlogList />}
+      {gigButton && <GigsList search={search} />}
+      {jobButton && <JobList search={search} />}
+      {blogButton && <BlogList search={search} />}
 
       {/* Footer */}
       <Box>

@@ -14,6 +14,8 @@ import {
   TextField,
   styled,
   Typography,
+  Alert as MuiAlert,
+  Snackbar,
 } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import AddchartIcon from "@mui/icons-material/Addchart";
@@ -21,15 +23,31 @@ import Header from "../Header/Header";
 import SubHeader from "../Header/SubHeader";
 import Footer from "../Footer/Footer";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { loadUser } from "../../store/Actions/User";
 
 const FreelancerDetail = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  const { id } = useParams();
+  const isEditing = id ? true : false;
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [catagories, setCatagories] = useState();
   const [subCatagories, setSubCatagories] = useState([]);
   const [error, setError] = useState();
+  const [open, setOpen] = React.useState(false);
+  const [severity, setSeverity] = React.useState("error");
+  const [message, setMessage] = React.useState("");
+  const [disable, setDisable] = useState(false);
+  const [expertise, setExperties] = useState({
+    service: "",
+    skill: [],
+    about: "",
+    language: "",
+  });
 
   const fetchCategiries = async () => {
     try {
@@ -52,6 +70,15 @@ const FreelancerDetail = () => {
       }
     }
   };
+  useEffect(() => {
+    if (isEditing) {
+      setExperties((pre) => ({
+        ...pre,
+        about: user?.about,
+        language: user?.language,
+      }));
+    }
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,6 +91,7 @@ const FreelancerDetail = () => {
       },
       withCredentials: true,
     };
+    setDisable(true);
     axios
       .put(
         `http://localhost:4000/user/update`,
@@ -76,9 +104,14 @@ const FreelancerDetail = () => {
         config
       )
       .then((response) => {
-        console.log(response.data);
-        if (response.data.success) {
+        if (response.data.success && !isEditing) {
           navigate(`/registration/detail/profilepicture`);
+        }
+        if (isEditing) {
+          setOpen(true);
+          setSeverity("success");
+          setMessage("Freelancer Profile Edit Success Fully");
+          setDisable(false);
         }
       })
       .catch((error) => {
@@ -94,12 +127,6 @@ const FreelancerDetail = () => {
     });
   };
 
-  const [expertise, setExperties] = useState({
-    service: "",
-    skill: [],
-    about: "",
-    language: "",
-  });
   const handleChange = (e) => {
     setExperties((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -121,6 +148,19 @@ const FreelancerDetail = () => {
       <SubHeader />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={() => setOpen(false)}
+        >
+          <Alert
+            onClose={() => setOpen(false)}
+            severity={severity}
+            sx={{ width: "100%" }}
+          >
+            {message}
+          </Alert>
+        </Snackbar>
         <Box
           sx={{
             // marginTop: 2,
@@ -258,6 +298,22 @@ const FreelancerDetail = () => {
             >
               Submit
             </StyledButton>
+            {isEditing && (
+              <Grid item xs={12}>
+                <StyledButton
+                  onClick={() => {
+                    dispatch(loadUser());
+                    navigate("/profile");
+                  }}
+                  fullWidth
+                  disabled={disable}
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  back to Profile
+                </StyledButton>
+              </Grid>
+            )}
           </Box>
         </Box>
       </Container>
@@ -274,3 +330,6 @@ const StyledButton = styled(Button)`
     background-color: #025e73;
   }
 `;
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});

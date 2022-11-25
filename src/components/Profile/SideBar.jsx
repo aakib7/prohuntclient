@@ -19,8 +19,10 @@ import LanguageIcon from "@mui/icons-material/Language";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import moment from "moment";
 import RememberMeIcon from "@mui/icons-material/RememberMe";
+import { Link, useNavigate } from "react-router-dom";
 const SideBar = () => {
   const { user } = useSelector((state) => state.user);
+  const { navigate } = useNavigate();
 
   return (
     <Container component={"main"} maxWidth="xs">
@@ -33,6 +35,11 @@ const SideBar = () => {
               src={user?.avatar.url}
             />
           </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Link to={"/registration/detail/profilepicture/" + user._id}>
+            <Button>Change Profile Picture</Button>
+          </Link>
         </Grid>
         <Grid item xs={12}>
           <Stack direction="row" marginLeft={1.5} spacing={1} mt={2.25}>

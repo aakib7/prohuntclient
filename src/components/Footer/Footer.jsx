@@ -14,7 +14,7 @@ const Footer = () => {
           border: "0.5px solid",
           backgroundColor: "#025e73",
           color: "white",
-          mt: 20,
+          mt: 10,
         }}
       >
         <Grid Item xs={12}>

@@ -1,33 +1,67 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Pagination } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import image from "../../assests/images/main-banner1.jpg";
 import SingleJobCard from "../cards/SingleJobCard";
 import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
-const JobList = () => {
+import FullPageLoading from "../others/FullPageLoading";
+const JobList = ({ search }) => {
   const { subcategory } = useParams();
-  const [jobs, setJobs] = useState();
-  const [loading, setLoading] = useState(true);
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     function fetchCategories() {
       setLoading(true);
+      const url = `http://localhost:4000/jobs?category=${subcategory}&search=${search}`;
       axios
-        .get("/jobs?category=" + subcategory)
+        .get(url)
         .then((response) => {
           setJobs(response.data.Jobs);
           setLoading(false);
         })
         .catch((error) => {
           setLoading(false);
-          console.log(error);
+          setError(true);
         });
     }
     fetchCategories();
-  }, []);
+  }, [search]);
   return (
     <Box>
+      {loading && (
+        <Box>
+          <FullPageLoading />
+        </Box>
+      )}
+      {!loading && error && (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <Typography>Somthing happend bad try again Later</Typography>
+        </Box>
+      )}
+      {!loading && jobs?.length <= 0 && (
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <Typography>No Jobs To show</Typography>
+        </Box>
+      )}
       <Box
         sx={{
           display: "flex",
@@ -37,48 +71,27 @@ const JobList = () => {
         }}
       >
         <Grid container spacing={2}>
-          {!loading && jobs.length == 0 && <h1>No Jobs</h1>}
-          {loading ? (
-            <Box sx={{ display: "flex" }}>
-              <CircularProgress />
-            </Box>
-          ) : (
-            // <h1>Hello</h1>
-            // jobs?.map((job) => <h1>{job.title}</h1>)
-
-            jobs?.map((job) => (
-              <>
-                <Grid item xs={12} md={6} lg={4}>
-                  <Link
-                    to={`/job/${job._id}`}
-                    style={{ textTransform: "capitalize" }}
-                  >
-                    <SingleJobCard
-                      title={job.title}
-                      imgage={image}
-                      avatar={image}
-                      price={job.price}
-                      author={`${job.owner?.firstName} ${job.owner?.lastName}`}
-                      rating={job.rating ? job.rating : 0}
-                    />
-                  </Link>
-                </Grid>
-              </>
-            ))
-          )}
+          {jobs?.map((job) => (
+            <>
+              <Grid item xs={12} md={6} lg={4}>
+                <Link
+                  to={`/job/${job._id}`}
+                  style={{ textTransform: "capitalize" }}
+                >
+                  <SingleJobCard
+                    title={job.title}
+                    imgage={image}
+                    avatar={image}
+                    price={job.price}
+                    author={`${job.owner?.firstName} ${job.owner?.lastName}`}
+                    rating={job.rating ? job.rating : 0}
+                  />
+                </Link>
+              </Grid>
+            </>
+          ))}
         </Grid>
       </Box>
-      {jobs?.length >= 12 && (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: 10,
-          }}
-        >
-          <Pagination count={10} variant="outlined" shape="rounded" />
-        </Box>
-      )}
     </Box>
   );
 };

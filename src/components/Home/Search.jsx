@@ -7,7 +7,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import DirectionsIcon from "@mui/icons-material/Directions";
 
-export default function Search() {
+export default function Search({ setSearch }) {
   return (
     <Paper
       component="form"
@@ -22,6 +22,7 @@ export default function Search() {
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search Here"
         // inputProps={{}} for placeholder style
+        onChange={({ currentTarget: input }) => setSearch(input.value)}
       />
       <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
         <SearchIcon />

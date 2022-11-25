@@ -4,6 +4,7 @@ import GigCard from "./GigCard";
 import AddIcon from "@mui/icons-material/Add";
 import GigForm from "./GigForm";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Gig = () => {
   const [open, setOpen] = React.useState(false);
@@ -69,6 +70,7 @@ const Gig = () => {
                     description={gig.description}
                     id={gig._id}
                   />
+
                   <Divider sx={{ width: "95%" }} />
                 </>
               );

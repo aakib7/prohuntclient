@@ -86,52 +86,55 @@ const GigCard = ({ title, description, id }) => {
           lineHeight: "1.43",
         }}
       >
-        <Grid
-          item
-          style={{
-            width: "20%",
-            height: "100%",
-          }}
-        >
-          <img style={{ height: "100%", width: "100%" }} src={BannerImage} />
-        </Grid>
-        <Grid
-          item
-          style={{
-            width: "60%",
-            height: "100%",
-          }}
-        >
-          <Grid container direction={"column"}>
-            <Grid item>
-              <Typography
-                variant={"body1"}
-                sx={{ ml: 2, fontSize: { md: "20px" }, fontWeight: "500" }}
+        <Link to={`/blog/${id}`} style={{ color: "black", cursor: "pointer" }}>
+          <Grid
+            item
+            style={{
+              width: "20%",
+              height: "100%",
+            }}
+          >
+            <img style={{ height: "100%", width: "100%" }} src={BannerImage} />
+          </Grid>
+          <Grid
+            item
+            style={{
+              width: "60%",
+              height: "100%",
+            }}
+          >
+            <Grid container direction={"column"}>
+              <Grid item>
+                <Typography
+                  variant={"body1"}
+                  sx={{ ml: 2, fontSize: { md: "20px" }, fontWeight: "500" }}
+                >
+                  {title}
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                sx={{
+                  display: {
+                    xs: "none",
+                    sm: "none",
+                    lg: "block",
+                    overflowY: "hidden",
+                  },
+                  ml: 2,
+                }}
               >
-                {title}
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              sx={{
-                display: {
-                  xs: "none",
-                  sm: "none",
-                  lg: "block",
-                  overflowY: "hidden",
-                },
-                ml: 2,
-              }}
-            >
-              <Typography
-                variant="p"
-                sx={{ textAlign: "center", overflowY: "hidden" }}
-              >
-                {description}
-              </Typography>
+                <Typography
+                  variant="p"
+                  sx={{ textAlign: "center", overflowY: "hidden" }}
+                >
+                  {description}
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        </Link>
+
         <Grid
           item
           style={{

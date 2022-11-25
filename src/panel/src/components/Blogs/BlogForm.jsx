@@ -12,12 +12,12 @@ import {
   Autocomplete,
   Alert,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 import MuiAlert from "@mui/material/Alert";
 import CloseIcon from "@mui/icons-material/Close";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const modalWrapper = {
   overflow: "auto",
@@ -34,7 +34,7 @@ const modalBlock = {
   margin: "auto",
 };
 
-function JobForm({ open, handleOpen, handleClose }) {
+function BlogForm({ open, handleOpen, handleClose }) {
   const [openAlert, setOpenAlert] = React.useState(false);
   const [severity, setSeverity] = React.useState("error");
   const [message, setMessage] = React.useState("");
@@ -44,67 +44,52 @@ function JobForm({ open, handleOpen, handleClose }) {
   const [error, setError] = useState();
   const navigate = useNavigate();
 
-  const [job, setJob] = useState({
-    jobTitle: "",
-    jobBudget: "",
-    jobDelvery: "",
+  const [blog, setBlog] = useState({
+    Title: "",
     category: "",
     subCategories: [],
     description: "",
   });
+
   const [validation, setValidation] = useState({
-    jobTitle: "",
-    jobBudget: "",
-    jobDelvery: "",
+    Title: "",
     subCategories: "",
     category: "",
     description: "",
   });
   const [selectedOptions, setSelectedOptions] = useState([]);
-
   let errors = { ...validation };
   const checkValidation = () => {
-    if (!job.jobTitle) {
-      errors.jobTitle = "jobTitle is required!";
-    } else if (job.jobTitle.trim().length < 10) {
-      errors.jobTitle = "JobTitle must be 10 character";
+    if (!blog.Title) {
+      errors.Title = "Title is required!";
+    } else if (blog.Title.trim().length < 10) {
+      errors.Title = "JobTitle must be 10 character";
     } else {
-      errors.jobTitle = "";
-    }
-    const cond3 = /[0-9]|\./;
-    if (!job.jobBudget.match(cond3)) {
-      errors.jobBudget = "Jobbudget must be number";
-    } else {
-      errors.jobBudget = "";
+      errors.Title = "";
     }
 
-    if (!job.category) {
+    if (!blog.category) {
       errors.category = "Please select the menu ";
     } else {
       errors.category = "";
     }
 
-    if (!job.subCategories) {
+    if (!blog.subCategories) {
       errors.subCategories = "Please select the menu ";
     } else {
       errors.subCategories = "";
     }
-    if (!job.jobDelvery) {
-      errors.jobDelvery = "Deliver date  is required";
-    } else if (job.jobDelvery.length < 4) {
-      errors.Deliver = "Please enter with days ";
-    } else {
-      errors.jobDelvery = "";
-    }
-    if (!job.description) {
+
+    if (!blog.description) {
       errors.description = "Please enter a brief description";
-    } else if (job.description.trim().length < 400) {
-      errors.description = "Please enter 400 or more character";
+    } else if (blog.description.trim().length < 400) {
+      errors.description = "Please enter 400 char or more ";
     } else {
       errors.description = "";
     }
     setValidation(errors);
   };
+
   const fetchCategiries = async () => {
     try {
       setLoading(true);
@@ -134,19 +119,17 @@ function JobForm({ open, handleOpen, handleClose }) {
   };
 
   const handleChange = (e) => {
-    setJob((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setBlog((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    job.subCategories = selectedOptions.map((e) => e.name);
-    job.subCategories.push(job.category);
+    blog.subCategories = selectedOptions.map((e) => e.name);
+    blog.subCategories.push(blog.category);
     if (
-      validation.jobTitle ||
-      validation.jobBudget ||
-      validation.jobDelvery ||
+      validation.Title ||
       validation.description ||
-      validation.category ||
+      validation.Deliver ||
       validation.subCategories
     ) {
       setOpenAlert(true);
@@ -154,7 +137,6 @@ function JobForm({ open, handleOpen, handleClose }) {
       setMessage("Please fill data correctly!!!");
       return;
     }
-
     const config = {
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -164,23 +146,21 @@ function JobForm({ open, handleOpen, handleClose }) {
     };
     axios
       .post(
-        `http://localhost:4000/jobs/createjob`,
+        `http://localhost:4000/blog/create`,
         {
-          title: job.jobTitle,
-          description: job.description,
-          deliveredTime: job.jobDelvery,
-          price: job.jobBudget,
-          category: job.subCategories,
+          title: blog.Title,
+          description: blog.description,
+          category: blog.subCategories,
         },
         config
       )
       .then((response) => {
         setOpenAlert(true);
         setSeverity("success");
-        setMessage("Job Added SuccessFully");
+        setMessage("Blog Added SuccessFully");
         window.location.reload(true);
         if (response.data.success) {
-          navigate(`/employer/jobs`);
+          navigate(`/panel/blogs`);
         }
       })
       .catch((error) => {
@@ -193,16 +173,16 @@ function JobForm({ open, handleOpen, handleClose }) {
 
   useEffect(() => {
     checkValidation();
-  }, [job]);
+  }, [blog]);
   useEffect(() => {
     fetchCategiries();
   }, []);
   useEffect(() => {
-    getSubCategories(job.category);
-  }, [job.category]);
+    getSubCategories(blog.category);
+  }, [blog.category]);
 
   return (
-    <>
+    <div>
       <Snackbar
         open={openAlert}
         autoHideDuration={6000}
@@ -235,28 +215,35 @@ function JobForm({ open, handleOpen, handleClose }) {
               mt: 2,
             }}
           >
-            <Typography
-              variant="h4"
-              sx={{
-                textAlign: "center",
-                fontWeight: "500",
-                mb: 1,
-              }}
-            >
-              Add JOB
-            </Typography>
             <Box
               component="form"
               onSubmit={handleSubmit}
               noValidate
               autoComplete="off"
             >
+              <CloseIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => handleClose()}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  mb: 2,
+                }}
+              >
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Add Blog
+                </Typography>
+              </Box>
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    value={job.jobTitle}
+                    value={blog.Title}
                     onChange={handleChange}
-                    name="jobTitle"
+                    name="Title"
                     required
                     fullWidth
                     id="Gigs"
@@ -264,53 +251,19 @@ function JobForm({ open, handleOpen, handleClose }) {
                     autoFocus
                     size="medium"
                   />
-                  {job.jobTitle && (
+                  {blog.Title && (
                     <Typography color={"red"} fontSize={{ xs: 14, md: 16 }}>
-                      {validation.jobTitle}
+                      {validation.Title}
                     </Typography>
                   )}
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    value={job.jobBudget}
-                    onChange={handleChange}
-                    name="jobBudget"
-                    required
-                    fullWidth
-                    id="Job Budget"
-                    label="Job Budget"
-                    autoFocus
-                    size="medium"
-                  />
-                  {job.jobBudget && (
-                    <Typography color={"red"} fontSize={{ xs: 14, md: 16 }}>
-                      {validation.jobBudget}
-                    </Typography>
-                  )}
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    value={job.jobDelvery}
-                    onChange={handleChange}
-                    name="jobDelvery"
-                    required
-                    id="Gigs Deliver Time"
-                    label="Job Delivered"
-                    size="medium"
-                    fullWidth
-                  />
-                  {job.jobDelvery && (
-                    <Typography color={"red"} fontSize={{ xs: 14, md: 16 }}>
-                      {validation.jobDelvery}
-                    </Typography>
-                  )}
-                </Grid>
+
                 <Grid item xs={12} sm={6}>
                   <TextField
                     id="outlined-select-currency"
                     select
                     label="Job Category"
-                    value={job.category}
+                    value={blog.category}
                     name="category"
                     fullWidth
                     onChange={handleChange}
@@ -343,7 +296,7 @@ function JobForm({ open, handleOpen, handleClose }) {
                         />
                       )}
                     />
-                    {job.subCategories && (
+                    {blog.subCategories && (
                       <Typography color={"red"} fontSize={{ xs: 14, md: 16 }}>
                         {validation.subCategories}
                       </Typography>
@@ -352,7 +305,7 @@ function JobForm({ open, handleOpen, handleClose }) {
                 )}
                 <Grid item xs={12} sm={12}>
                   <TextField
-                    value={job.description}
+                    value={blog.description}
                     onChange={handleChange}
                     multiline
                     rows={8}
@@ -360,11 +313,11 @@ function JobForm({ open, handleOpen, handleClose }) {
                     required
                     fullWidth
                     id="Gig Description"
-                    label="job Description"
+                    label="Blog Description"
                     autoFocus
                     size="medium"
                   />
-                  {job.description && (
+                  {blog.description && (
                     <Typography color={"red"} fontSize={{ xs: 14, md: 16 }}>
                       {validation.description}
                     </Typography>
@@ -382,7 +335,7 @@ function JobForm({ open, handleOpen, handleClose }) {
                   component="label"
                   sx={{ marginBottom: 3 }}
                 >
-                  job Picture
+                  blog Picture
                   <input hidden accept="image/*" multiple type="file" />
                 </Button>
                 <Button
@@ -398,8 +351,8 @@ function JobForm({ open, handleOpen, handleClose }) {
           </Container>
         </Box>
       </Modal>
-    </>
+    </div>
   );
 }
 
-export default JobForm;
+export default BlogForm;

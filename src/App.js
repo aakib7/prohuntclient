@@ -129,7 +129,25 @@ function App() {
           }
         />
         <Route
+          path="/registration/detail/:id"
+          element={
+            isAuthenticated ? (
+              user?.role === "client" ? (
+                <ClientSignup />
+              ) : (
+                <FreelancerDetail />
+              )
+            ) : (
+              <Login />
+            )
+          }
+        />
+        <Route
           path="/registration/detail/profilepicture"
+          element={isAuthenticated ? <ProfilePicture /> : <Login />}
+        />
+        <Route
+          path="/registration/detail/profilepicture/:id"
           element={isAuthenticated ? <ProfilePicture /> : <Login />}
         />
         <Route path="/user/:id/verify/:token" element={<EmailVarification />} />

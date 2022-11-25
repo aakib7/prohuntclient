@@ -103,7 +103,10 @@ const SingleJob = () => {
                 marginY={1}
                 paddingX={3}
               >
-                <Avatar alt="Remy Sharp" src={pic} />
+                <Avatar
+                  alt={job?.owner?.firstName}
+                  src={"http://localhost:4000/" + job?.owner?.avatar?.url}
+                />
                 <Typography
                   fontSize={18}
                   fontWeight={400}

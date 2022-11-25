@@ -13,6 +13,7 @@ import {
   Autocomplete,
   Alert,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -39,6 +40,7 @@ function EditForm({ open, handleOpen, handleClose, id }) {
   const [catagories, setCatagories] = useState();
   const [subCatagories, setSubCatagories] = useState([]);
   const isEditing = id ? true : false;
+  const navigate = useNavigate();
 
   const [error, setError] = useState();
   const [job, setJob] = useState({
@@ -195,6 +197,10 @@ function EditForm({ open, handleOpen, handleClose, id }) {
         setOpenAlert(true);
         setSeverity("success");
         setMessage("Job Edit SuccessFully");
+        window.location.reload(true);
+        if (response.data.success) {
+          navigate(`/employer/jobs`);
+        }
       })
       .catch((error) => {
         setOpenAlert(true);

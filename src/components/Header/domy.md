@@ -58,7 +58,7 @@ sx={{ width: "100%" }}
     {message}
 
   </Alert>
-</Snackbar>;
+</Snackbar>
 
 // end
 const Alert = React.forwardRef(function Alert(props, ref) {

@@ -13,12 +13,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Tooltip from "@mui/material/Tooltip";
 import { Link } from "react-router-dom";
+import { PrecisionManufacturingRounded } from "@mui/icons-material";
 import axios from "axios";
-import JobForm from "./JobForm";
+import BlogForm from "./BlogForm";
 import EditForm from "./EditForm";
-import BannerImage from "../../../../assests/images/main-banner.jpg";
+import ImageBanner from "../../../../assests/images/main-banner.jpg";
 
-function JobCard({ title, description, id }) {
+function BlogCard({ title, description, id }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(false);
   const handleClose = () => setOpen(false);
@@ -40,14 +41,14 @@ function JobCard({ title, description, id }) {
     };
     axios
       .delete(
-        `http://localhost:4000/jobs/deletejob/${id}`,
+        `http://localhost:4000/blog/delete/${id}`,
 
         config
       )
       .then((response) => {
         setOpenAlert(true);
         setSeverity("success");
-        setMessage("Job Deleted SuccessFully");
+        setMessage("Blog Deleted SuccessFully");
         window.location.reload(true);
       })
       .catch((error) => {
@@ -56,6 +57,7 @@ function JobCard({ title, description, id }) {
         setMessage(error.response.data.message);
       });
   };
+
   return (
     <>
       <Snackbar
@@ -90,7 +92,7 @@ function JobCard({ title, description, id }) {
             height: "100%",
           }}
         >
-          <img style={{ height: "100%", width: "100%" }} src={BannerImage} />
+          <img style={{ height: "100%", width: "100%" }} src={ImageBanner} />
         </Grid>
         <Grid
           item
@@ -101,7 +103,7 @@ function JobCard({ title, description, id }) {
         >
           <Grid container direction={"column"}>
             <Link
-              to={`/job/${id}`}
+              to={`/blog/${id}`}
               style={{ color: "black", cursor: "pointer" }}
             >
               <Grid item>
@@ -153,11 +155,7 @@ function JobCard({ title, description, id }) {
                 }}
               >
                 <Tooltip title="Delete Gig">
-                  <DeleteIcon
-                    onClick={() => {
-                      handleDelete();
-                    }}
-                  />
+                  <DeleteIcon />
                 </Tooltip>
               </Box>
               <Box
@@ -173,7 +171,7 @@ function JobCard({ title, description, id }) {
                     handleDelete();
                   }}
                 >
-                  Delete Job
+                  Delete
                 </StyledButtonDelete>
               </Box>
             </Grid>
@@ -186,11 +184,7 @@ function JobCard({ title, description, id }) {
                 }}
               >
                 <Tooltip title="Edit Gig">
-                  <EditIcon
-                    onClick={() => {
-                      setOpenEdit((pre) => !pre);
-                    }}
-                  />
+                  <EditIcon />
                 </Tooltip>
               </Box>
               <Box
@@ -206,13 +200,13 @@ function JobCard({ title, description, id }) {
                     setOpenEdit((pre) => !pre);
                   }}
                 >
-                  Edit Job
+                  Edit Blog
                 </StyledButtonEdit>
               </Box>
             </Grid>
           </Grid>
         </Grid>
-        <JobForm
+        <BlogForm
           open={open}
           handleOpen={handleOpen}
           handleClose={handleClose}
@@ -228,7 +222,7 @@ function JobCard({ title, description, id }) {
   );
 }
 
-export default JobCard;
+export default BlogCard;
 
 const StyledButtonDelete = styled(Button)`
   background-color: #f2a71b;

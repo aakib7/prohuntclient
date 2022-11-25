@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
 import { Box, Typography, Button, styled, Divider } from "@mui/material";
 import JobCard from "./JobCard";
 import AddIcon from "@mui/icons-material/Add";
 import JobForm from "./JobForm";
 import axios from "axios";
+import FullPageLoading from "../../../../components/others/FullPageLoading";
 
 const Job = () => {
   const [jobs, setJobs] = React.useState([]);
@@ -12,7 +13,7 @@ const Job = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [loading, setLoading] = useState(false);
-  const fetchGigs = () => {
+  const fetchJobs = () => {
     const config = {
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -34,7 +35,7 @@ const Job = () => {
       });
   };
   useEffect(() => {
-    fetchGigs();
+    fetchJobs();
   }, []);
 
   return (
@@ -50,7 +51,7 @@ const Job = () => {
             alignItems: "center",
           }}
         >
-          {loading && <Typography variant="h6">Loading...</Typography>}
+          {loading && <FullPageLoading />}
           {!loading && jobs?.length <= 0 && (
             <Typography variant="h6">
               No Jobs Added Please Add New Jobs
@@ -70,6 +71,7 @@ const Job = () => {
                     description={job.description}
                     id={job._id}
                   />
+
                   <Divider sx={{ width: "95%" }} />
                 </>
               );

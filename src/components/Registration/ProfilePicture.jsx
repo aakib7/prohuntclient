@@ -15,28 +15,36 @@ import React, { useState } from "react";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import img1 from "../../assests/images/profile.jpeg";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../Header/Header";
 import SubHeader from "../Header/SubHeader";
 import Footer from "../Footer/Footer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { loadUser } from "../../store/Actions/User";
 
 const ProfilePicture = () => {
-  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const [progress, setProgess] = useState(0);
   const [sending, setSending] = useState(false);
   const [image, setImage] = useState("");
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState("error");
   const [message, setMessage] = useState("");
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const isEditing = id ? true : false;
+  const [disable, setDisable] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(true);
 
   const navigate = useNavigate();
   const handleChange = (e) => {
     e.preventDefault();
     let data = new FormData();
     data.append("users", image);
-    if (!image) {
+    if (!image && !isEditing) {
       navigate(`/panel`);
+    } else if (!image && isEditing) {
+      navigate("/profile");
     } else {
       const config = {
         headers: {
@@ -57,10 +65,18 @@ const ProfilePicture = () => {
         })
         .then((response) => {
           setSending(false);
-          if (response.data.success) {
+          setDisableSubmit(true);
+          if (response.data.success && !isEditing) {
             user?.role === "freelancer"
               ? navigate(`/panel`)
               : navigate(`/employer`);
+          }
+          if (isEditing) {
+            setOpen(true);
+            setSeverity("success");
+            setMessage("User Profile Picture Edit Success Fully");
+            setDisable(false);
+            setDisableSubmit(true);
           }
         })
         .catch((error) => {
@@ -102,7 +118,6 @@ const ProfilePicture = () => {
             "linear-gradient(to top,rgba(192, 192, 192, 0.5) ,#fff)",
           boxShadow: "1px 1px 1px 1px #C0C0C0",
           marginTop: "65px",
-          boxShadow: "2px 2px 2px 2px #C0C0C0",
         }}
       >
         <CssBaseline />
@@ -147,25 +162,53 @@ const ProfilePicture = () => {
                   setProgess(0);
                   const file = e.target.files[0]; // accessing file
                   setImage(file); // storing file
+                  setDisable(true);
+                  setDisableSubmit(false);
                 }}
               />
             </Grid>
+            {isEditing ? (
+              <Grid item xs={12}>
+                <StyledButton
+                  onClick={() => {
+                    if (isEditing) {
+                      dispatch(loadUser());
+                      navigate("/profile");
+                    }
+                  }}
+                  fullWidth
+                  disabled={disable}
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  go to profile
+                </StyledButton>
+              </Grid>
+            ) : (
+              <Grid item xs={12}>
+                <StyledButton
+                  onClick={() => {
+                    if (!isEditing) {
+                      user?.role === "freelancer"
+                        ? navigate(`/panel`)
+                        : navigate(`/employer`);
+                    }
+                  }}
+                  fullWidth
+                  disabled={!disableSubmit}
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  skip
+                </StyledButton>
+              </Grid>
+            )}
+
             <Grid item xs={12}>
               <StyledButton
-                type="submit"
                 fullWidth
-                disabled={image}
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Skip
-              </StyledButton>
-            </Grid>
-            <Grid item xs={12}>
-              <StyledButton
-                type="submit"
-                fullWidth
-                disabled={!image}
+                disabled={disableSubmit}
+                type={"submit"}
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >

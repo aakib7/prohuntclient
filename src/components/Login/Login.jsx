@@ -69,7 +69,6 @@ const Login = () => {
       setOpen(true);
       setSeverity("success");
       setMessage("Welcome ");
-      console.log("user skills" + user.skills.length);
       if (!user.enterDetails) {
         navigate("/registration/detail");
       }
