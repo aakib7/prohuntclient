@@ -31,20 +31,19 @@ import SingleJob from "./components/Jobs/SingleJob/SingleJob";
 import EmployerPanelHeader from "./EmployeerPanel/EmployerPanelHeader";
 import DeshboardEmployer from "./EmployeerPanel/src/pages/Dashboard";
 import Job from "./EmployeerPanel/src/components/Job/Job";
-import Blog from "./EmployeerPanel/src/components/Blogs/Blog";
+import Blog from "./Blogs/Blog";
 import NotFound from "./404/NotFound";
 import UserProfile from "./components/UserProfile/UserProfile";
 import AllGigs from "./components/pages/AllGigs";
 import AllJobs from "./components/pages/AllJobs";
 import AllBlogs from "./components/pages/AllBlogs";
 import AllCategories from "./components/pages/AllCategories";
+import ChangePassword from "./ChangePassword/ChangePassword";
 
 function App() {
   const dispatch = useDispatch();
   // const user = useSelector((state) => state.user);
-  const { loading, user, isAuthenticated, error } = useSelector(
-    (state) => state.user
-  );
+  const { user, isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(loadUser());
@@ -81,7 +80,8 @@ function App() {
         >
           <Route exact path="" element={<Dashboard />} />
           <Route exact path="gig" element={<Gig />} />
-          <Route exact path="analytics" element={<Analytics />} />
+          <Route exact path="blogs" element={<Blog />} />
+          <Route exact path="changePassword" element={<ChangePassword />} />
         </Route>
         {/* {Employer} */}
         <Route
@@ -102,6 +102,7 @@ function App() {
           <Route exact path="" element={<DeshboardEmployer />} />
           <Route exact path="jobs" element={<Job />} />
           <Route exact path="blogs" element={<Blog />} />
+          <Route exact path="changePassword" element={<ChangePassword />} />
         </Route>
 
         {/* // registration */}

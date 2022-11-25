@@ -18,6 +18,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const modalWrapper = {
   overflow: "auto",
@@ -43,6 +44,7 @@ function BlogForm({ open, handleOpen, handleClose }) {
   const [subCatagories, setSubCatagories] = useState([]);
   const [error, setError] = useState();
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
 
   const [blog, setBlog] = useState({
     Title: "",
@@ -63,7 +65,7 @@ function BlogForm({ open, handleOpen, handleClose }) {
     if (!blog.Title) {
       errors.Title = "Title is required!";
     } else if (blog.Title.trim().length < 10) {
-      errors.Title = "JobTitle must be 10 character";
+      errors.Title = "Title must be 10 character";
     } else {
       errors.Title = "";
     }
@@ -160,7 +162,9 @@ function BlogForm({ open, handleOpen, handleClose }) {
         setMessage("Blog Added SuccessFully");
         window.location.reload(true);
         if (response.data.success) {
-          navigate(`/panel/blogs`);
+          user.role === "freelancer"
+            ? navigate(`/panel/blogs`)
+            : navigate(`/employer/blogs`);
         }
       })
       .catch((error) => {
@@ -246,8 +250,8 @@ function BlogForm({ open, handleOpen, handleClose }) {
                     name="Title"
                     required
                     fullWidth
-                    id="Gigs"
-                    label="Job Title"
+                    id="Blogd"
+                    label="Blog Title"
                     autoFocus
                     size="medium"
                   />
@@ -262,7 +266,7 @@ function BlogForm({ open, handleOpen, handleClose }) {
                   <TextField
                     id="outlined-select-currency"
                     select
-                    label="Job Category"
+                    label="Blog Category"
                     value={blog.category}
                     name="category"
                     fullWidth

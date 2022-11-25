@@ -152,7 +152,7 @@ function JobCard({ title, description, id }) {
                   mt: 1,
                 }}
               >
-                <Tooltip title="Delete Gig">
+                <Tooltip title="Delete Job">
                   <DeleteIcon
                     onClick={() => {
                       handleDelete();
@@ -185,7 +185,7 @@ function JobCard({ title, description, id }) {
                   mt: 1,
                 }}
               >
-                <Tooltip title="Edit Gig">
+                <Tooltip title="Edit Job">
                   <EditIcon
                     onClick={() => {
                       setOpenEdit((pre) => !pre);

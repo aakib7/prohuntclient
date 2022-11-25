@@ -27,6 +27,7 @@ const Gig = () => {
       .then((response) => {
         setLoading(false);
         setGigs(response.data.gigs);
+        console.log(response.data.gigs);
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -62,7 +63,7 @@ const Gig = () => {
           ""
         ) : (
           <>
-            {gigs.map((gig) => {
+            {gigs?.map((gig) => {
               return (
                 <>
                   <GigCard

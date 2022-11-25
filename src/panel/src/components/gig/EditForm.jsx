@@ -40,7 +40,7 @@ export default function EditForm({ open, handleOpen, handleClose, id }) {
   const [catagories, setCatagories] = useState();
   const [subCatagories, setSubCatagories] = useState([]);
   const isEditing = id ? true : false;
-  console.log(id);
+
   let navigate = useNavigate();
   const [error, setError] = useState();
   const [gig, setGig] = useState({
@@ -205,7 +205,7 @@ export default function EditForm({ open, handleOpen, handleClose, id }) {
         setOpenAlert(true);
         setSeverity("success");
         setMessage("Gig Edit SuccessFully");
-
+        window.location.reload(true);
         if (response.data.success) {
           navigate(`/panel/gig`);
         }

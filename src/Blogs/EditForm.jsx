@@ -13,10 +13,11 @@ import {
   Autocomplete,
   Alert,
 } from "@mui/material";
-
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 const modalWrapper = {
   overflow: "auto",
   maxHeight: "100vh",
@@ -41,6 +42,7 @@ function EditForm({ open, handleOpen, handleClose, id }) {
   const [subCatagories, setSubCatagories] = useState([]);
   const isEditing = id ? true : false;
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
 
   const [error, setError] = useState();
   const [blog, setBlog] = useState({
@@ -62,7 +64,7 @@ function EditForm({ open, handleOpen, handleClose, id }) {
     if (!blog.Title) {
       errors.Title = "Title is required!";
     } else if (blog.Title.trim().length < 10) {
-      errors.Title = "JobTitle must be 10 character";
+      errors.Title = "Title must be 10 character";
     } else {
       errors.Title = "";
     }
@@ -180,7 +182,9 @@ function EditForm({ open, handleOpen, handleClose, id }) {
         setMessage("Blog Edit SuccessFully");
         window.location.reload(true);
         if (response.data.success) {
-          navigate(`/employer/blogs`);
+          user.role === "freelancer"
+            ? navigate(`/panel/blogs`)
+            : navigate(`/employer/blogs`);
         }
       })
       .catch((error) => {
@@ -242,14 +246,14 @@ function EditForm({ open, handleOpen, handleClose, id }) {
             }}
           >
             <Typography
-              variant="h4"
+              variant="h5"
               sx={{
                 textAlign: "center",
                 fontWeight: "500",
                 mb: 1,
               }}
             >
-              Edit job
+              Edit Blog
             </Typography>
             <Box
               component="form"
@@ -265,8 +269,8 @@ function EditForm({ open, handleOpen, handleClose, id }) {
                     name="Title"
                     required
                     fullWidth
-                    id="Gigs"
-                    label="Job Title"
+                    id="Blog"
+                    label="Blog Title"
                     autoFocus
                     size="medium"
                   />
@@ -281,7 +285,7 @@ function EditForm({ open, handleOpen, handleClose, id }) {
                   <TextField
                     id="outlined-select-currency"
                     select
-                    label="Job Category"
+                    label="Blog Category"
                     value={blog.category}
                     name="category"
                     fullWidth

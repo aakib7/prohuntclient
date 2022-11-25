@@ -17,7 +17,7 @@ import { PrecisionManufacturingRounded } from "@mui/icons-material";
 import axios from "axios";
 import BlogForm from "./BlogForm";
 import EditForm from "./EditForm";
-import ImageBanner from "../../../../assests/images/main-banner.jpg";
+import ImageBanner from "../assests/images/main-banner.jpg";
 
 function BlogCard({ title, description, id }) {
   const [open, setOpen] = React.useState(false);
@@ -154,8 +154,12 @@ function BlogCard({ title, description, id }) {
                   mt: 1,
                 }}
               >
-                <Tooltip title="Delete Gig">
-                  <DeleteIcon />
+                <Tooltip title="Delete Blog">
+                  <DeleteIcon
+                    onClick={() => {
+                      handleDelete();
+                    }}
+                  />
                 </Tooltip>
               </Box>
               <Box
@@ -183,8 +187,12 @@ function BlogCard({ title, description, id }) {
                   mt: 1,
                 }}
               >
-                <Tooltip title="Edit Gig">
-                  <EditIcon />
+                <Tooltip title="Edit Blog">
+                  <EditIcon
+                    onClick={() => {
+                      setOpenEdit((pre) => !pre);
+                    }}
+                  />
                 </Tooltip>
               </Box>
               <Box

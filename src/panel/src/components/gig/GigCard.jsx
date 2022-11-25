@@ -30,7 +30,6 @@ const GigCard = ({ title, description, id }) => {
   const [openEdit, setOpenEdit] = React.useState(false);
   const handleOpenEdit = () => setOpenEdit(true);
   const handleCloseEdit = () => setOpenEdit(false);
-  const [delete1, setDelete1] = React.useState(false);
 
   const handleDelete = () => {
     const config = {
@@ -86,24 +85,28 @@ const GigCard = ({ title, description, id }) => {
           lineHeight: "1.43",
         }}
       >
-        <Link to={`/blog/${id}`} style={{ color: "black", cursor: "pointer" }}>
-          <Grid
-            item
-            style={{
-              width: "20%",
-              height: "100%",
-            }}
-          >
-            <img style={{ height: "100%", width: "100%" }} src={BannerImage} />
-          </Grid>
-          <Grid
-            item
-            style={{
-              width: "60%",
-              height: "100%",
-            }}
-          >
-            <Grid container direction={"column"}>
+        <Grid
+          item
+          style={{
+            width: "20%",
+            height: "100%",
+          }}
+        >
+          <img style={{ height: "100%", width: "100%" }} src={BannerImage} />
+        </Grid>
+        <Grid
+          item
+          style={{
+            width: "60%",
+            height: "100%",
+            zIndex: 1000,
+          }}
+        >
+          <Grid container direction={"column"}>
+            <Link
+              to={`/gig/${id}`}
+              style={{ color: "black", cursor: "pointer" }}
+            >
               <Grid item>
                 <Typography
                   variant={"body1"}
@@ -131,9 +134,9 @@ const GigCard = ({ title, description, id }) => {
                   {description}
                 </Typography>
               </Grid>
-            </Grid>
+            </Link>
           </Grid>
-        </Link>
+        </Grid>
 
         <Grid
           item
@@ -154,7 +157,11 @@ const GigCard = ({ title, description, id }) => {
                 }}
               >
                 <Tooltip title="Delete Gig">
-                  <DeleteIcon />
+                  <DeleteIcon
+                    onClick={() => {
+                      handleDelete();
+                    }}
+                  />
                 </Tooltip>
               </Box>
               <Box
@@ -183,7 +190,11 @@ const GigCard = ({ title, description, id }) => {
                 }}
               >
                 <Tooltip title="Edit Gig">
-                  <EditIcon />
+                  <EditIcon
+                    onClick={() => {
+                      setOpenEdit((pre) => !pre);
+                    }}
+                  />
                 </Tooltip>
               </Box>
               <Box
@@ -241,4 +252,6 @@ const StyledButtonEdit = styled(Button)`
   }
 `;
 
-<Tooltip title="Delete"></Tooltip>;
+{
+  /* <Tooltip title="Delete"></Tooltip>; */
+}

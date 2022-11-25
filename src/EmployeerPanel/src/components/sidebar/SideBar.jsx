@@ -5,6 +5,10 @@ import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import { Typography, Box, Stack } from "@mui/material";
 import WorkIcon from "@mui/icons-material/Work";
 import FeedIcon from "@mui/icons-material/Feed";
+import PasswordIcon from "@mui/icons-material/Password";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import LogoutIcon from "@mui/icons-material/Logout";
+import axios from "axios";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +17,7 @@ const Sidebar = () => {
     {
       path: "",
       name: "Dashboard",
-      icon: <AccessAlarmIcon />,
+      icon: <DashboardIcon />,
     },
     {
       path: "jobs",
@@ -26,25 +30,41 @@ const Sidebar = () => {
       icon: <FeedIcon />,
     },
     {
-      path: "comment",
-      name: "Comment",
-      icon: <AccessAlarmIcon />,
+      path: "changePassword",
+      name: "Change Password",
+      icon: <PasswordIcon />,
     },
-    {
-      path: "product",
-      name: "Product",
-      icon: <AccessAlarmIcon />,
-    },
-    {
-      path: "productList",
-      name: "Product List",
-      icon: <AccessAlarmIcon />,
-    },
+    // {
+    //   path: "product",
+    //   name: "Product",
+    //   icon: <AccessAlarmIcon />,
+    // },
+    // {
+    //   path: "productList",
+    //   name: "Product List",
+    //   icon: <AccessAlarmIcon />,
+    // },
   ];
+  const logout = () => {
+    const config = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+
+    axios
+      .get(`http://localhost:4000/user/logout`, config)
+      .then((response) => {
+        window.location.reload(true);
+      })
+      .catch((error) => {});
+  };
   return (
     <>
       <div className="container">
-        <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
+        <div style={{ width: isOpen ? "240px" : "50px" }} className="sidebar">
           <div className="top_section">
             <Typography
               variant="h4"
@@ -79,6 +99,25 @@ const Sidebar = () => {
               </div>
             </NavLink>
           ))}
+          <div>
+            <NavLink
+              className="link"
+              activeclassName="active"
+              onClick={() => {
+                logout();
+              }}
+            >
+              <div className="icon">
+                <LogoutIcon />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Log Out
+              </div>
+            </NavLink>
+          </div>
         </div>
       </div>
     </>

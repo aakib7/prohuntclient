@@ -4,9 +4,7 @@ import axios from "axios";
 import AddIcon from "@mui/icons-material/Add";
 import BlogCard from "./BlogCard";
 import BlogForm from "./BlogForm";
-import FullPageLoading from "../../../../components/others/FullPageLoading";
-
-import { style } from "@mui/system";
+import FullPageLoading from "../components/others/FullPageLoading";
 
 function Blog() {
   const [blogs, setBlogs] = React.useState([]);

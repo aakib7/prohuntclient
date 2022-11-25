@@ -171,7 +171,7 @@ export default function GigForm({ open, handleOpen, handleClose }) {
         setOpenAlert(true);
         setSeverity("success");
         setMessage("Gig Added SuccessFully");
-
+        window.location.reload(true);
         if (response.data.success) {
           navigate(`/panel/gig`);
         }
