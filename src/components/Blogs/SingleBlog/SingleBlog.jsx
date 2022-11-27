@@ -97,15 +97,23 @@ const SingleBlog = () => {
       {loading && !error && <FullPageLoading />}
       {!error ? (
         <>
-          <Grid
-            container
-            sx={{
+          <Box
+            style={{
               display: "flex",
-              flexDirection: { xs: "column-reverse", md: "row" },
-              mt: 6,
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              marginTop: "50px",
             }}
           >
-            <Grid item md={9}>
+            <Box
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "80%",
+              }}
+            >
               <BlogDetail
                 title={blog.title}
                 blogDescription={blog.description}
@@ -115,22 +123,10 @@ const SingleBlog = () => {
                 loading={loading}
                 reviews={blog.reviews}
                 owner={blog?.owner}
+                image={`http://localhost:4000/${blog?.image?.url}`}
               />
-            </Grid>
-            <Grid
-              item
-              md={2}
-              sx={{
-                display: { xs: "none", md: "block" },
-                position: { md: "fixed" },
-                right: 50,
-                // backgroundColor: "yellow",
-                width: "100%",
-              }}
-            >
-              <BlogRightSide />
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </>
       ) : (
         <Box

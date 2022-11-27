@@ -27,10 +27,8 @@ const Gig = () => {
       .then((response) => {
         setLoading(false);
         setGigs(response.data.gigs);
-        console.log(response.data.gigs);
       })
       .catch((error) => {
-        console.log(error.response.data.message);
         setLoading(false);
       });
   };
@@ -70,6 +68,7 @@ const Gig = () => {
                     title={gig.title}
                     description={gig.description}
                     id={gig._id}
+                    image={"http://localhost:4000/" + gig?.image?.url}
                   />
 
                   <Divider sx={{ width: "95%" }} />

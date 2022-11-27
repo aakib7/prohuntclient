@@ -11,7 +11,7 @@ import FullPageLoading from "../others/FullPageLoading";
 import { Link } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 
-const AllGigs = () => {
+const AllGigs = ({ header = true, homeSearch }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [gigs, setGigs] = useState([]);
@@ -19,16 +19,19 @@ const AllGigs = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState("");
-  const [total, setTotla] = useState(0);
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    setSearch(homeSearch);
+  }, [homeSearch]);
 
   const fetchGigs = async () => {
     try {
       setLoading(true);
-      const url = `http://localhost:4000/gigs?page=${page}&limit=${limit}&search=${search}`;
+      const url = `http://localhost:4000/gigs?page=${page}&limit=${limit}&search=${""}`;
       const { data } = await axios.get(url);
       setLoading(false);
       setGigs(data.Gigs);
-      setTotla(total);
+      setTotal(data.total);
     } catch (error) {
       setLoading(false);
       if (
@@ -46,6 +49,13 @@ const AllGigs = () => {
   }, [search, page]);
   return (
     <>
+      {header && (
+        <>
+          <Header />
+          <SubHeader />
+          <HeroSection setSearch={(search) => setSearch(search)} />
+        </>
+      )}
       {!loading && error && (
         <Box
           style={{
@@ -72,9 +82,6 @@ const AllGigs = () => {
           <Typography>No Blogs To show</Typography>
         </Box>
       )}
-      <Header />
-      <SubHeader />
-      <HeroSection setSearch={(search) => setSearch(search)} />
       {loading && (
         <Box
           sx={{
@@ -131,16 +138,18 @@ const AllGigs = () => {
             marginTop: "60px",
           }}
         >
-          <Pagination
-            count={Math.ceil(total / limit)}
-            onChange={(event, value) => {
-              setPage(value);
-            }}
-            color="primary"
-          />
+          {header && (
+            <Pagination
+              count={Math.ceil(total / limit)}
+              onChange={(event, value) => {
+                setPage(value);
+              }}
+              color="primary"
+            />
+          )}
         </Box>
       )}
-      <Footer />
+      {header && <Footer />}
     </>
   );
 };

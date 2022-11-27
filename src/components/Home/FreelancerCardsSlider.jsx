@@ -1,81 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Carousel from "react-elastic-carousel";
 import FreelancerCard from "../cards/FreelancerCard";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const FreelancerCardsSlider = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [freelancers, setFreelancers] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const fetchFreelancers = async () => {
+    try {
+      setLoading(true);
+      const url = `http://localhost:4000/user/freelancers?page=${page}&limit=${limit}&search=${""}`;
+      const { data } = await axios.get(url);
+      setLoading(false);
+
+      setFreelancers(data.freelancer);
+    } catch (error) {
+      setLoading(false);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        // setError(error.response.data.message);
+        setError(true);
+      }
+    }
+  };
+  useEffect(() => {
+    fetchFreelancers();
+  }, []);
   return (
     <Carousel breakPoints={breakPoints} pagination={false}>
-      {categories.map((cat) => {
-        return <FreelancerCard />;
+      {freelancers.map((freelancer) => {
+        return (
+          <Link to={`/profile/${freelancer._id}`}>
+            <FreelancerCard freelancer={freelancer} />
+          </Link>
+        );
       })}
     </Carousel>
   );
 };
 
 export default FreelancerCardsSlider;
-
-const categories = [
-  {
-    id: 1,
-    category: "Technoogy",
-    detail: "Picture your idea",
-    // image: image.code,
-  },
-  {
-    id: 2,
-    category: "Programing",
-    detail: "Picture your idea",
-    // image: image.mobile,
-  },
-  {
-    id: 3,
-    category: "writing",
-    detail: "Picture your idea",
-    // image: image.web,
-  },
-  {
-    id: 4,
-    category: "Bussines",
-    detail: "Picture your idea",
-    // image: image.logo,
-  },
-  {
-    id: 5,
-    category: "Design",
-    detail: "Picture your idea",
-    // image: image.design,
-  },
-  {
-    id: 6,
-    category: "Design",
-    detail: "Picture your idea",
-    // image: image.design,
-  },
-  {
-    id: 7,
-    category: "Design",
-    detail: "Picture your idea",
-    // image: image.design,
-  },
-  {
-    id: 8,
-    category: "Design",
-    detail: "Picture your idea",
-    // image: image.design,
-  },
-  {
-    id: 9,
-    category: "Design",
-    detail: "Picture your idea",
-    // image: image.design,
-  },
-  {
-    id: 10,
-    category: "Design",
-    detail: "Picture your idea",
-    // image: image.design,
-  },
-];
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },

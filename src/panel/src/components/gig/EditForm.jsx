@@ -17,6 +17,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import LinearProgress from "@mui/material/LinearProgress";
 const modalWrapper = {
   overflow: "auto",
   maxHeight: "100vh",
@@ -39,6 +40,10 @@ export default function EditForm({ open, handleOpen, handleClose, id }) {
   const [loading, setLoading] = useState(false);
   const [catagories, setCatagories] = useState();
   const [subCatagories, setSubCatagories] = useState([]);
+  const [image, setImage] = React.useState("");
+  const [progress, setProgess] = React.useState(0);
+  const [sending, setSending] = React.useState(false);
+  const [isFilePicked, setIsFilePicked] = useState(false);
   const isEditing = id ? true : false;
 
   let navigate = useNavigate();
@@ -159,9 +164,17 @@ export default function EditForm({ open, handleOpen, handleClose, id }) {
       }
     });
   };
-
   const handleChange = (e) => {
     setGig((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const getFormData = () => {
+    var form_data = new FormData();
+    for (var key in gig) {
+      form_data.append(key, gig[key]);
+    }
+    form_data.append("gig", image);
+    return form_data;
   };
 
   const handleSubmit = (e) => {
@@ -185,23 +198,21 @@ export default function EditForm({ open, handleOpen, handleClose, id }) {
     const config = {
       headers: {
         "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
       withCredentials: true,
+      onUploadProgress: function (progressEvent) {
+        var percentCompleted =
+          Math.round((progressEvent.loaded * 100) / progressEvent.total) + "%";
+        setProgess(percentCompleted);
+      },
     };
+    setSending(true);
+    console.log(getFormData());
     axios
-      .put(
-        `http://localhost:4000/gigs/${id}`,
-        {
-          title: gig.gigTitle,
-          description: gig.description,
-          deliveredTime: gig.Deliver,
-          price: gig.gigPrice,
-          category: gig.subCategories,
-        },
-        config
-      )
+      .put(`http://localhost:4000/gigs/${id}`, getFormData(), config)
       .then((response) => {
+        setSending(false);
         setOpenAlert(true);
         setSeverity("success");
         setMessage("Gig Edit SuccessFully");
@@ -211,6 +222,7 @@ export default function EditForm({ open, handleOpen, handleClose, id }) {
         }
       })
       .catch((error) => {
+        setSending(false);
         setOpenAlert(true);
         setSeverity("error");
         setError(error.response.data.message);
@@ -410,18 +422,33 @@ export default function EditForm({ open, handleOpen, handleClose, id }) {
                   sx={{ marginBottom: 3 }}
                 >
                   Gig Picture
-                  <input hidden accept="image/*" multiple type="file" />
+                  <input
+                    hidden
+                    type="file"
+                    onChange={(e) => {
+                      setProgess(0);
+                      const file = e.target.files[0]; // accessing file
+                      setImage(file); // storing file
+                      setIsFilePicked(true);
+                    }}
+                  />
                 </Button>
                 <Button
                   type="submit"
                   variant="contained"
                   color="success"
+                  disabled={sending}
                   sx={{ marginX: { xs: 1, md: 2, sm: 2 }, marginBottom: 3 }}
                 >
                   Submit
                 </Button>
               </Stack>
             </Box>
+            {sending && (
+              <Box sx={{ width: "100%" }}>
+                <LinearProgress value={progress} />
+              </Box>
+            )}
           </Container>
         </Box>
       </Modal>

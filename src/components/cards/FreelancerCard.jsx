@@ -1,13 +1,9 @@
 import React from "react";
-// import { Link } from "react-router-dom";
-import image from "../../assests/images/main-banner.jpg";
-// import CustomText from "../CustomText";
-// import CustomLink from "./CustomLink";
 import { Card, Typography, Rating } from "@mui/material";
 import styled from "@emotion/styled";
-import BannerImage from "../../assests/images/main-banner.jpg";
+import BannerImage from "../../assests/images/pak.png";
 
-const FreelancerCard = ({ cat }) => {
+const FreelancerCard = ({ freelancer }) => {
   return (
     <>
       <Card style={{ width: "286px", height: "430px" }}>
@@ -30,7 +26,7 @@ const FreelancerCard = ({ cat }) => {
             }}
           >
             <img
-              src={BannerImage}
+              src={`http://localhost:4000/${freelancer.avatar.url}`}
               style={{ height: "100%", borderRadius: "50%", width: "50%" }}
             />
           </div>
@@ -48,7 +44,7 @@ const FreelancerCard = ({ cat }) => {
                 color: "#16113A",
               }}
             >
-              Waqas
+              {freelancer.userName}
             </Typography>
           </div>
 
@@ -89,13 +85,18 @@ const FreelancerCard = ({ cat }) => {
             >
               <img
                 src={BannerImage}
-                style={{ height: "70%", width: "50%", borderRadius: "50px" }}
+                style={{
+                  height: "70%",
+                  width: "50%",
+                  borderRadius: "50px",
+                  textTransform: "capitalize",
+                }}
               />
             </div>
             <div
               style={{ display: "flex", width: "80%", alignItems: "center" }}
             >
-              Pakistan
+              {freelancer?.country ? freelancer.country : "Pakistan"}
             </div>
           </div>
         </div>
@@ -154,39 +155,41 @@ const FreelancerCard = ({ cat }) => {
                 width: "100%",
               }}
             >
-              <div
-                style={{
-                  marginTop: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexWrap: "wrap",
-                }}
-              >
-                <StyledTypography1
-                  sx={{
-                    fontSize: "12px",
-                    fontWeight: 300,
-                    color: "white",
-                    bgcolor: "#025e73",
-                    padding: "4px 8px",
-                    marginLeft: 5,
+              {freelancer?.skills && (
+                <div
+                  style={{
+                    marginTop: "10px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexWrap: "wrap",
                   }}
                 >
-                  animation
-                </StyledTypography1>
-                <StyledTypography
-                  sx={{
-                    fontSize: "12px",
-                    fontWeight: 300,
-                    color: "white",
-                    bgcolor: "#f2a71b",
-                    padding: "5px 10px",
-                    marginLeft: 5,
-                  }}
-                >
-                  Shopify Design
-                </StyledTypography>
-              </div>
+                  <StyledTypography1
+                    sx={{
+                      fontSize: "12px",
+                      fontWeight: 300,
+                      color: "white",
+                      bgcolor: "#025e73",
+                      padding: "4px 8px",
+                      marginLeft: 5,
+                    }}
+                  >
+                    {freelancer?.skills ? freelancer?.skills[0] : "animation"}
+                  </StyledTypography1>
+                  <StyledTypography
+                    sx={{
+                      fontSize: "12px",
+                      fontWeight: 300,
+                      color: "white",
+                      bgcolor: "#f2a71b",
+                      padding: "5px 10px",
+                      marginLeft: 5,
+                    }}
+                  >
+                    {freelancer?.skills ? freelancer?.skills[0] : "animation"}
+                  </StyledTypography>
+                </div>
+              )}
             </div>
           </div>
           <div

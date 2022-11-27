@@ -16,6 +16,7 @@ import MuiAlert from "@mui/material/Alert";
 import CloseIcon from "@mui/icons-material/Close";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 const modalWrapper = {
   overflow: "auto",
@@ -39,11 +40,16 @@ export default function GigForm({ open, handleOpen, handleClose }) {
   const [loading, setLoading] = useState(false);
   const [catagories, setCatagories] = useState();
   const [subCatagories, setSubCatagories] = useState([]);
+  const [image, setImage] = React.useState("");
+  const [progress, setProgess] = React.useState(0);
+  const [sending, setSending] = React.useState(false);
+  const [isFilePicked, setIsFilePicked] = useState(false);
+
   let navigate = useNavigate();
   const [error, setError] = useState();
   const [gig, setGig] = useState({
     gigTitle: "",
-    gigPrice: "",
+    gigPrice: 0,
     Deliver: "",
     category: "",
     subCategories: [],
@@ -57,12 +63,14 @@ export default function GigForm({ open, handleOpen, handleClose }) {
     subCategories: "",
     category: "",
     description: "",
+    image: "",
   });
   const [selectedOptions, setSelectedOptions] = useState([]);
 
   let errors = { ...validation };
 
   const checkValidation = () => {
+    let price = Number(gig.gigPrice);
     if (!gig.gigTitle) {
       errors.gigTitle = "Gig Title is required!";
     } else if (gig.gigTitle.trim().length < 40) {
@@ -70,9 +78,12 @@ export default function GigForm({ open, handleOpen, handleClose }) {
     } else {
       errors.gigTitle = "";
     }
-    const cond3 = /[0-9]|\./;
-    if (!gig.gigPrice.match(cond3)) {
-      errors.gigPrice = "Gig Price must be number";
+    const cond3 = /[1-9]|\./;
+    if (price <= 0) {
+      errors.gigPrice = "Gig Price must be number, and greater than 0";
+    }
+    if (!price) {
+      errors.gigPrice = "Gig Price Must be a Number";
     } else {
       errors.gigPrice = "";
     }
@@ -129,9 +140,17 @@ export default function GigForm({ open, handleOpen, handleClose }) {
   const handleChange = (e) => {
     setGig((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
+  const getFormData = () => {
+    var form_data = new FormData();
+    for (var key in gig) {
+      form_data.append(key, gig[key]);
+    }
+    form_data.append("gig", image);
+    return form_data;
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
+
     gig.subCategories = selectedOptions.map((e) => e.name);
     gig.subCategories.push(gig.category);
     if (
@@ -147,30 +166,33 @@ export default function GigForm({ open, handleOpen, handleClose }) {
       setMessage("Please fill data correctly!!!");
       return;
     }
+    if (!isFilePicked) {
+      setOpenAlert(true);
+      setSeverity("error");
+      setMessage("Please select image");
+      return;
+    }
 
     const config = {
       headers: {
         "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
       withCredentials: true,
+      onUploadProgress: function (progressEvent) {
+        var percentCompleted =
+          Math.round((progressEvent.loaded * 100) / progressEvent.total) + "%";
+        setProgess(percentCompleted);
+      },
     };
+    setSending(true);
     axios
-      .post(
-        `http://localhost:4000/gigs/creategig`,
-        {
-          title: gig.gigTitle,
-          description: gig.description,
-          deliveredTime: gig.Deliver,
-          price: gig.gigPrice,
-          category: gig.subCategories,
-        },
-        config
-      )
+      .post(`http://localhost:4000/gigs/creategig`, getFormData(), config)
       .then((response) => {
         setOpenAlert(true);
         setSeverity("success");
         setMessage("Gig Added SuccessFully");
+        setSending(false);
         window.location.reload(true);
         if (response.data.success) {
           navigate(`/panel/gig`);
@@ -178,6 +200,7 @@ export default function GigForm({ open, handleOpen, handleClose }) {
       })
       .catch((error) => {
         setOpenAlert(true);
+        setSending(false);
         setSeverity("error");
         setError(error.response.data.message);
         setMessage(error.response.data.message);
@@ -266,7 +289,7 @@ export default function GigForm({ open, handleOpen, handleClose }) {
                     required
                     fullWidth
                     id="Gigs Price"
-                    label="Gigs Price"
+                    label="Gigs Price $"
                     autoFocus
                     size="medium"
                   />
@@ -373,18 +396,33 @@ export default function GigForm({ open, handleOpen, handleClose }) {
                   sx={{ marginBottom: 3 }}
                 >
                   Gig Picture
-                  <input hidden accept="image/*" multiple type="file" />
+                  <input
+                    hidden
+                    type="file"
+                    onChange={(e) => {
+                      setProgess(0);
+                      const file = e.target.files[0]; // accessing file
+                      setImage(file); // storing file
+                      setIsFilePicked(true);
+                    }}
+                  />
                 </Button>
                 <Button
                   type="submit"
                   variant="contained"
                   color="success"
+                  disabled={sending}
                   sx={{ marginX: { xs: 1, md: 2, sm: 2 }, marginBottom: 3 }}
                 >
                   Submit
                 </Button>
               </Stack>
             </Box>
+            {sending && (
+              <Box sx={{ width: "100%" }}>
+                <LinearProgress value={progress} />
+              </Box>
+            )}
           </Container>
         </Box>
       </Modal>

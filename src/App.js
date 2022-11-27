@@ -39,6 +39,7 @@ import AllJobs from "./components/pages/AllJobs";
 import AllBlogs from "./components/pages/AllBlogs";
 import AllCategories from "./components/pages/AllCategories";
 import ChangePassword from "./ChangePassword/ChangePassword";
+import AllFreelancers from "./components/pages/AllFreelancers";
 
 function App() {
   const dispatch = useDispatch();
@@ -164,6 +165,7 @@ function App() {
         <Route path={"/jobs"} element={<AllJobs />} />
         <Route path={"/blogs"} element={<AllBlogs />} />
         <Route path={"/categories"} element={<AllCategories />} />
+        <Route path={"/freelancers"} element={<AllFreelancers />} />
 
         <Route path={"*"} element={<NotFound />} />
       </Routes>

@@ -19,7 +19,7 @@ import BlogForm from "./BlogForm";
 import EditForm from "./EditForm";
 import ImageBanner from "../assests/images/main-banner.jpg";
 
-function BlogCard({ title, description, id }) {
+function BlogCard({ title, description, id, image }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(false);
   const handleClose = () => setOpen(false);
@@ -92,7 +92,7 @@ function BlogCard({ title, description, id }) {
             height: "100%",
           }}
         >
-          <img style={{ height: "100%", width: "100%" }} src={ImageBanner} />
+          <img style={{ height: "100%", width: "100%" }} src={image} />
         </Grid>
         <Grid
           item

@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import pic from "../../../assests/images/main-banner.jpg";
 import Comments from "./Comments";
 import { useSelector } from "react-redux";
 import ReadReviews from "../../others/ReadReviews";
@@ -27,6 +26,7 @@ const BlogDetail = ({
   handleLike,
   reviews,
   owner,
+  image,
 }) => {
   const { isAuthenticated } = useSelector((state) => state.user);
 
@@ -48,27 +48,24 @@ const BlogDetail = ({
           {message}
         </Alert>
       </Snackbar>
-      <Grid container sx={{ paddingLeft: { xs: 3, md: 5 } }}>
+      <Grid container>
         <Grid item xs={12} bgcolor={"#f7f7f7"}>
-          <Typography variant="h4" fontWeight={600} lineHeight={"50px"}>
+          <Typography
+            variant="h4"
+            fontWeight={600}
+            lineHeight={"50px"}
+            style={{ whiteSpace: "pre-line" }}
+          >
             {title}
           </Typography>
-          {/* <Box sx={{ display: { xs: "block", md: "none" } }}>
-            <RightSideBar
-              price={price}
-              deliverTime={deliverTime}
-              responce={responce}
-              authorName={authorName}
-            />
-          </Box> */}
           <img
             style={{
               marginTop: "25px",
               width: "100%",
               height: "auto",
             }}
-            src={pic}
-            alt="mobile phone"
+            src={image}
+            alt="Blog Cover Picture"
           />
         </Grid>
         <Grid item xs={12} mt={1}>

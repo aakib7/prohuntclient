@@ -5,16 +5,10 @@ import { CardMedia } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import styled from "@emotion/styled";
 
-import BannerImage from "../../assests/images/main-banner.jpg";
-const SingleBlogPost = ({ title, description, img }) => {
+const SingleBlogPost = ({ title, description, image }) => {
   return (
     <Card sx={{ maxWidth: 340 }}>
-      <CardMedia
-        component="img"
-        height="210"
-        image={BannerImage}
-        alt="Paella dish"
-      />
+      <CardMedia component="img" height="210" image={image} alt="Blog Image" />
       <CardContent sx={{ backgroundColor: "#025e73" }}>
         <TypographyStyles
           fontSize={20}
@@ -22,12 +16,19 @@ const SingleBlogPost = ({ title, description, img }) => {
           sx={{
             color: "black",
             cursor: "pointer",
+            height: "60px",
+            overflow: "hidden",
           }}
         >
           {!title && <>Start an online business and work from home</>}
+
           {title}
         </TypographyStyles>
-        <Typography variant="body2" sx={{ color: "white" }}>
+        <Typography
+          variant="body2"
+          sx={{ color: "white" }}
+          style={{ height: "100px", marginTop: "5px", overflow: "hidden" }}
+        >
           {!description && (
             <>
               This impressive paella is a perfect party dish and a fun meal to
@@ -35,6 +36,7 @@ const SingleBlogPost = ({ title, description, img }) => {
               with the mussels, if you like.
             </>
           )}
+          {/* <ReadMore words={250}>{description}</ReadMore> */}
           {description}
         </Typography>
       </CardContent>

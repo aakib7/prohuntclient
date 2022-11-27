@@ -9,29 +9,27 @@ import Pagination from "@mui/material/Pagination";
 import image from "../../assests/images/main-banner.jpg";
 import FullPageLoading from "../others/FullPageLoading";
 import { Link } from "react-router-dom";
-import SingleBlogPost from "../cards/SingleBlogPost";
+import FreelancerCard from "../cards/FreelancerCard";
 
-const AllBlogs = ({ header = true, homeSearch }) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [blogs, setBlogs] = useState([]);
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+const AllFreelancers = ({ header = true, homeSearch }) => {
   const [search, setSearch] = useState("");
   const [total, setTotla] = useState(0);
-
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [freelancers, setFreelancers] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   useEffect(() => {
     setSearch(homeSearch);
   }, [homeSearch]);
-
-  const fetchBlogs = async () => {
+  const fetchFreelancers = async () => {
     try {
       setLoading(true);
-      const url = `http://localhost:4000/blog?page=${page}&limit=${limit}&search=${search}`;
+      const url = `http://localhost:4000/user/freelancers?page=${page}&limit=${limit}&search=${search}`;
       const { data } = await axios.get(url);
       setLoading(false);
-      setBlogs(data.post);
       setTotla(data.total);
+      setFreelancers(data.freelancer);
     } catch (error) {
       setLoading(false);
       if (
@@ -45,7 +43,7 @@ const AllBlogs = ({ header = true, homeSearch }) => {
     }
   };
   useEffect(() => {
-    fetchBlogs();
+    fetchFreelancers();
   }, [page, search]);
   return (
     <>
@@ -74,7 +72,7 @@ const AllBlogs = ({ header = true, homeSearch }) => {
           <Typography>Somthing happend bad try again Later</Typography>
         </Box>
       )}
-      {!loading && blogs.length <= 0 && (
+      {!loading && freelancers.length <= 0 && (
         <Box
           style={{
             display: "flex",
@@ -84,25 +82,21 @@ const AllBlogs = ({ header = true, homeSearch }) => {
             height: "100%",
           }}
         >
-          <Typography>No Blogs To show</Typography>
+          <Typography>No Freelancers To show</Typography>
         </Box>
       )}
 
-      {blogs && (
+      {freelancers && (
         <Grid container marginLeft={5}>
-          {blogs?.map((blog) => {
+          {freelancers?.map((freelancer) => {
             return (
               <>
-                <Grid item xs={12} md={6} lg={4} mt={10}>
+                <Grid item xs={12} md={4} lg={3} mt={10}>
                   <Link
-                    to={`/blog/${blog?._id}`}
+                    to={`/freelancer/${freelancer?._id}`}
                     style={{ textTransform: "capitalize" }}
                   >
-                    <SingleBlogPost
-                      title={blog?.title}
-                      description={blog?.description}
-                      imgage={image}
-                    />
+                    <FreelancerCard freelancer={freelancer} />
                   </Link>
                 </Grid>
               </>
@@ -111,7 +105,7 @@ const AllBlogs = ({ header = true, homeSearch }) => {
         </Grid>
       )}
 
-      {blogs?.length > 0 && (
+      {freelancers?.length > 0 && (
         <Box
           style={{
             display: "flex",
@@ -136,4 +130,4 @@ const AllBlogs = ({ header = true, homeSearch }) => {
   );
 };
 
-export default AllBlogs;
+export default AllFreelancers;

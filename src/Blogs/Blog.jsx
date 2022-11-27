@@ -70,6 +70,7 @@ function Blog() {
                     title={blog.title}
                     description={blog.description}
                     id={blog._id}
+                    image={`http://localhost:4000/${blog.image.url}`}
                   />
 
                   <Divider sx={{ width: "95%" }} />

@@ -197,7 +197,7 @@ function ChangePassword() {
         maxWidth={"xs"}
         sx={{
           backgroundImage:
-            "linear-gradient(to top,rgba(192, 192, 192, 0.3) ,#fff)",
+            "linear-gradient(to top,rgba(192, 192, 192, 0.5) ,#fff)",
           backgroundColor: "white",
           boxShadow: "2px 2px 2px 2px lightgray",
           borderRadius: "3px",

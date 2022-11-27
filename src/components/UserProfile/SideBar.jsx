@@ -11,8 +11,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
-import { useSelector } from "react-redux";
+
 import img1 from "../../assests/images/profile.jpeg";
 import DoneIcon from "@mui/icons-material/Done";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -33,6 +34,16 @@ const SideBar = ({ user }) => {
           </Box>
         </Grid>
         <Grid item xs={12}>
+          <Stack direction="row" marginLeft={1.5} spacing={1} mt={2.25}>
+            <AccountCircleRoundedIcon fontSize="small" />
+            <Typography
+              variant="p"
+              alignItems={"center"}
+              sx={{ wordBreak: "break-all" }}
+            >
+              {user.role}
+            </Typography>
+          </Stack>
           <Stack direction="row" marginLeft={1.5} spacing={1} mt={2.25}>
             <EmailOutlinedIcon fontSize="small" />
             <Typography

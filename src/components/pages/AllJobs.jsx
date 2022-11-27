@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import SingleJobCard from "../cards/SingleJobCard";
 import Pagination from "@mui/material/Pagination";
 
-const AllJobs = () => {
+const AllJobs = ({ header = true, homeSearch }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [jobs, setJobs] = useState([]);
@@ -19,6 +19,9 @@ const AllJobs = () => {
   const [total, setTotal] = useState(0);
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState("");
+  useEffect(() => {
+    setSearch(homeSearch);
+  }, [homeSearch]);
   const fetchJobs = async () => {
     try {
       setLoading(true);
@@ -44,7 +47,15 @@ const AllJobs = () => {
   }, [search, page]);
   return (
     <>
-      {loading && <FullPageLoading />}
+      {header && (
+        <>
+          <Header />
+          <SubHeader />
+          <HeroSection setSearch={(search) => setSearch(search)} />
+          {loading && <FullPageLoading />}
+        </>
+      )}
+
       {!loading && error && (
         <Box
           style={{
@@ -70,25 +81,6 @@ const AllJobs = () => {
         >
           <Typography>No Jobs To show</Typography>
         </Box>
-      )}
-      <Header />
-      <SubHeader />
-      <HeroSection setSearch={(search) => setSearch(search)} />
-      {loading && (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "80vh",
-          }}
-        >
-          <FullPageLoading />
-        </Box>
-      )}
-      {!loading && error && (
-        <Typography>Somthing happend bad try again Later</Typography>
       )}
 
       {jobs && (
@@ -130,16 +122,18 @@ const AllJobs = () => {
             marginTop: "60px",
           }}
         >
-          <Pagination
-            count={Math.ceil(total / 10)}
-            onChange={(event, value) => {
-              setPage(value);
-            }}
-            color="primary"
-          />
+          {header && (
+            <Pagination
+              count={Math.ceil(total / 10)}
+              onChange={(event, value) => {
+                setPage(value);
+              }}
+              color="primary"
+            />
+          )}
         </Box>
       )}
-      <Footer />
+      {header && <Footer />}
     </>
   );
 };

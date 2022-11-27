@@ -19,6 +19,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const modalWrapper = {
   overflow: "auto",
@@ -45,6 +46,11 @@ function BlogForm({ open, handleOpen, handleClose }) {
   const [error, setError] = useState();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
+
+  const [image, setImage] = React.useState("");
+  const [progress, setProgess] = React.useState(0);
+  const [sending, setSending] = React.useState(false);
+  const [isFilePicked, setIsFilePicked] = useState(false);
 
   const [blog, setBlog] = useState({
     Title: "",
@@ -123,6 +129,14 @@ function BlogForm({ open, handleOpen, handleClose }) {
   const handleChange = (e) => {
     setBlog((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+  const getFormData = () => {
+    var form_data = new FormData();
+    for (var key in blog) {
+      form_data.append(key, blog[key]);
+    }
+    form_data.append("blog", image);
+    return form_data;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -139,25 +153,30 @@ function BlogForm({ open, handleOpen, handleClose }) {
       setMessage("Please fill data correctly!!!");
       return;
     }
+    if (!isFilePicked) {
+      setOpenAlert(true);
+      setSeverity("error");
+      setMessage("Please select image");
+      return;
+    }
     const config = {
       headers: {
         "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
       withCredentials: true,
+      onUploadProgress: function (progressEvent) {
+        var percentCompleted =
+          Math.round((progressEvent.loaded * 100) / progressEvent.total) + "%";
+        setProgess(percentCompleted);
+      },
     };
+    setSending(true);
     axios
-      .post(
-        `http://localhost:4000/blog/create`,
-        {
-          title: blog.Title,
-          description: blog.description,
-          category: blog.subCategories,
-        },
-        config
-      )
+      .post(`http://localhost:4000/blog/create`, getFormData(), config)
       .then((response) => {
         setOpenAlert(true);
+        setSending(false);
         setSeverity("success");
         setMessage("Blog Added SuccessFully");
         window.location.reload(true);
@@ -170,6 +189,7 @@ function BlogForm({ open, handleOpen, handleClose }) {
       .catch((error) => {
         setOpenAlert(true);
         setSeverity("error");
+        setSending(false);
         setError(error.response.data.message);
         setMessage(error.response.data.message);
       });
@@ -340,18 +360,33 @@ function BlogForm({ open, handleOpen, handleClose }) {
                   sx={{ marginBottom: 3 }}
                 >
                   blog Picture
-                  <input hidden accept="image/*" multiple type="file" />
+                  <input
+                    hidden
+                    type="file"
+                    onChange={(e) => {
+                      setProgess(0);
+                      const file = e.target.files[0]; // accessing file
+                      setImage(file); // storing file
+                      setIsFilePicked(true);
+                    }}
+                  />
                 </Button>
                 <Button
                   type="submit"
                   variant="contained"
                   color="success"
+                  disabled={sending}
                   sx={{ marginX: { xs: 1, md: 2, sm: 2 }, marginBottom: 3 }}
                 >
                   Submit
                 </Button>
               </Stack>
             </Box>
+            {sending && (
+              <Box sx={{ width: "100%" }}>
+                <LinearProgress value={progress} />
+              </Box>
+            )}
           </Container>
         </Box>
       </Modal>

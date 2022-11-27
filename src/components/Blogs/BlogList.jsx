@@ -20,6 +20,7 @@ const BlogList = ({ search }) => {
         .get(url)
         .then((response) => {
           setBlogs(response.data.post);
+          console.log(response.data.post);
           setLoading(false);
         })
         .catch((error) => {
@@ -80,8 +81,8 @@ const BlogList = ({ search }) => {
                 >
                   <SingleBlogPost
                     title={blog.title}
-                    imgage={image}
                     description={blog.description}
+                    image={`http://localhost:4000/${blog.image.url}`}
                   />
                 </Link>
               </Grid>

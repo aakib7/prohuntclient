@@ -19,7 +19,7 @@ import GigForm from "./GigForm";
 import { PrecisionManufacturingRounded } from "@mui/icons-material";
 import EditForm from "./EditForm";
 
-const GigCard = ({ title, description, id }) => {
+const GigCard = ({ title, description, id, image }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -92,7 +92,7 @@ const GigCard = ({ title, description, id }) => {
             height: "100%",
           }}
         >
-          <img style={{ height: "100%", width: "100%" }} src={BannerImage} />
+          <img style={{ height: "100%", width: "100%" }} src={image} />
         </Grid>
         <Grid
           item

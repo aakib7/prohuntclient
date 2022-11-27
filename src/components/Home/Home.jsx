@@ -13,66 +13,148 @@ import Footer from "../Footer/Footer";
 import ExperOpinion from "./ExperOpinion";
 import Header from "../Header/Header";
 import axios from "axios";
+import HeroSections from "../MainBanner/HeroSections";
+import SingleGigCard from "../cards/SingleGigCard";
+import GigHome from "./GigHome";
+import JobHome from "./JobHome";
+import AllBlogs from "../pages/AllBlogs";
+import AllGigs from "../pages/AllGigs";
+import AllFreelancers from "../pages/AllFreelancers";
+import AllJobs from "../pages/AllJobs";
 
 const Home = () => {
+  const [keyword, setKeyword] = React.useState("Freelancer");
+  const [search, setSearch] = React.useState("");
   return (
     <>
       <Header />
       <SubHeader />
       {/* // Main Banner */}
       <Box>
-        <Banner />
+        <HeroSections
+          setKeyword={setKeyword}
+          setSearch={setSearch}
+          keyword={keyword}
+        />
       </Box>
-      {/* // Horizontal Bar */}
-      <Box sx={{ mt: 10 }}>
-        <Box sx={{ pl: 8 }}>
-          <Typography variant="h4">Most Poupolar Categories</Typography>
-        </Box>
-        <Box sx={{ mt: 5 }}>
-          <HorizontalCursor />
-        </Box>
-      </Box>
-      {/* Get Start Banner */}
-      <Box sx={{ margin: "100px 0px" }}>
-        <GetStartBanner />
-      </Box>
-      {/* Freelancer Cards */}
-      <Box>
-        <Box sx={{ pl: 8 }}>
-          <Typography variant="h4">Expert Freelancer</Typography>
-        </Box>
-        <Box sx={{ mt: 4 }}>
-          <FreelancerCardsSlider />
-        </Box>
-        <Box sx={{ position: "relative", bgcolor: "red" }}>
-          <Link
-            to={""}
-            style={{
-              position: "absolute",
-              right: 90,
-              marginTop: 10,
-            }}
-          >
-            All Freelancer
-            <ArrowRightAltIcon sx={{ position: "absolute" }} />
-          </Link>
-        </Box>
-      </Box>
-      {/* Abouts Cards */}
-      <Box sx={{ margin: "100px 0px" }}>
-        <AboutCards />
-      </Box>
-      {/* Abouts Cards */}
+      {/* //for search */}
+      {keyword === "Blog" && search && (
+        <AllBlogs header={false} homeSearch={search} />
+      )}
+      {keyword === "Gigs" && search && (
+        <AllGigs header={false} homeSearch={search} />
+      )}
+      {keyword === "Freelancer" && search && (
+        <AllFreelancers header={false} homeSearch={search} />
+      )}
+      {keyword === "Jobs" && search && (
+        <AllJobs header={false} homeSearch={search} />
+      )}
 
-      <Box>
-        <Box sx={{ pl: 8 }}>
-          <Typography variant="h4">Expert Opinions</Typography>
-        </Box>
-        <Box sx={{ mt: 4 }}>
-          <ExperOpinion />
-        </Box>
-      </Box>
+      {/* // if search is empty this will show */}
+      {!search && (
+        <>
+          {/* // Horizontal Bar */}
+          <Box sx={{ mt: 10 }}>
+            <Box display={"flex"} justifyContent={"space-between"}>
+              <Typography sx={{ pl: 8 }} variant="h4">
+                Most Poupolar Categories
+              </Typography>
+              <Typography
+                sx={{ pr: 8, marginTop: 3, textDecoration: "underline" }}
+                variant="body2"
+              >
+                <Link to={"categories"}>All Categories</Link>
+              </Typography>
+            </Box>
 
+            <Box sx={{ mt: 5 }}>
+              <HorizontalCursor />
+            </Box>
+          </Box>
+
+          {/* Get Start Banner */}
+          <Box sx={{ margin: "100px 0px" }}>
+            <GetStartBanner />
+          </Box>
+
+          {/* Gigs */}
+          <Box style={{ marginTop: "50px" }}>
+            <Box display={"flex"} justifyContent={"space-between"}>
+              <Typography sx={{ pl: 8 }} variant="h4">
+                Top Gigs
+              </Typography>
+              <Typography
+                sx={{ pr: 8, marginTop: 3, textDecoration: "underline" }}
+                variant="body2"
+              >
+                <Link to={"gigs"}>All Gigs</Link>
+              </Typography>
+            </Box>
+            <Box sx={{ mt: 4, p: 2 }}>
+              <GigHome />
+            </Box>
+          </Box>
+
+          {/* Freelancer Cards */}
+          <Box style={{ marginTop: "50px" }}>
+            <Box display={"flex"} justifyContent={"space-between"}>
+              <Typography sx={{ pl: 8 }} variant="h4">
+                Expert Freelancer
+              </Typography>
+              <Typography
+                sx={{ pr: 8, marginTop: 3, textDecoration: "underline" }}
+                variant="body2"
+              >
+                <Link to={"freelancers"}>All freelancer</Link>
+              </Typography>
+            </Box>
+            <Box sx={{ mt: 4 }}>
+              <FreelancerCardsSlider />
+            </Box>
+          </Box>
+          {/* Abouts Cards */}
+          <Box sx={{ margin: "100px 0px" }}>
+            <AboutCards />
+          </Box>
+
+          {/* Jobs */}
+          <Box style={{ marginTop: "50px" }}>
+            <Box display={"flex"} justifyContent={"space-between"}>
+              <Typography sx={{ pl: 8 }} variant="h4">
+                Top Jobs
+              </Typography>
+              <Typography
+                sx={{ pr: 8, marginTop: 3, textDecoration: "underline" }}
+                variant="body2"
+              >
+                <Link to={"jobs"}>All Jobs</Link>
+              </Typography>
+            </Box>
+            <Box sx={{ mt: 4, p: 2 }}>
+              <JobHome />
+            </Box>
+          </Box>
+
+          {/*  Blogs */}
+          <Box style={{ marginTop: "50px" }}>
+            <Box display={"flex"} justifyContent={"space-between"}>
+              <Typography sx={{ pl: 8 }} variant="h4">
+                Expert Opinions
+              </Typography>
+              <Typography
+                sx={{ pr: 8, marginTop: 3, textDecoration: "underline" }}
+                variant="body2"
+              >
+                <Link to={"blogs"}>All blogs</Link>
+              </Typography>
+            </Box>
+            <Box sx={{ mt: 4 }}>
+              <ExperOpinion />
+            </Box>
+          </Box>
+        </>
+      )}
       <Box>
         <Footer />
       </Box>

@@ -12,8 +12,19 @@ const HeaderPanel = () => {
         flexDirection: "column",
       }}
     >
-      <Box style={{ display: "flex", width: "100%" }}>
-        <Box>
+      <Box
+        style={{
+          display: "flex",
+          width: "100%",
+          backgroundImage:
+            "linear-gradient(to right, #fff,rgba(2, 94, 115, 0.4))",
+        }}
+      >
+        <Box
+          style={{
+            height: "100%",
+          }}
+        >
           <Sidebar />
         </Box>
         <Box style={{ width: "100%" }}>

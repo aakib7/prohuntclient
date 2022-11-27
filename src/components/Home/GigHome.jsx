@@ -4,23 +4,22 @@ import Grid from "@mui/material/Grid";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Typography } from "@mui/material";
+import SingleGigCard from "../cards/SingleGigCard";
 
-const ExperOpinion = () => {
+const GigHome = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [blogs, setBlogs] = useState([]);
+  const [gigs, setGigs] = useState([]);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(4);
-  const [search, setSearch] = useState("");
 
-  const fetchBlogs = async () => {
+  const fetchGigs = async () => {
     try {
       setLoading(true);
-      const url = `http://localhost:4000/blog?page=${page}&limit=${limit}&search=${search}`;
+      const url = `http://localhost:4000/gigs?page=${page}&limit=${limit}&search=${""}`;
       const { data } = await axios.get(url);
       setLoading(false);
-      setBlogs(data.post);
-      console.log(data.post);
+      setGigs(data.Gigs);
     } catch (error) {
       setLoading(false);
       if (
@@ -34,29 +33,33 @@ const ExperOpinion = () => {
     }
   };
   useEffect(() => {
-    fetchBlogs();
+    fetchGigs();
   }, []);
   return (
     <>
       {loading && <Typography>Loading ...</Typography>}
-      {!loading && error && <Typography>No Blogs ...</Typography>}
+      {!loading && error && <Typography>No gigs ...</Typography>}
       <Grid
         container
         spacing={2}
         alignItems="center"
         pl={{ xs: 2, md: 12, lg: 1 }}
       >
-        {blogs?.map((blog) => {
+        {gigs?.map((gig) => {
           return (
             <Grid item xs={12} md={6} lg={3}>
               <Link
-                to={`/blog/${blog?._id}`}
+                to={`/gig/${gig?._id}`}
                 style={{ textTransform: "capitalize" }}
               >
-                <SingleBlogPost
-                  title={blog.title}
-                  description={blog.description}
-                  image={`http://localhost:4000/${blog.image.url}`}
+                <SingleGigCard
+                  title={gig?.title}
+                  avatar={"http://localhost:4000/" + gig?.owner?.avatar?.url}
+                  author={gig?.owner?.firstName + " " + gig?.owner?.lastName}
+                  price={gig?.price}
+                  rating={gig?.rating}
+                  imgage={"http://localhost:4000/" + gig.image.url}
+                  deliveredTime={gig?.deliveredTime}
                 />
               </Link>
             </Grid>
@@ -67,4 +70,4 @@ const ExperOpinion = () => {
   );
 };
 
-export default ExperOpinion;
+export default GigHome;

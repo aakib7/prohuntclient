@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const modalWrapper = {
   overflow: "auto",
@@ -43,6 +44,11 @@ function EditForm({ open, handleOpen, handleClose, id }) {
   const isEditing = id ? true : false;
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
+
+  const [image, setImage] = React.useState("");
+  const [progress, setProgess] = React.useState(0);
+  const [sending, setSending] = React.useState(false);
+  const [isFilePicked, setIsFilePicked] = useState(false);
 
   const [error, setError] = useState();
   const [blog, setBlog] = useState({
@@ -144,6 +150,14 @@ function EditForm({ open, handleOpen, handleClose, id }) {
   const handleChange = (e) => {
     setBlog((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+  const getFormData = () => {
+    var form_data = new FormData();
+    for (var key in blog) {
+      form_data.append(key, blog[key]);
+    }
+    form_data.append("blog", image);
+    return form_data;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -162,22 +176,21 @@ function EditForm({ open, handleOpen, handleClose, id }) {
     const config = {
       headers: {
         "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
       withCredentials: true,
+      onUploadProgress: function (progressEvent) {
+        var percentCompleted =
+          Math.round((progressEvent.loaded * 100) / progressEvent.total) + "%";
+        setProgess(percentCompleted);
+      },
     };
+    setSending(true);
     axios
-      .put(
-        `http://localhost:4000/blog/update/${id}`,
-        {
-          title: blog.Title,
-          description: blog.description,
-          category: blog.subCategories,
-        },
-        config
-      )
+      .put(`http://localhost:4000/blog/update/${id}`, getFormData(), config)
       .then((response) => {
         setOpenAlert(true);
+        setSending(false);
         setSeverity("success");
         setMessage("Blog Edit SuccessFully");
         window.location.reload(true);
@@ -190,6 +203,7 @@ function EditForm({ open, handleOpen, handleClose, id }) {
       .catch((error) => {
         setOpenAlert(true);
         setSeverity("error");
+        setSending(false);
         setError(error.response.data.message);
         setMessage(error.response.data.message);
       });
@@ -359,18 +373,33 @@ function EditForm({ open, handleOpen, handleClose, id }) {
                   sx={{ marginBottom: 3 }}
                 >
                   blog Picture
-                  <input hidden accept="image/*" multiple type="file" />
+                  <input
+                    hidden
+                    type="file"
+                    onChange={(e) => {
+                      setProgess(0);
+                      const file = e.target.files[0]; // accessing file
+                      setImage(file); // storing file
+                      setIsFilePicked(true);
+                    }}
+                  />
                 </Button>
                 <Button
                   type="submit"
                   variant="contained"
                   color="success"
+                  disabled={sending}
                   sx={{ marginX: { xs: 1, md: 2, sm: 2 }, marginBottom: 3 }}
                 >
                   Submit
                 </Button>
               </Stack>
             </Box>
+            {sending && (
+              <Box sx={{ width: "100%" }}>
+                <LinearProgress value={progress} />
+              </Box>
+            )}
           </Container>
         </Box>
       </Modal>

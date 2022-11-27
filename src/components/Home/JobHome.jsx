@@ -4,23 +4,23 @@ import Grid from "@mui/material/Grid";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Typography } from "@mui/material";
+import SingleJobCard from "../cards/SingleJobCard";
+import image from "../../assests/images/main-banner.jpg";
 
-const ExperOpinion = () => {
+const JobHome = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [blogs, setBlogs] = useState([]);
+  const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(4);
-  const [search, setSearch] = useState("");
 
-  const fetchBlogs = async () => {
+  const fetchJobs = async () => {
     try {
       setLoading(true);
-      const url = `http://localhost:4000/blog?page=${page}&limit=${limit}&search=${search}`;
+      const url = `http://localhost:4000/jobs?page=${page}&limit=${limit}&search=${""}`;
       const { data } = await axios.get(url);
       setLoading(false);
-      setBlogs(data.post);
-      console.log(data.post);
+      setJobs(data.Jobs);
     } catch (error) {
       setLoading(false);
       if (
@@ -34,29 +34,33 @@ const ExperOpinion = () => {
     }
   };
   useEffect(() => {
-    fetchBlogs();
+    fetchJobs();
   }, []);
   return (
     <>
       {loading && <Typography>Loading ...</Typography>}
-      {!loading && error && <Typography>No Blogs ...</Typography>}
+      {!loading && error && <Typography>No gigs ...</Typography>}
       <Grid
         container
         spacing={2}
         alignItems="center"
         pl={{ xs: 2, md: 12, lg: 1 }}
       >
-        {blogs?.map((blog) => {
+        {jobs?.map((job) => {
           return (
             <Grid item xs={12} md={6} lg={3}>
               <Link
-                to={`/blog/${blog?._id}`}
+                to={`/job/${job?._id}`}
                 style={{ textTransform: "capitalize" }}
               >
-                <SingleBlogPost
-                  title={blog.title}
-                  description={blog.description}
-                  image={`http://localhost:4000/${blog.image.url}`}
+                <SingleJobCard
+                  title={job?.title}
+                  avatar={"http://localhost:4000/" + job?.owner?.avatar?.url}
+                  author={job?.owner?.firstName + " " + job?.owner?.lastName}
+                  price={job?.price}
+                  rating={job?.price}
+                  imgage={image}
+                  deliveredTime={job?.deliveredTime}
                 />
               </Link>
             </Grid>
@@ -67,4 +71,4 @@ const ExperOpinion = () => {
   );
 };
 
-export default ExperOpinion;
+export default JobHome;
