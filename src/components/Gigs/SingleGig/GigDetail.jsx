@@ -115,6 +115,7 @@ const GigDetail = ({
           <Typography
             padding={4}
             sx={{ padding: { xs: 2, md: 4 }, textAlign: "justify" }}
+            style={{ whiteSpace: "pre-line" }}
           >
             {gigDescription}
           </Typography>

@@ -38,10 +38,14 @@ function JobForm({ open, handleOpen, handleClose }) {
   const [openAlert, setOpenAlert] = React.useState(false);
   const [severity, setSeverity] = React.useState("error");
   const [message, setMessage] = React.useState("");
-  const [loading, setLoading] = useState(false);
   const [catagories, setCatagories] = useState();
   const [subCatagories, setSubCatagories] = useState([]);
   const [error, setError] = useState();
+  const [image, setImage] = React.useState("");
+  const [progress, setProgess] = React.useState(0);
+  const [sending, setSending] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [isFilePicked, setIsFilePicked] = useState(false);
   const navigate = useNavigate();
 
   const [job, setJob] = useState({
@@ -71,9 +75,11 @@ function JobForm({ open, handleOpen, handleClose }) {
     } else {
       errors.jobTitle = "";
     }
-    const cond3 = /[0-9]|\./;
-    if (!job.jobBudget.match(cond3)) {
-      errors.jobBudget = "Jobbudget must be number";
+
+    var intRegex = /^[1-9]+\d*$/;
+
+    if (!job.jobBudget.match(intRegex)) {
+      errors.jobBudget = "Job budget must be number greater than 1.";
     } else {
       errors.jobBudget = "";
     }
@@ -90,9 +96,9 @@ function JobForm({ open, handleOpen, handleClose }) {
       errors.subCategories = "";
     }
     if (!job.jobDelvery) {
-      errors.jobDelvery = "Deliver date  is required";
+      errors.jobDelvery = "Deliver date  is required (2 day / 2 hours)";
     } else if (job.jobDelvery.length < 4) {
-      errors.Deliver = "Please enter with days ";
+      errors.Deliver = "Please enter with days/hours(4 days/ 4 hours) ";
     } else {
       errors.jobDelvery = "";
     }
@@ -137,6 +143,15 @@ function JobForm({ open, handleOpen, handleClose }) {
     setJob((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const getFormData = () => {
+    var form_data = new FormData();
+    for (var key in job) {
+      form_data.append(key, job[key]);
+    }
+    form_data.append("job", image);
+    return form_data;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     job.subCategories = selectedOptions.map((e) => e.name);
@@ -154,30 +169,33 @@ function JobForm({ open, handleOpen, handleClose }) {
       setMessage("Please fill data correctly!!!");
       return;
     }
+    if (!isFilePicked) {
+      setOpenAlert(true);
+      setSeverity("error");
+      setMessage("Please select image");
+      return;
+    }
 
     const config = {
       headers: {
         "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
       withCredentials: true,
+      onUploadProgress: function (progressEvent) {
+        var percentCompleted =
+          Math.round((progressEvent.loaded * 100) / progressEvent.total) + "%";
+        setProgess(percentCompleted);
+      },
     };
+    setSending(true);
     axios
-      .post(
-        `http://localhost:4000/jobs/createjob`,
-        {
-          title: job.jobTitle,
-          description: job.description,
-          deliveredTime: job.jobDelvery,
-          price: job.jobBudget,
-          category: job.subCategories,
-        },
-        config
-      )
+      .post(`http://localhost:4000/jobs/createjob`, getFormData(), config)
       .then((response) => {
         setOpenAlert(true);
         setSeverity("success");
         setMessage("Job Added SuccessFully");
+        setSending(false);
         window.location.reload(true);
         if (response.data.success) {
           navigate(`/employer/jobs`);
@@ -185,6 +203,7 @@ function JobForm({ open, handleOpen, handleClose }) {
       })
       .catch((error) => {
         setOpenAlert(true);
+        setSending(false);
         setSeverity("error");
         setError(error.response.data.message);
         setMessage(error.response.data.message);
@@ -383,12 +402,22 @@ function JobForm({ open, handleOpen, handleClose }) {
                   sx={{ marginBottom: 3 }}
                 >
                   job Picture
-                  <input hidden accept="image/*" multiple type="file" />
+                  <input
+                    hidden
+                    type="file"
+                    onChange={(e) => {
+                      setProgess(0);
+                      const file = e.target.files[0]; // accessing file
+                      setImage(file); // storing file
+                      setIsFilePicked(true);
+                    }}
+                  />
                 </Button>
                 <Button
                   type="submit"
                   variant="contained"
                   color="success"
+                  disabled={sending}
                   sx={{ marginX: { xs: 1, md: 2, sm: 2 }, marginBottom: 3 }}
                 >
                   Submit

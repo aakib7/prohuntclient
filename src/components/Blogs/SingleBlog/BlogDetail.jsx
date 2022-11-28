@@ -56,7 +56,7 @@ const BlogDetail = ({
             lineHeight={"50px"}
             style={{ whiteSpace: "pre-line" }}
           >
-            {title}
+            <pre>{title}</pre>
           </Typography>
           <img
             style={{
@@ -131,6 +131,7 @@ const BlogDetail = ({
           <Typography
             padding={4}
             sx={{ padding: { xs: 2, md: 4 }, textAlign: "justify" }}
+            style={{ whiteSpace: "pre-line" }}
           >
             {blogDescription}
           </Typography>

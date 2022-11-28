@@ -20,7 +20,7 @@ const AllJobs = ({ header = true, homeSearch }) => {
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState("");
   useEffect(() => {
-    setSearch(homeSearch);
+    setSearch(homeSearch ? homeSearch : "");
   }, [homeSearch]);
   const fetchJobs = async () => {
     try {
@@ -103,7 +103,7 @@ const AllJobs = ({ header = true, homeSearch }) => {
                       }
                       price={job?.price}
                       rating={job?.price}
-                      imgage={image}
+                      image={`http://localhost:4000/${job?.image.url}`}
                       deliveredTime={job?.deliveredTime}
                     />
                   </Link>

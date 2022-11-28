@@ -157,3 +157,47 @@ console.log(d.getTime());
 console.log(d.getDay());
 console.log(d.getMonth());
 d.
+
+const handleSubmit = (e) => {
+e.preventDefault();
+if (validation.budget || validation.description) {
+setOpenAlert(true);
+setSeverity("error");
+setMessage("Please fill data correctly!!");
+return;
+}
+setValue((prevState) => ({
+...prevState,
+}));
+
+    const config = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+    axios
+      .post(
+        `http://localhost:4000/bid/${jobId}`,
+        {
+          description: value.description,
+          budget: value.budget,
+        },
+        config
+      )
+      .then((response) => {
+        setOpenAlert(true);
+        handleClose();
+        setSeverity("success");
+        setMessage("Bid SuccessFully");
+        window.location.reload(true);
+      })
+      .catch((error) => {
+        setOpenAlert(true);
+        handleClose();
+        setSeverity("error");
+        setMessage(error.response.data.message);
+      });
+
+};

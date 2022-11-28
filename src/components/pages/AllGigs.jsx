@@ -21,7 +21,7 @@ const AllGigs = ({ header = true, homeSearch }) => {
   const [search, setSearch] = useState("");
   const [total, setTotal] = useState(0);
   useEffect(() => {
-    setSearch(homeSearch);
+    setSearch(homeSearch ? homeSearch : "");
   }, [homeSearch]);
 
   const fetchGigs = async () => {

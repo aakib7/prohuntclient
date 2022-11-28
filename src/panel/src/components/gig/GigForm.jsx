@@ -49,7 +49,7 @@ export default function GigForm({ open, handleOpen, handleClose }) {
   const [error, setError] = useState();
   const [gig, setGig] = useState({
     gigTitle: "",
-    gigPrice: 0,
+    gigPrice: "",
     Deliver: "",
     category: "",
     subCategories: [],
@@ -70,7 +70,6 @@ export default function GigForm({ open, handleOpen, handleClose }) {
   let errors = { ...validation };
 
   const checkValidation = () => {
-    let price = Number(gig.gigPrice);
     if (!gig.gigTitle) {
       errors.gigTitle = "Gig Title is required!";
     } else if (gig.gigTitle.trim().length < 40) {
@@ -78,12 +77,9 @@ export default function GigForm({ open, handleOpen, handleClose }) {
     } else {
       errors.gigTitle = "";
     }
-    const cond3 = /[1-9]|\./;
-    if (price <= 0) {
-      errors.gigPrice = "Gig Price must be number, and greater than 0";
-    }
-    if (!price) {
-      errors.gigPrice = "Gig Price Must be a Number";
+    var intRegex = /^[1-9]+\d*$/;
+    if (!gig.gigPrice.match(intRegex)) {
+      errors.budget = "Price value should be a number, greater than 0.";
     } else {
       errors.gigPrice = "";
     }

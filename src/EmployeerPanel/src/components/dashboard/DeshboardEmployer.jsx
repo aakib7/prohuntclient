@@ -1,0 +1,27 @@
+import React from "react";
+import { useSelector } from "react-redux";
+import { Grid, Box, Typography } from "@mui/material";
+import Card from "./Card";
+const DeshboardEmployer = () => {
+  const { user } = useSelector((state) => state.user);
+  return (
+    <>
+      <Grid container spacing={2}>
+        <Grid item xs={6} md={4} lg={3}>
+          <Card text={"Order  Completed"} count={user?.completedProject} />
+        </Grid>
+        <Grid item xs={6} md={4} lg={3}>
+          <Card text={"Order in Progress"} count={user?.onGoingProject} />
+        </Grid>
+        <Grid item xs={6} md={4} lg={3}>
+          <Card text={"Active Jobs"} count={user?.jobs?.length} />
+        </Grid>
+        <Grid item xs={6} md={4} lg={3}>
+          <Card text={"Bids on Jobs"} count={user?.jobs?.length} />
+        </Grid>
+      </Grid>
+    </>
+  );
+};
+
+export default DeshboardEmployer;

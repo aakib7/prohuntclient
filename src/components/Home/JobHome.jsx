@@ -59,7 +59,7 @@ const JobHome = () => {
                   author={job?.owner?.firstName + " " + job?.owner?.lastName}
                   price={job?.price}
                   rating={job?.price}
-                  imgage={image}
+                  image={`http://localhost:4000/${job?.image?.url}`}
                   deliveredTime={job?.deliveredTime}
                 />
               </Link>

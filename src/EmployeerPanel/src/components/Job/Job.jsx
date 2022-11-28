@@ -70,6 +70,7 @@ const Job = () => {
                     title={job.title}
                     description={job.description}
                     id={job._id}
+                    image={`http://localhost:4000/${job?.image?.url}`}
                   />
 
                   <Divider sx={{ width: "95%" }} />

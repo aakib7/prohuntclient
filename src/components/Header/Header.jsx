@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import logo from "../../assests/images/logo.png";
 
 export default function Header() {
   // const isAuth = false;
@@ -221,7 +222,8 @@ export default function Header() {
       <AppBar position="static" style={{ backgroundColor: "#025e73" }}>
         <Toolbar>
           <Link to={"/"} style={{ textDecoration: "none" }}>
-            <Typography
+            <img src={logo} style={{ height: "auto", width: "120px" }} />
+            {/* <Typography
               variant="h6"
               noWrap
               component="div"
@@ -231,14 +233,12 @@ export default function Header() {
               }}
             >
               ProHunt
-            </Typography>
+            </Typography> */}
           </Link>
 
-          <Box sx={{ display: "flex", marginLeft: "12px" }}>
-            <Link to={"/"} style={{ textDecoration: "none", color: "white" }}>
-              <DesktopMacIcon />
-            </Link>
-          </Box>
+          {/* <Box sx={{ display: "flex", marginLeft: "12px" }}>
+            <img src={logo} style={{ height: "auto", width: "70px" }} />
+          </Box> */}
           <Box sx={{ flexGrow: 1 }} />
 
           {/* //notification and messages */}

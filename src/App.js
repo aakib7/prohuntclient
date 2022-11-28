@@ -3,20 +3,13 @@ import Login from "./components/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./store/Actions/User";
 import HeaderPanel from "./panel/HeaderPanel";
-// import SubHeader from "./components/Header/SubHeader";
 import Home from "./components/Home/Home";
-import Analytics from "./panel/src/pages/Analytics";
-import Dashboard from "./panel/src/pages/Dashboard";
+import Dashboard from "./panel/src/components/dashboard/Dashboard";
 import { Routes, Route, Link } from "react-router-dom";
 import SubCategories from "./components/SubCategories/SubCategories";
 import Gig from "./panel/src/components/gig/Gig";
-import SingleGigCard from "./components/cards/SingleGigCard";
-import GigsList from "./components/Gigs/GigsList";
 import SingleGig from "./components/Gigs/SingleGig/SingleGig";
-
 import SignupForm from "./components/Registration/SignupForm";
-
-import SingleJonCard from "./components/cards/SingleJobCard";
 import ListHeader from "./components/SubCategories/ListHeader";
 import SingleBlog from "./components/Blogs/SingleBlog/SingleBlog";
 import SignUp from "./components/Registration/SignUp";
@@ -26,10 +19,9 @@ import ProfilePicture from "./components/Registration/ProfilePicture";
 import EmailVarification from "./EmailVarification/EmailVarification";
 import ResetPassword from "./components/Registration/ResetPassword";
 import Profile from "./components/Profile/Profile";
-import GigForm from "./panel/src/components/gig/GigForm";
 import SingleJob from "./components/Jobs/SingleJob/SingleJob";
 import EmployerPanelHeader from "./EmployeerPanel/EmployerPanelHeader";
-import DeshboardEmployer from "./EmployeerPanel/src/pages/Dashboard";
+import DeshboardEmployer from "./EmployeerPanel/src/components/dashboard/DeshboardEmployer";
 import Job from "./EmployeerPanel/src/components/Job/Job";
 import Blog from "./Blogs/Blog";
 import NotFound from "./404/NotFound";
@@ -40,6 +32,7 @@ import AllBlogs from "./components/pages/AllBlogs";
 import AllCategories from "./components/pages/AllCategories";
 import ChangePassword from "./ChangePassword/ChangePassword";
 import AllFreelancers from "./components/pages/AllFreelancers";
+import Orders from "./panel/src/components/orders/Orders";
 
 function App() {
   const dispatch = useDispatch();
@@ -81,6 +74,7 @@ function App() {
         >
           <Route exact path="" element={<Dashboard />} />
           <Route exact path="gig" element={<Gig />} />
+          <Route exact path="orders" element={<Orders />} />
           <Route exact path="blogs" element={<Blog />} />
           <Route exact path="changePassword" element={<ChangePassword />} />
         </Route>

@@ -29,7 +29,7 @@ const HeaderPanel = () => {
         </Box>
         <Box style={{ width: "100%" }}>
           <Header />
-          <Box sx={{ paddingX: { xs: 1, md: 10 }, paddingY: { xs: 1, md: 5 } }}>
+          <Box sx={{ paddingX: { xs: 1, md: 10 }, paddingY: { xs: 1, md: 1 } }}>
             <Outlet />
           </Box>
         </Box>

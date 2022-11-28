@@ -18,7 +18,7 @@ import JobForm from "./JobForm";
 import EditForm from "./EditForm";
 import BannerImage from "../../../../assests/images/main-banner.jpg";
 
-function JobCard({ title, description, id }) {
+function JobCard({ title, description, id, image }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(false);
   const handleClose = () => setOpen(false);
@@ -90,7 +90,7 @@ function JobCard({ title, description, id }) {
             height: "100%",
           }}
         >
-          <img style={{ height: "100%", width: "100%" }} src={BannerImage} />
+          <img style={{ height: "100%", width: "100%" }} src={image} />
         </Grid>
         <Grid
           item

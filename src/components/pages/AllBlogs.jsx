@@ -21,7 +21,7 @@ const AllBlogs = ({ header = true, homeSearch }) => {
   const [total, setTotla] = useState(0);
 
   useEffect(() => {
-    setSearch(homeSearch);
+    setSearch(homeSearch ? homeSearch : "");
   }, [homeSearch]);
 
   const fetchBlogs = async () => {
@@ -101,7 +101,7 @@ const AllBlogs = ({ header = true, homeSearch }) => {
                     <SingleBlogPost
                       title={blog?.title}
                       description={blog?.description}
-                      imgage={image}
+                      image={`http://localhost:4000/${blog?.image.url}`}
                     />
                   </Link>
                 </Grid>

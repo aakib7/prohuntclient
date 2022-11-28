@@ -20,7 +20,7 @@ const AllFreelancers = ({ header = true, homeSearch }) => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   useEffect(() => {
-    setSearch(homeSearch);
+    setSearch(homeSearch ? homeSearch : "");
   }, [homeSearch]);
   const fetchFreelancers = async () => {
     try {

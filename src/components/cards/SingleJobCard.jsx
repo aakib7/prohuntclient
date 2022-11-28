@@ -10,7 +10,7 @@ import image from "../../assests/images/main-banner.jpg";
 
 export default function SingleGigCard({
   title = "want freelancer want freelancer want freelancer want freelancer want freelancer want freelancer want freelancer want freelancer want freelancer frjbjcbbj",
-  imgage,
+  image,
   avatar = "aaqib",
   author = "ajmehdi",
   price = 123,
@@ -23,7 +23,7 @@ export default function SingleGigCard({
         component="img"
         height="270px"
         image={image}
-        alt="green iguana"
+        alt="Job Banner Image"
       />
       <CardContent sx={{ height: "117px", overflow: "hidden" }}>
         <Typography variant="h5">{title}</Typography>

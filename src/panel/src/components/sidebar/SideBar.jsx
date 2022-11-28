@@ -9,6 +9,7 @@ import PasswordIcon from "@mui/icons-material/Password";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import axios from "axios";
 import LogoutIcon from "@mui/icons-material/Logout";
+import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +24,11 @@ const Sidebar = () => {
       path: "gig",
       name: "Gig",
       icon: <WorkIcon />,
+    },
+    {
+      path: "orders",
+      name: "Orders",
+      icon: <AddBusinessIcon />,
     },
     {
       path: "blogs",
