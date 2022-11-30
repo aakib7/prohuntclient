@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import profilePicture from "../../../assests/images/profile.jpeg";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { Typography, Box } from "@mui/material";
 
-const Conversation = ({ conversation, currentUser }) => {
+const Conversation = ({ conversation, currentUser, online }) => {
   const [otherUser, setOtherUser] = useState(null);
 
   useEffect(() => {
@@ -31,9 +32,14 @@ const Conversation = ({ conversation, currentUser }) => {
         src={"http://localhost:4000/" + otherUser?.avatar?.url}
         alt="Picture"
       />
-      <span className="conversationName">
-        {otherUser?.firstName} {otherUser?.lastName}
-      </span>
+      <Box display={"flex"} flexDirection={"column"}>
+        <Typography className="conversationName">
+          {otherUser?.firstName} {otherUser?.lastName}
+        </Typography>
+        {online && <Typography>Online</Typography>}
+      </Box>
+
+      {/*  */}
     </div>
   );
 };

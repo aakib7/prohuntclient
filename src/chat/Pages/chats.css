@@ -7,15 +7,16 @@
   flex: 3.5;
 }
 
-.chatMenuInput {
+/* .chatMenuInput {
   width: 90%;
   padding: 10px 0;
   border: none;
   border-bottom: 1px solid gray;
-}
+} */
 
 .chatBox {
   flex: 5.5;
+  padding-right: 30px;
 }
 
 .chatBoxWrapper {
@@ -43,7 +44,10 @@
   height: 90px;
   padding: 10px;
 }
-
+.singleUser:hover {
+  background-color: antiquewhite;
+  cursor: pointer;
+}
 .chatSubmitButton {
   width: 90px;
   height: 40px;
@@ -58,7 +62,11 @@
   flex: 3;
 }
 
-.chatMenuWrapper,
+.chatMenuWrapper {
+  width: 400px;
+  height: 100vh;
+  background-image: linear-gradient(to top, rgba(192, 192, 192, 0.5), #fff);
+}
 .chatBoxWrapper,
 .chatOnlineWrapper {
   padding: 10px;

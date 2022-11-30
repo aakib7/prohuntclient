@@ -3,11 +3,13 @@
   align-items: center;
   padding: 10px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 10px;
+
+  /* position: relative; */
 }
 
 .conversation:hover {
-  background-color: rgb(245, 243, 243);
+  background-color: rgba(207, 200, 200, 0.788);
 }
 
 .conversationImg {
@@ -26,4 +28,14 @@
   .conversationName {
     display: none;
   }
+}
+.online {
+  width: 10px;
+  height: 10px;
+  background-color: green;
+  border-radius: 50%;
+  display: flex;
+
+  /* position: absolute;
+  right: 110; */
 }

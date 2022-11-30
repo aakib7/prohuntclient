@@ -11,6 +11,10 @@ import FullPageLoading from "../../components/others/FullPageLoading";
 import axios from "axios";
 import { io } from "socket.io-client";
 
+import Search from "../../components/Home/Search";
+import { Box } from "@mui/system";
+import NewConversationModel from "./NewConversationModel";
+
 const Chats = () => {
   const { user } = useSelector((state) => state.user);
   const scrollRef = useRef();
@@ -25,6 +29,9 @@ const Chats = () => {
   const socket = useRef();
 
   // console.log(socket.current);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
@@ -40,11 +47,15 @@ const Chats = () => {
   useEffect(() => {
     socket.current.emit("addUser", user?._id);
     socket.current.on("getUsers", (users) => {
-      setOnlineUsers(
-        user.followings.filter((f) => users.some((u) => u.userId === f))
-      );
+      setOnlineUsers(users);
     });
   }, [user]);
+
+  const checkOnline = (chat) => {
+    const member = chat.members.find((user) => user !== user?._id);
+    const online = onlineUsers?.find((user) => user.userId === member);
+    return online ? true : false;
+  };
 
   useEffect(() => {
     // if we are in different conversation we did not see the conversation of ther user only currrent chat user
@@ -53,30 +64,30 @@ const Chats = () => {
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-  useEffect(() => {
-    const getConversations = async () => {
-      try {
-        const config = {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        };
-        const res = await axios.get(
-          "http://localhost:4000/conversation/" + user?._id,
-          config
-        );
+  const getConversations = async () => {
+    try {
+      const config = {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      };
+      const res = await axios.get(
+        "http://localhost:4000/conversation/" + user?._id,
+        config
+      );
 
-        setConversations(res.data.conversation);
-        setLoading(false);
-        setError(false);
-      } catch (err) {
-        setLoading(false);
-        setError(true);
-        console.log(err);
-      }
-    };
+      setConversations(res.data.conversation);
+      setLoading(false);
+      setError(false);
+    } catch (err) {
+      setLoading(false);
+      setError(true);
+      console.log(err);
+    }
+  };
+  useEffect(() => {
     getConversations();
   }, [user?._id]);
   const getMessages = async () => {
@@ -144,23 +155,35 @@ const Chats = () => {
     <>
       <Header />
       {loading && <FullPageLoading />}
+
       {!loading && error && <Typography>Error has occured</Typography>}
       {!loading && !error && (
         <div className="messenger">
           <div className="chatMenu">
             <div className="chatMenuWrapper">
-              <TextField
-                id="outlined-basic"
-                label="Search for friends"
-                variant="outlined"
-                className="chatMenuInput"
-              />
+              <Box
+                display={"flex"}
+                width="400"
+                justifyContent={"space-between"}
+                alignItems={"center"}
+              >
+                <Box style={{ width: "68%" }}>
+                  <Search />
+                </Box>
+                <Box style={{ width: "30%" }}>
+                  <Button variant="contained" onClick={handleOpen}>
+                    New Chat
+                  </Button>
+                </Box>
+              </Box>
+
               {conversations?.map((conversation) => {
                 return (
                   <div onClick={() => setCurrentChat(conversation)}>
                     <Conversation
                       conversation={conversation}
                       currentUser={user}
+                      online={checkOnline(conversation)}
                     />
                     <Divider />
                   </div>
@@ -201,6 +224,11 @@ const Chats = () => {
               )}
             </div>
           </div>
+          <NewConversationModel
+            handleClose={handleClose}
+            open={open}
+            getConversations={getConversations}
+          />
         </div>
       )}
     </>
