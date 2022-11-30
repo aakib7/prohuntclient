@@ -63,7 +63,9 @@ const Bid = ({ bid, ownerId, job }) => {
         </Grid>
         <Divider orientation="vertical" flexItem />
         <Grid item xs={12} md={8} mt={2}>
-          <Typography sx={{ textAlign: "left", padding: "10px" }}>
+          <Typography
+            sx={{ textAlign: "left", padding: "10px", wordBreak: "break-all" }}
+          >
             <ReadMore words={250}>{bid?.description}</ReadMore>
           </Typography>
 

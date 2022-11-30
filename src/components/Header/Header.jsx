@@ -129,14 +129,21 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
+      <Link to={"/chat"} style={{ color: "black" }}>
+        <MenuItem>
+          <IconButton
+            size="large"
+            aria-label="show 4 new mails"
+            color="inherit"
+          >
+            <Badge badgeContent={4} color="error">
+              <MailIcon />
+            </Badge>
+          </IconButton>
+
+          <p>Messages</p>
+        </MenuItem>
+      </Link>
       <MenuItem>
         <IconButton
           size="large"
@@ -246,15 +253,17 @@ export default function Header() {
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {isAuthenticated ? (
               <>
-                <IconButton
-                  size="large"
-                  aria-label="show 4 new mails"
-                  color="inherit"
-                >
-                  <Badge badgeContent={4} color="error">
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
+                <Link to={"/chat"} style={{ color: "white" }}>
+                  <IconButton
+                    size="large"
+                    aria-label="show 4 new mails"
+                    color="inherit"
+                  >
+                    <Badge badgeContent={4} color="error">
+                      <MailIcon />
+                    </Badge>
+                  </IconButton>
+                </Link>
                 <IconButton
                   size="large"
                   aria-label="show 17 new notifications"

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
-import PendingOrders from "./PendingOrders";
+import PendingOrder from "./PendingOrder";
 
 const Orders = () => {
   const [pendingOrders, setPendingOrder] = useState(true);
@@ -35,7 +35,7 @@ const Orders = () => {
         </ButtonGroup>
         <Button variant="contained">Generate Report</Button>
       </Box>
-      <Box>{pendingOrders && <PendingOrders />}</Box>
+      <Box>{PendingOrder && <PendingOrder />}</Box>
     </>
   );
 };

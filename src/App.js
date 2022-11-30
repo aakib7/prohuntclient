@@ -5,7 +5,7 @@ import { loadUser } from "./store/Actions/User";
 import HeaderPanel from "./panel/HeaderPanel";
 import Home from "./components/Home/Home";
 import Dashboard from "./panel/src/components/dashboard/Dashboard";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import SubCategories from "./components/SubCategories/SubCategories";
 import Gig from "./panel/src/components/gig/Gig";
 import SingleGig from "./components/Gigs/SingleGig/SingleGig";
@@ -33,6 +33,7 @@ import AllCategories from "./components/pages/AllCategories";
 import ChangePassword from "./ChangePassword/ChangePassword";
 import AllFreelancers from "./components/pages/AllFreelancers";
 import Orders from "./panel/src/components/orders/Orders";
+import Chats from "./chat/Pages/Chats";
 
 function App() {
   const dispatch = useDispatch();
@@ -160,6 +161,9 @@ function App() {
         <Route path={"/blogs"} element={<AllBlogs />} />
         <Route path={"/categories"} element={<AllCategories />} />
         <Route path={"/freelancers"} element={<AllFreelancers />} />
+
+        {/* {Chat Routes} */}
+        <Route path="/chat" element={isAuthenticated ? <Chats /> : <Login />} />
 
         <Route path={"*"} element={<NotFound />} />
       </Routes>
