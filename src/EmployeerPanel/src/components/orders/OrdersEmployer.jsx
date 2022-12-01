@@ -6,7 +6,7 @@ import { Box, styled } from "@mui/material";
 import PendingOrder from "./PendingOrder";
 import { useSelector } from "react-redux";
 
-const Orders = () => {
+const OrdersEmployer = () => {
   const { user } = useSelector((state) => state.user);
   const [pendingOrders, setPendingOrder] = useState(true);
   const [pendingOrdersData, setPendingOrdersData] = useState([]);
@@ -21,14 +21,14 @@ const Orders = () => {
     };
     axios
       .post(
-        `http://localhost:4000/order/freelancer`,
+        `http://localhost:4000/order/client/orders`,
         {
           isCompleted: false,
-          userId: user._id,
         },
         config
       )
       .then((response) => {
+        console.log(response.data.orders);
         setPendingOrdersData(response.data.orders);
       })
       .catch((error) => {
@@ -76,7 +76,7 @@ const Orders = () => {
     </>
   );
 };
-export default Orders;
+export default OrdersEmployer;
 
 const StyledButton = styled(Button)`
   background-color: #025e73;

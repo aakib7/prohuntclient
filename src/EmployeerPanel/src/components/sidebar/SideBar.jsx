@@ -25,6 +25,11 @@ const Sidebar = () => {
       icon: <WorkIcon />,
     },
     {
+      path: "orders",
+      name: "Orders",
+      icon: <WorkIcon />,
+    },
+    {
       path: "blogs",
       name: "Blogs",
       icon: <FeedIcon />,

@@ -12,20 +12,20 @@ import { Box, Button, IconButton, LinearProgress, styled } from "@mui/material";
 import OrderDetailModel from "./OrderDetailModel";
 import { useNavigate } from "react-router-dom";
 const columns = [
-  { id: "Title", label: "Title", minWidth: 150 },
-  { id: "Description", label: "First Name", minWidth: 300 },
-  { id: "Progress", label: "Progress", minWidth: 100 },
+  { id: "Title", label: "Title", minWidth: 130 },
+  { id: "Description", label: "First Name", minWidth: 330 },
+
   {
     id: "Budget",
     label: "Budget",
-    minWidth: 50,
+    minWidth: 20,
     align: "center",
   },
 
   {
     id: "DeliveryTime",
     label: "DeliveryTime",
-    minWidth: 90,
+    minWidth: 100,
     align: "center",
   },
 ];
@@ -99,13 +99,13 @@ export default function PendingOrder({ orders }) {
                       >
                         {order.description.slice(0, 80) + "..."}
                       </TableCell>
-                      <TableCell
+                      {/* <TableCell
                         key={columns.id}
                         align={columns.align}
                         style={{ minWidth: columns.minWidth }}
                       >
                         <LinearProgress variant="determinate" value={44} />
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell
                         key={columns.id}
                         align={columns.align}
@@ -139,7 +139,7 @@ export default function PendingOrder({ orders }) {
                           sx={{ borderRadius: "25px" }}
                           onClick={() => goRouteId(order._id)}
                         >
-                          Manage
+                          Check Progress
                         </StyledButton>
 
                         <StyledButton1

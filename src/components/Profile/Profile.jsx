@@ -9,7 +9,6 @@ import {
 import React, { useState } from "react";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-
 import About from "./About";
 import SideBar from "./SideBar";
 

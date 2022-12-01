@@ -34,6 +34,8 @@ import ChangePassword from "./ChangePassword/ChangePassword";
 import AllFreelancers from "./components/pages/AllFreelancers";
 import Orders from "./panel/src/components/orders/Orders";
 import Chats from "./chat/Pages/Chats";
+import Todo from "./Todo/Todo";
+import OrdersEmployer from "./EmployeerPanel/src/components/orders/OrdersEmployer";
 
 function App() {
   const dispatch = useDispatch();
@@ -97,6 +99,7 @@ function App() {
         >
           <Route exact path="" element={<DeshboardEmployer />} />
           <Route exact path="jobs" element={<Job />} />
+          <Route exact path="orders" element={<OrdersEmployer />} />
           <Route exact path="blogs" element={<Blog />} />
           <Route exact path="changePassword" element={<ChangePassword />} />
         </Route>
@@ -164,7 +167,8 @@ function App() {
 
         {/* {Chat Routes} */}
         <Route path="/chat" element={isAuthenticated ? <Chats /> : <Login />} />
-
+        {/* {manage project Route} */}
+        <Route path="/manageproject/:id" element={<Todo />} />
         <Route path={"*"} element={<NotFound />} />
       </Routes>
     </>
