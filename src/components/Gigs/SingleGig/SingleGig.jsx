@@ -102,6 +102,7 @@ const SingleGig = () => {
               <GigDetail
                 title={gig.title}
                 numberOfLikes={gig.likes.length}
+                picture={gig?.image.url}
                 gigDescription={gig.description}
                 loading={loading}
                 reviews={gig.reviews}

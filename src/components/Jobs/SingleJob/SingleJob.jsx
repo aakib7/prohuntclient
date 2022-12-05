@@ -14,7 +14,7 @@ import FullPageLoading from "../../others/FullPageLoading";
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import pic from "../../../assests/images/main-banner.jpg";
+// import pic from "../../../assests/images/main-banner.jpg";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
 import SubHeader from "../../Header/SubHeader";

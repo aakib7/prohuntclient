@@ -78,7 +78,7 @@ const GigDetail = ({
               width: "100%",
               height: "auto",
             }}
-            src={pic}
+            src={`http://localhost:4000/${picture}`}
             alt="mobile phone"
           />
         </Grid>

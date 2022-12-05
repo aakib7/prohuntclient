@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Login from "./components/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./store/Actions/User";
@@ -36,6 +37,9 @@ import Orders from "./panel/src/components/orders/Orders";
 import Chats from "./chat/Pages/Chats";
 import Todo from "./Todo/Todo";
 import OrdersEmployer from "./EmployeerPanel/src/components/orders/OrdersEmployer";
+import QuizHome from "./Quiz/Pages/Home/QuizHome";
+import Quiz from "./Quiz/Pages/Quiz/Quiz";
+import Result from "./Quiz/Pages/Result/Result";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +49,22 @@ function App() {
   useEffect(() => {
     dispatch(loadUser());
   }, [dispatch]);
+
+  // . quiz app
+  const [questions, setQuestions] = useState();
+  const [name, setName] = useState();
+  const [score, setScore] = useState(0);
+
+  const fetchQuestions = async (category = "", difficulty = "") => {
+    const { data } = await axios.get(
+      `https://opentdb.com/api.php?amount=10${
+        category && `&category=${category}`
+      }${difficulty && `&difficulty=${difficulty}`}&type=multiple`
+    );
+    setQuestions(data.results);
+  };
+
+  ///
   return (
     <>
       <Routes>
@@ -169,6 +189,35 @@ function App() {
         <Route path="/chat" element={isAuthenticated ? <Chats /> : <Login />} />
         {/* {manage project Route} */}
         <Route path="/manageproject/:id" element={<Todo />} />
+
+        {/* // quiz */}
+        <Route
+          path="/quiz"
+          element={
+            <QuizHome
+              name={name}
+              setName={setName}
+              fetchQuestions={fetchQuestions}
+            />
+          }
+        />
+
+        <Route
+          path="/quiz/questions"
+          element={
+            <Quiz
+              name={name}
+              questions={questions}
+              score={score}
+              setScore={setScore}
+              setQuestions={setQuestions}
+            />
+          }
+        />
+        <Route path="/result" element={<Result name={name} score={score} />} />
+        {/* <Route path="/result" element={<Result name={name} score={score} />} /> */}
+
+        {/* // quiz end */}
         <Route path={"*"} element={<NotFound />} />
       </Routes>
     </>

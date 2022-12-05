@@ -93,7 +93,7 @@ const AllFreelancers = ({ header = true, homeSearch }) => {
               <>
                 <Grid item xs={12} md={4} lg={3} mt={10}>
                   <Link
-                    to={`/freelancer/${freelancer?._id}`}
+                    to={`/profile/${freelancer?._id}`}
                     style={{ textTransform: "capitalize" }}
                   >
                     <FreelancerCard freelancer={freelancer} />
