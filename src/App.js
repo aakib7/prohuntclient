@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./App.css";
 import Login from "./components/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./store/Actions/User";
@@ -34,7 +35,7 @@ import AllCategories from "./components/pages/AllCategories";
 import ChangePassword from "./ChangePassword/ChangePassword";
 import AllFreelancers from "./components/pages/AllFreelancers";
 import Orders from "./panel/src/components/orders/Orders";
-import Chats from "./chat/Pages/Chats";
+import Chat from "./Messages/pages/Chat";
 import Todo from "./Todo/Todo";
 import OrdersEmployer from "./EmployeerPanel/src/components/orders/OrdersEmployer";
 import QuizHome from "./Quiz/Pages/Home/QuizHome";
@@ -186,7 +187,7 @@ function App() {
         <Route path={"/freelancers"} element={<AllFreelancers />} />
 
         {/* {Chat Routes} */}
-        <Route path="/chat" element={isAuthenticated ? <Chats /> : <Login />} />
+        <Route path="/chat" element={isAuthenticated ? <Chat /> : <Login />} />
         {/* {manage project Route} */}
         <Route path="/manageproject/:id" element={<Todo />} />
 
