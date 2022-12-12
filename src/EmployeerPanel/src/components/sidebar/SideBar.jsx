@@ -9,6 +9,7 @@ import PasswordIcon from "@mui/icons-material/Password";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
+import VideocamIcon from "@mui/icons-material/Videocam";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -104,6 +105,25 @@ const Sidebar = () => {
               </div>
             </NavLink>
           ))}
+
+          <div>
+            <a
+              href="https://prohuntmeet.bubbleapps.io/version-test"
+              className="link"
+              target="_blank"
+              activeclassName="active"
+            >
+              <div className="icon">
+                <VideocamIcon />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Create Meeting
+              </div>
+            </a>
+          </div>
           <div>
             <NavLink
               className="link"

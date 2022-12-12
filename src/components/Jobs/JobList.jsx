@@ -73,6 +73,7 @@ const JobList = ({ search }) => {
         <Grid container spacing={2}>
           {jobs?.map((job) => (
             <>
+              {console.log(job.image.url)}
               <Grid item xs={12} md={6} lg={4}>
                 <Link
                   to={`/job/${job._id}`}
@@ -80,7 +81,7 @@ const JobList = ({ search }) => {
                 >
                   <SingleJobCard
                     title={job.title}
-                    imgage={image}
+                    image={"http://localhost:4000/" + job?.image?.url}
                     avatar={image}
                     price={job.price}
                     author={`${job.owner?.firstName} ${job.owner?.lastName}`}

@@ -116,9 +116,9 @@ const SingleJob = () => {
             <Grid item xs={12}>
               <img
                 style={{
-                  //marginTop: "25px",
                   width: "100%",
-                  height: "auto",
+                  height: "550px",
+                  objectFit: "fill",
                 }}
                 src={`http://localhost:4000/${job?.image?.url}`}
                 alt="Job Banner"

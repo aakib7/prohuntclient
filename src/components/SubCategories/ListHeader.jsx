@@ -61,6 +61,7 @@ const ListHeader = () => {
       >
         {blogButton ? "" : <FilterSideBar />}
         <StyledButton
+          autoFocus
           startIcon={<BadgeIcon />}
           sx={{
             ml: { xs: 4, md: 10 },
@@ -108,6 +109,9 @@ const StyledButton = styled(Button)`
   background-color: #f2a71b;
   color: #fff;
   &:hover {
+    background-color: #025e73;
+  }
+  &:focus {
     background-color: #025e73;
   }
 `;

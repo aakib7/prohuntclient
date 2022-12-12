@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import { NavLink } from "react-router-dom";
-import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
-import { Typography, Box, Stack } from "@mui/material";
+import { NavLink, Link } from "react-router-dom";
+import { Typography } from "@mui/material";
 import WorkIcon from "@mui/icons-material/Work";
 import FeedIcon from "@mui/icons-material/Feed";
 import PasswordIcon from "@mui/icons-material/Password";
@@ -10,6 +9,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import axios from "axios";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
+import VideocamIcon from "@mui/icons-material/Videocam";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,11 +35,13 @@ const Sidebar = () => {
       name: "Blogs",
       icon: <FeedIcon />,
     },
+
     {
       path: "changePassword",
       name: "Change Password",
       icon: <PasswordIcon />,
     },
+
     // {
     //   path: "product",
     //   name: "Product",
@@ -105,6 +107,26 @@ const Sidebar = () => {
               </div>
             </NavLink>
           ))}
+          {/* // Meeting */}
+          <div>
+            <a
+              href="https://prohuntmeet.bubbleapps.io/version-test"
+              className="link"
+              target="_blank"
+              activeclassName="active"
+            >
+              <div className="icon">
+                <VideocamIcon />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Create Meeting
+              </div>
+            </a>
+          </div>
+          {/* // logOut */}
           <div>
             <NavLink
               className="link"

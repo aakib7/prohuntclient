@@ -17,3 +17,10 @@ root.render(
     </Provider>
   </BrowserRouter>
 );
+
+// ReactDOM.render(
+//   <ContextProvider>
+//     <App />
+//   </ContextProvider>,
+//   document.getElementById("root")
+// );

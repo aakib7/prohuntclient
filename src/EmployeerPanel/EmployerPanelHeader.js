@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./src/components/sidebar/SideBar";
 import "./style.css";
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import Header from "../components/Header/Header";
 const EmployerPanelHeader = () => {
   return (
