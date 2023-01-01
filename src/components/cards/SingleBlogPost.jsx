@@ -9,7 +9,7 @@ const SingleBlogPost = ({ title, description, image }) => {
   return (
     <Card sx={{ maxWidth: 340 }}>
       <CardMedia component="img" height="210" image={image} alt="Blog Image" />
-      <CardContent sx={{ backgroundColor: "#025e73" }}>
+      <CardContent sx={{ backgroundColor: "#F7F7F7" }}>
         <TypographyStyles
           fontSize={20}
           fontWeight={600}
@@ -26,7 +26,7 @@ const SingleBlogPost = ({ title, description, image }) => {
         </TypographyStyles>
         <Typography
           variant="body2"
-          sx={{ color: "white" }}
+          sx={{ color: "black" }}
           style={{ height: "100px", marginTop: "5px", overflow: "hidden" }}
         >
           {!description && (
@@ -47,10 +47,10 @@ const SingleBlogPost = ({ title, description, image }) => {
 export default SingleBlogPost;
 
 const TypographyStyles = styled(Typography)`
-  color: white;
+  color: black;
   transition: text-decoration 2s;
   &:hover {
-    color: #f2a71b;
+    color: #011f26;
     text-decoration: underline;
   }
 `;

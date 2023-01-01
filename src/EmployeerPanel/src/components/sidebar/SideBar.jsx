@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink } from "react-router-dom";
-import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
-import { Typography, Box, Stack } from "@mui/material";
+import { Typography } from "@mui/material";
 import WorkIcon from "@mui/icons-material/Work";
 import FeedIcon from "@mui/icons-material/Feed";
 import PasswordIcon from "@mui/icons-material/Password";
@@ -10,6 +9,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
 import VideocamIcon from "@mui/icons-material/Videocam";
+import BlockIcon from "@mui/icons-material/Block";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,16 +40,6 @@ const Sidebar = () => {
       name: "Change Password",
       icon: <PasswordIcon />,
     },
-    // {
-    //   path: "product",
-    //   name: "Product",
-    //   icon: <AccessAlarmIcon />,
-    // },
-    // {
-    //   path: "productList",
-    //   name: "Product List",
-    //   icon: <AccessAlarmIcon />,
-    // },
   ];
   const logout = () => {
     const config = {
@@ -70,7 +60,7 @@ const Sidebar = () => {
   return (
     <>
       <div className="container">
-        <div style={{ width: isOpen ? "240px" : "50px" }} className="sidebar">
+        <div style={{ width: isOpen ? "250px" : "50px" }} className="sidebar">
           <div className="top_section">
             <Typography
               variant="h4"
@@ -124,6 +114,24 @@ const Sidebar = () => {
               </div>
             </a>
           </div>
+          {/* // deactive */}
+
+          <div>
+            <NavLink className="link" activeclassName="active">
+              <div className="icon">
+                <BlockIcon />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Deavtivate Account
+              </div>
+            </NavLink>
+          </div>
+
+          {/* //x/ */}
+
           <div>
             <NavLink
               className="link"
