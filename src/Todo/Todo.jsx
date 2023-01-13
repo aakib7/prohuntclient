@@ -19,11 +19,12 @@ import Header from "../components/Header/Header";
 import SubHeader from "../components/Header/SubHeader";
 import Footer from "../components/Footer/Footer";
 import { useParams } from "react-router-dom";
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import FullPageLoading from "../components/others/FullPageLoading";
 import { useSelector } from "react-redux";
+import CheckIcon from "@mui/icons-material/Check";
 const Todo = () => {
   const { user } = useSelector((state) => state.user);
   const { id } = useParams();
@@ -73,6 +74,29 @@ const Todo = () => {
         setLoading(false);
         setMessage(error.response.data.message);
         console.log(error.response.data.message);
+      });
+  };
+  const completeOrder = () => {
+    const config = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+
+    axios
+      .get(`http://localhost:4000/order/complete/${id}`, config)
+      .then((response) => {
+        // console.log("Completed")
+        navigate("/panel/orders");
+      })
+      .catch((error) => {
+        setError(true);
+        setOpen(true);
+        setSeverity("error");
+        setLoading(false);
+        setMessage(error.response.data.message);
       });
   };
   useEffect(() => {
@@ -192,6 +216,20 @@ const Todo = () => {
             >
               Back To Orders
             </Button>
+            {user?.role === "freelancer" ? (
+              <Button
+                variant="contained"
+                startIcon={<CheckIcon />}
+                style={{ marginLeft: 5 }}
+                onClick={() => {
+                  completeOrder();
+                }}
+              >
+                Order Complete
+              </Button>
+            ) : (
+              ""
+            )}
           </Box>
         </Box>
         {loading && <FullPageLoading />}
@@ -278,7 +316,7 @@ const Todo = () => {
               alignItems: "center",
             }}
           >
-            <Typography>Project Not managed Yet </Typography>
+            <Typography>Project Not managed Yet</Typography>
           </Box>
         )}
       </Container>

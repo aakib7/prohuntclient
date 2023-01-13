@@ -28,6 +28,11 @@ const columns = [
     minWidth: 100,
     align: "center",
   },
+  {
+    id: "action",
+    label: "Actions",
+    align: "center",
+  },
 ];
 
 export default function CompletedOrder({ orders }) {
