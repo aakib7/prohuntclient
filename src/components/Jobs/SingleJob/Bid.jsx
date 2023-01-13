@@ -16,6 +16,7 @@ import ReadMore from "../../others/ReadMore";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useSelector } from "react-redux";
 import HireModel from "./HireModel";
+
 const Bid = ({ bid, ownerId, job }) => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const [openHireModel, setOpenHireModel] = React.useState(false);

@@ -10,8 +10,9 @@ import {
 } from "@mui/material";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import BuyGig from "./BuyGig";
 import React from "react";
 
 const RightSideBar = ({
@@ -20,7 +21,12 @@ const RightSideBar = ({
   authorName,
   userId,
   authorImage,
+  gig,
 }) => {
+  const { user, isAuthenticated } = useSelector((state) => state.user);
+  const [openGigModel, setOpenGigModel] = React.useState(false);
+  const handleOpenHireModel = () => setOpenGigModel(true);
+  const handleCloseGigModel = () => setOpenGigModel(false);
   return (
     <Box
       bgcolor={"#f7f7f7"}
@@ -33,7 +39,13 @@ const RightSideBar = ({
           </Typography>
         </Grid>
         <Grid item xs={12} mt={1.5}>
-          <StyledButton variant="contained" fullWidth={true}>
+          <StyledButton
+            variant="contained"
+            fullWidth={true}
+            onClick={() => {
+              handleOpenHireModel();
+            }}
+          >
             Buy Now
           </StyledButton>
         </Grid>
@@ -69,6 +81,12 @@ const RightSideBar = ({
 
         <Divider />
       </Grid>
+      <BuyGig
+        open={openGigModel}
+        handleClose={handleCloseGigModel}
+        name={gig?.owner?.firstName}
+        gig={gig}
+      />
     </Box>
   );
 };

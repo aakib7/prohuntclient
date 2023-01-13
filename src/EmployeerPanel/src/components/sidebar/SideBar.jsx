@@ -9,6 +9,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
 import VideocamIcon from "@mui/icons-material/Videocam";
+import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import BlockIcon from "@mui/icons-material/Block";
 
 const Sidebar = () => {
@@ -28,7 +29,7 @@ const Sidebar = () => {
     {
       path: "orders",
       name: "Orders",
-      icon: <WorkIcon />,
+      icon: <AddBusinessIcon />,
     },
     {
       path: "blogs",

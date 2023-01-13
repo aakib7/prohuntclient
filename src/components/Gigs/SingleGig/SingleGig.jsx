@@ -129,6 +129,7 @@ const SingleGig = () => {
             >
               <RightSideBar
                 price={gig.price}
+                gig={gig}
                 authorImage={
                   gig?.owner?.avatar.url
                     ? "http://localhost:4000/" + gig?.owner?.avatar.url
