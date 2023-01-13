@@ -13,19 +13,22 @@ import OrderDetailModel from "./OrderDetailModel";
 import { useNavigate } from "react-router-dom";
 const columns = [
   { id: "Title", label: "Title", minWidth: 130 },
-  { id: "Description", label: "First Name", minWidth: 330 },
-
+  { id: "Description", label: "Description", minWidth: 330 },
   {
     id: "Budget",
     label: "Budget",
     minWidth: 20,
     align: "center",
   },
-
   {
     id: "DeliveryTime",
     label: "DeliveryTime",
     minWidth: 100,
+    align: "center",
+  },
+  {
+    id: "action",
+    label: "Actions",
     align: "center",
   },
 ];

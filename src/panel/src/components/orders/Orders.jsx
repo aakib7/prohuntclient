@@ -5,12 +5,15 @@ import Button from "@mui/material/Button";
 import { Box, styled } from "@mui/material";
 import PendingOrder from "./PendingOrder";
 import { useSelector } from "react-redux";
+import CompletedOrder from "./CompletedOrder";
 
 const Orders = () => {
   const { user } = useSelector((state) => state.user);
   const [pendingOrders, setPendingOrder] = useState(true);
   const [pendingOrdersData, setPendingOrdersData] = useState([]);
   const [completedOrders, setCompletedOrder] = useState(false);
+  const [completedOrdersData, setCompletedOrdersData] = useState([]);
+
   const getPendingOrders = () => {
     const config = {
       headers: {
@@ -36,11 +39,38 @@ const Orders = () => {
         // setMessage(error.response);
       });
   };
+  const getCompletedOrders = () => {
+    const config = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+    axios
+      .post(
+        `http://localhost:4000/order/freelancer`,
+        {
+          isCompleted: true,
+          userId: user._id,
+        },
+        config
+      )
+      .then((response) => {
+        setCompletedOrdersData(response.data.orders);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  };
   useEffect(() => {
     if (pendingOrders && user) {
       getPendingOrders();
     }
-  }, [pendingOrders, user]);
+    if (completedOrders && user) {
+      getCompletedOrders();
+    }
+  }, [pendingOrders, user, completedOrders]);
   return (
     <>
       <Box display={"flex"} justifyContent={"space-between"}>
@@ -69,8 +99,11 @@ const Orders = () => {
         <Button variant="contained">Generate Report</Button>
       </Box>
       <Box>
-        {PendingOrder && pendingOrdersData && (
+        {pendingOrders && pendingOrdersData && (
           <PendingOrder orders={pendingOrdersData} />
+        )}
+        {completedOrders && pendingOrdersData && (
+          <CompletedOrder orders={completedOrdersData} />
         )}
       </Box>
     </>
