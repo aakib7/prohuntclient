@@ -41,6 +41,8 @@ import OrdersEmployer from "./EmployeerPanel/src/components/orders/OrdersEmploye
 import QuizHome from "./Quiz/Pages/Home/QuizHome";
 import Quiz from "./Quiz/Pages/Quiz/Quiz";
 import Result from "./Quiz/Pages/Result/Result";
+import Team from "./panel/src/components/team/Team";
+import Howitworks from "./HowItWorks/Howitworks";
 
 function App() {
   const dispatch = useDispatch();
@@ -100,6 +102,7 @@ function App() {
           <Route exact path="gig" element={<Gig />} />
           <Route exact path="orders" element={<Orders />} />
           <Route exact path="blogs" element={<Blog />} />
+          <Route exact path="team" element={<Team />} />
           <Route exact path="changePassword" element={<ChangePassword />} />
         </Route>
         {/* {Employer} */}
@@ -185,6 +188,7 @@ function App() {
         <Route path={"/blogs"} element={<AllBlogs />} />
         <Route path={"/categories"} element={<AllCategories />} />
         <Route path={"/freelancers"} element={<AllFreelancers />} />
+        <Route path={"/how"} element={<Howitworks />} />
 
         {/* {Chat Routes} */}
         <Route path="/chat" element={isAuthenticated ? <Chat /> : <Login />} />

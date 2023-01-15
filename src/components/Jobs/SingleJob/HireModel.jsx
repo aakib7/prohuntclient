@@ -6,6 +6,7 @@ import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const style = {
   position: "absolute",
@@ -25,6 +26,7 @@ const HireModel = ({ open, handleClose, name, job, bid }) => {
   const [severity, setSeverity] = React.useState("error");
   const [message, setMessage] = React.useState("");
   const [success, setSuccess] = React.useState(false);
+  const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const handleHire = (e) => {
     const config = {
@@ -43,7 +45,7 @@ const HireModel = ({ open, handleClose, name, job, bid }) => {
           description: job.description,
           price: bid.budget,
           deliverdTime: job.deliveredTime,
-          orderType: "Job",
+          orderType: user?.role === "freelancer" ? "Team" : "Job",
         },
         config
       )
@@ -65,7 +67,9 @@ const HireModel = ({ open, handleClose, name, job, bid }) => {
   React.useEffect(() => {
     if (success) {
       const interval = setInterval(() => {
-        navigate("/employer");
+        user?.role === "freelancer"
+          ? navigate("/panel")
+          : navigate("/employer");
       }, 2000);
       return () => clearInterval(interval);
     }

@@ -91,7 +91,7 @@ export default function AddTodo({
       )
       .then((response) => {
         setOpenAlert();
-        messageSt("added successfully");
+        messageSt(response.data.message);
         severitySt("success");
         fetchTodo();
       })

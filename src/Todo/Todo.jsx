@@ -25,6 +25,8 @@ import { useNavigate } from "react-router-dom";
 import FullPageLoading from "../components/others/FullPageLoading";
 import { useSelector } from "react-redux";
 import CheckIcon from "@mui/icons-material/Check";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import TeamForm from "../panel/src/components/team/TeamForm";
 const Todo = () => {
   const { user } = useSelector((state) => state.user);
   const { id } = useParams();
@@ -36,6 +38,9 @@ const Todo = () => {
   const [severity, setSeverity] = React.useState("error");
   const [message, setMessage] = React.useState("");
   const navigate = useNavigate();
+  const [openTeamForm, setOpenTeamForm] = useState(false);
+  const handleOpenTeam = () => setOpen(true);
+  const handleCloseTeam = () => setOpen(false);
 
   const setOpenAlert = () => {
     setOpen((prev) => !prev);
@@ -89,7 +94,11 @@ const Todo = () => {
       .get(`http://localhost:4000/order/complete/${id}`, config)
       .then((response) => {
         // console.log("Completed")
-        navigate("/panel/orders");
+        // navigate("/panel/orders")
+        console.log(response.data);
+        setSeverity("success");
+        setOpen(true);
+        setMessage(response.data.message);
       })
       .catch((error) => {
         setError(true);
@@ -219,6 +228,20 @@ const Todo = () => {
             {user?.role === "freelancer" ? (
               <Button
                 variant="contained"
+                startIcon={<GroupAddIcon />}
+                style={{ marginLeft: 5 }}
+                onClick={() => {
+                  setOpenTeamForm((pre) => !pre);
+                }}
+              >
+                Create Team
+              </Button>
+            ) : (
+              ""
+            )}
+            {user?.role === "freelancer" ? (
+              <Button
+                variant="contained"
                 startIcon={<CheckIcon />}
                 style={{ marginLeft: 5 }}
                 onClick={() => {
@@ -320,6 +343,7 @@ const Todo = () => {
           </Box>
         )}
       </Container>
+      <TeamForm open={openTeamForm} handleClose={handleCloseTeam} />
       <Footer />
     </>
   );

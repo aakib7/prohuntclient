@@ -204,7 +204,7 @@ export default function Header() {
       </MenuItem>
       <Divider />
       <MenuItem>
-        <Link to={""} style={{ textDecoration: "none", color: "black" }}>
+        <Link to={"/how"} style={{ textDecoration: "none", color: "black" }}>
           How It Work?
         </Link>
       </MenuItem>
@@ -289,7 +289,7 @@ export default function Header() {
                     fontWeight: "400",
                     color: "white",
                   }}
-                  to={"/login"}
+                  to={"/how"}
                 >
                   How It Work ?
                 </Link>

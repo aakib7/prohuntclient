@@ -141,7 +141,7 @@ export default function BidModel({ open, handleClose }) {
             variant="h6"
             sx={{ display: "flex", justifyContent: "center", marginBottom: 2 }}
           >
-            Bid Here{jobId}
+            Bid Here
           </Typography>
           <Box component="form" onSubmit={handleSubmit}>
             <TextField

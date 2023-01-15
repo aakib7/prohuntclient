@@ -204,20 +204,24 @@ const SingleJob = () => {
                 md={4}
                 style={{ display: "flex", justifyContent: "flex-end" }}
               >
-                <StyledButton
-                  variant="contained"
-                  color="success"
-                  style={{ width: "50%", marginRight: 34 }}
-                  onClick={() => {
-                    isAuthenticated
-                      ? user.role === "freelancer"
-                        ? setOpen((prev) => !prev)
-                        : setOpenAlert((prev) => !prev)
-                      : navigate("/login");
-                  }}
-                >
-                  Bid Now
-                </StyledButton>
+                {job?.owner?._id === user?._id ? (
+                  ""
+                ) : (
+                  <StyledButton
+                    variant="contained"
+                    color="success"
+                    style={{ width: "50%", marginRight: 34 }}
+                    onClick={() => {
+                      isAuthenticated
+                        ? user.role === "freelancer"
+                          ? setOpen((prev) => !prev)
+                          : setOpenAlert((prev) => !prev)
+                        : navigate("/login");
+                    }}
+                  >
+                    Bid Now
+                  </StyledButton>
+                )}
               </Grid>
             </Grid>
             <Divider />

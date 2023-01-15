@@ -10,6 +10,7 @@ import axios from "axios";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import VideocamIcon from "@mui/icons-material/Videocam";
+import PeopleIcon from "@mui/icons-material/People";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,6 +30,11 @@ const Sidebar = () => {
       path: "orders",
       name: "Orders",
       icon: <AddBusinessIcon />,
+    },
+    {
+      path: "team",
+      name: "Team",
+      icon: <PeopleIcon />,
     },
     {
       path: "blogs",
