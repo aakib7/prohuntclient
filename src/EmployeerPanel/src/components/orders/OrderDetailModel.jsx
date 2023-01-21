@@ -3,10 +3,12 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { styled, Stack, Divider } from "@mui/material";
+import { styled, Stack, Divider, Snackbar, Alert } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import moment from "moment/moment";
+import Rating from "@mui/material/Rating";
+import axios from "axios";
 const modalWrapper = {
   overflow: "auto",
   maxHeight: "100vh",
@@ -24,7 +26,7 @@ const modalBlock = {
 
 const style = {
   position: "absolute",
-  top: "40%",
+  top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 800,
@@ -33,8 +35,58 @@ const style = {
 };
 
 export default function OrderDetailModel({ handleClose, open, order }) {
+  const [value, setValue] = React.useState(0);
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [severity, setSeverity] = React.useState("error");
+  const [message, setMessage] = React.useState("");
+  const handlerating = () => {
+    if (value == 0) {
+      setOpenAlert(true);
+      setSeverity("error");
+      setMessage("Rating must be greater than 0");
+      return;
+    }
+    const config = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+    axios
+      .put(
+        `http://localhost:4000/order/rate/${order._id}`,
+        {
+          rating: value,
+        },
+        config
+      )
+      .then((response) => {
+        setOpenAlert(true);
+        setSeverity("success");
+        setMessage("Review Added SuccessFully");
+      })
+      .catch((error) => {
+        setOpenAlert(true);
+        setSeverity("error");
+        setMessage("Try again");
+      });
+  };
   return (
     <div>
+      <Snackbar
+        open={openAlert}
+        autoHideDuration={6000}
+        onClose={() => setOpenAlert(false)}
+      >
+        <Alert
+          onClose={() => setOpenAlert(false)}
+          severity={severity}
+          sx={{ width: "100%" }}
+        >
+          {message}
+        </Alert>
+      </Snackbar>
       <Modal
         open={open}
         onClose={() => handleClose()}
@@ -98,10 +150,57 @@ export default function OrderDetailModel({ handleClose, open, order }) {
           </Box>
           <Box mt={2}>
             <Typography fontSize={18} fontWeight={500}>
-              Description:
+              Description
             </Typography>
             <Typography>{order?.description}</Typography>
           </Box>
+          {order?.isCompleted && (
+            <Box mt={2}>
+              <Typography fontSize={18} fontWeight={500}>
+                Rating
+              </Typography>
+              {!order.isRated && (
+                <Box
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography style={{ marginTop: "7px" }}>
+                    <Rating
+                      name="simple-controlled"
+                      value={value}
+                      onChange={(event, newValue) => {
+                        setValue(newValue);
+                      }}
+                    />
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      handlerating();
+                    }}
+                  >
+                    Submit
+                  </Button>
+                </Box>
+              )}
+              {order.isRated && (
+                <Box
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography style={{ marginTop: "7px" }}>
+                    <Rating name="read-only" value={order?.rating} />
+                  </Typography>
+                </Box>
+              )}
+            </Box>
+          )}
         </Box>
       </Modal>
     </div>

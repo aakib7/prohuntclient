@@ -43,6 +43,8 @@ import Quiz from "./Quiz/Pages/Quiz/Quiz";
 import Result from "./Quiz/Pages/Result/Result";
 import Team from "./panel/src/components/team/Team";
 import Howitworks from "./HowItWorks/Howitworks";
+import Portfolio from "./panel/src/components/portfolio/Portfolio";
+import PortfolioPage from "./panel/src/components/portfolio/PortfolioPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -102,6 +104,7 @@ function App() {
           <Route exact path="gig" element={<Gig />} />
           <Route exact path="orders" element={<Orders />} />
           <Route exact path="blogs" element={<Blog />} />
+          <Route exact path="portfolio" element={<Portfolio />} />
           <Route exact path="team" element={<Team />} />
           <Route exact path="changePassword" element={<ChangePassword />} />
         </Route>
@@ -189,6 +192,7 @@ function App() {
         <Route path={"/categories"} element={<AllCategories />} />
         <Route path={"/freelancers"} element={<AllFreelancers />} />
         <Route path={"/how"} element={<Howitworks />} />
+        <Route path={"/portfolio/:id"} element={<PortfolioPage />} />
 
         {/* {Chat Routes} */}
         <Route path="/chat" element={isAuthenticated ? <Chat /> : <Login />} />

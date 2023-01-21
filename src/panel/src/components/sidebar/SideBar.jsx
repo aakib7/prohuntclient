@@ -11,6 +11,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import PeopleIcon from "@mui/icons-material/People";
+import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +42,11 @@ const Sidebar = () => {
       name: "Blogs",
       icon: <FeedIcon />,
     },
-
+    {
+      path: "portfolio",
+      name: "Portfolio",
+      icon: <WorkHistoryIcon />,
+    },
     {
       path: "changePassword",
       name: "Change Password",

@@ -12,11 +12,33 @@ import img1 from "../../assests/images/main-banner.jpg";
 import { useSelector } from "react-redux";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
-import ClientSignup from "../Registration/ClientSignup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 const About = () => {
   const { user } = useSelector((state) => state.user);
+  const [portfolio, setPortfolio] = React.useState([]);
   const navigate = useNavigate();
+
+  const fetchPortfolio = () => {
+    const config = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+
+    axios
+      .get(`http://localhost:4000/portfolio`, config)
+      .then((response) => {
+        setPortfolio(response.data.portfolio);
+        console.log(response.data.portfolio);
+      })
+      .catch((error) => {});
+  };
+  React.useEffect(() => {
+    fetchPortfolio();
+  }, []);
   return (
     <>
       <Grid container>
@@ -53,7 +75,11 @@ const About = () => {
         <Grid item xs={12}>
           <Stack direction={"row"} spacing={2}>
             <Typography>Rating</Typography>
-            <Rating name="read-only" value={4} readOnly />
+            <Rating
+              name="read-only"
+              value={user?.rating ? user?.rating : 0}
+              readOnly
+            />
           </Stack>
         </Grid>
 
@@ -123,31 +149,22 @@ const About = () => {
               <Grid item xs={12}>
                 <Typography variant="h6">Portfolio</Typography>
               </Grid>
-              <Grid item xs={12} md={4}>
-                <Card sx={{ maxWidth: 345 }}>
-                  <CardMedia component="img" height="194" image={img1} />
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card sx={{ maxWidth: 345 }}>
-                  <CardMedia component="img" height="194" image={img1} />
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card sx={{ maxWidth: 345 }}>
-                  <CardMedia component="img" height="194" image={img1} />
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card sx={{ maxWidth: 345 }}>
-                  <CardMedia component="img" height="194" image={img1} />
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card sx={{ maxWidth: 345 }}>
-                  <CardMedia component="img" height="194" image={img1} />
-                </Card>
-              </Grid>
+              {portfolio?.slice(0, 3).map((port) => {
+                return (
+                  <Grid item xs={12} md={4}>
+                    <Link to={`/portfolio/${port._id}`}>
+                      <Card sx={{ maxWidth: 345 }} style={{ marginBottom: 25 }}>
+                        <CardMedia
+                          component="img"
+                          height="194"
+                          image={`http://localhost:4000/${port.pictures[0]}`}
+                        />
+                      </Card>
+                    </Link>
+                  </Grid>
+                );
+              })}
+              {!portfolio && <Typography>No PortFolio Added Yet</Typography>}
             </Grid>
           </>
         )}

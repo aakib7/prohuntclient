@@ -26,7 +26,7 @@ const UserProfile = () => {
       const url = `http://localhost:4000/user/user/${userId}`;
       const { data } = await axios.get(url);
       setLoading(false);
-      console.log(data);
+
       setUser(data.user);
     } catch (error) {
       setLoading(false);
@@ -71,7 +71,7 @@ const UserProfile = () => {
             <Divider orientation="vertical" flexItem />
 
             <Grid item md={8}>
-              <About user={user} />
+              <About user={user} id={userId} />
             </Grid>
           </Grid>
         </Container>

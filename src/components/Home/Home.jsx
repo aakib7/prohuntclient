@@ -58,7 +58,7 @@ const Home = () => {
           <Box sx={{ mt: 10 }}>
             <Box display={"flex"} justifyContent={"space-between"}>
               <Typography sx={{ pl: 8 }} variant="h4">
-                Most Poupolar Categories
+                Categories
               </Typography>
               <Typography
                 sx={{ pr: 8, marginTop: 3, textDecoration: "underline" }}
