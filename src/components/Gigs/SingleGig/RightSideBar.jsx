@@ -8,8 +8,9 @@ import {
   styled,
   Typography,
 } from "@mui/material";
+import moment from "moment/moment";
 import TelegramIcon from "@mui/icons-material/Telegram";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BuyGig from "./BuyGig";
@@ -22,6 +23,7 @@ const RightSideBar = ({
   userId,
   authorImage,
   gig,
+  createdAt,
 }) => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const [openGigModel, setOpenGigModel] = React.useState(false);
@@ -51,11 +53,13 @@ const RightSideBar = ({
         </Grid>
         <Grid item xs={6} mt={2}>
           <TelegramIcon />
-          <Typography>Deliver in {deliverTime}</Typography>
+          <Typography>Delivered in {deliverTime}</Typography>
         </Grid>
         <Grid item xs={6} mt={2}>
-          <ThumbUpOffAltIcon />
-          <Typography>Rating 100%</Typography>
+          <AccessTimeIcon />
+          <Typography>
+            Created At {moment(createdAt).format("MMM Do YYYY")}
+          </Typography>
         </Grid>
       </Grid>
       <Grid item xs={12}>

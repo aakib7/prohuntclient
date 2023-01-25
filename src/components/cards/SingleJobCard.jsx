@@ -3,10 +3,9 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Grid, Avatar, Rating, Divider } from "@mui/material";
-import image from "../../assests/images/main-banner.jpg";
+import moment from "moment/moment";
 
 export default function SingleGigCard({
   title = "want freelancer want freelancer want freelancer want freelancer want freelancer want freelancer want freelancer want freelancer want freelancer frjbjcbbj",
@@ -14,7 +13,7 @@ export default function SingleGigCard({
   avatar = "aaqib",
   author = "ajmehdi",
   price = 123,
-  rating = 4,
+  createdAt,
   deliveredTime = "2 days",
 }) {
   return (
@@ -34,8 +33,12 @@ export default function SingleGigCard({
             <Avatar alt={author} src={avatar} />
           </Grid>
           <Grid item xs={8}>
-            <Typography sx={{ paddingLeft: 1 }}>By {author}</Typography>
-            <Rating name="read-only" value={rating} precision={0.5} readOnly />
+            <Typography sx={{ paddingLeft: 1, fontWeight: "700" }}>
+              By {author}
+            </Typography>
+            <Typography>
+              Posted At: {moment(createdAt).format("MMM Do YY")}
+            </Typography>
           </Grid>
           <Grid item xs={2}>
             <Typography variant="h6">${price}</Typography>

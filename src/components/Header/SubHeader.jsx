@@ -92,8 +92,11 @@ const SubHeader = () => {
 
 export default SubHeader;
 const StyledTypography = styled(Typography)`
-color: black;
-padding-left: 25px;
+  color: black;
+  padding-left: 25px;
+  font-weight: 500;
   &:hover {
     text-decoration: underline;
+    color: #7a57d1;
+  }
 `;

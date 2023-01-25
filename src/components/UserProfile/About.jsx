@@ -20,7 +20,6 @@ const About = ({ user, id }) => {
     axios
       .get(`http://localhost:4000/portfolio/user/${id}`, config)
       .then((response) => {
-        console.log("p");
         setPortfolio(response.data.portfolio);
         console.log(response.data.portfolio);
       })
@@ -77,27 +76,27 @@ const About = ({ user, id }) => {
         <Grid item xs={6} sx={{ display: "flex", alignItems: "center" }}>
           <Stack direction="row" spacing={1} alignItems={"center"}>
             <Typography variant="h6" color={"green"}>
-              100%
+              {user?.blogs?.length}
             </Typography>
-            <Typography variant="p"> on budget </Typography>
+            <Typography variant="p"> Blog Posted </Typography>
           </Stack>
         </Grid>
 
         <Grid item xs={6} sx={{ display: "flex", alignItems: "center" }}>
           <Stack direction="row" spacing={1} alignItems={"center"}>
             <Typography variant="h6" color={"green"}>
-              100%
+              {user?.completedProject}
             </Typography>
-            <Typography variant="p"> on Time </Typography>
+            <Typography variant="p"> Jobs Completed </Typography>
           </Stack>
         </Grid>
 
         <Grid item xs={6} sx={{ display: "flex", alignItems: "center" }}>
           <Stack direction="row" spacing={1} alignItems={"center"}>
             <Typography variant="h6" color={"green"}>
-              33%
+              {user?.onGoingProject}
             </Typography>
-            <Typography variant="p"> Repeat hire </Typography>
+            <Typography variant="p"> Pending Jobs </Typography>
           </Stack>
         </Grid>
         <Grid item xs={12} mt={2}>

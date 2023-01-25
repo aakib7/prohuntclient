@@ -102,7 +102,7 @@ const AllJobs = ({ header = true, homeSearch }) => {
                         job?.owner?.firstName + " " + job?.owner?.lastName
                       }
                       price={job?.price}
-                      rating={job?.price}
+                      rating={job?.rating}
                       image={`http://localhost:4000/${job?.image.url}`}
                       deliveredTime={job?.deliveredTime}
                     />

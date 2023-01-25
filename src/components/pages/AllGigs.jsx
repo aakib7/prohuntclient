@@ -6,7 +6,6 @@ import HeroSection from "../Header/HeroSection";
 import SubHeader from "../Header/SubHeader";
 import { Grid, Typography, Box } from "@mui/material";
 import SingleGigCard from "../cards/SingleGigCard";
-import image from "../../assests/images/main-banner.jpg";
 import FullPageLoading from "../others/FullPageLoading";
 import { Link } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
@@ -29,6 +28,7 @@ const AllGigs = ({ header = true, homeSearch }) => {
       setLoading(true);
       const url = `http://localhost:4000/gigs?page=${page}&limit=${limit}&search=${""}`;
       const { data } = await axios.get(url);
+      console.log(data);
       setLoading(false);
       setGigs(data.Gigs);
       setTotal(data.total);
@@ -79,7 +79,7 @@ const AllGigs = ({ header = true, homeSearch }) => {
             height: "100%",
           }}
         >
-          <Typography>No Blogs To show</Typography>
+          <Typography>No Gigs To show</Typography>
         </Box>
       )}
       {loading && (
@@ -118,8 +118,8 @@ const AllGigs = ({ header = true, homeSearch }) => {
                         gig?.owner?.firstName + " " + gig?.owner?.lastName
                       }
                       price={gig?.price}
-                      rating={gig?.price}
-                      imgage={image}
+                      rating={gig?.rating}
+                      imgage={"http://localhost:4000/" + gig?.image.url}
                       deliveredTime={gig?.deliveredTime}
                     />
                   </Link>

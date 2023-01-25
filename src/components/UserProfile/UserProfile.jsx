@@ -26,7 +26,6 @@ const UserProfile = () => {
       const url = `http://localhost:4000/user/user/${userId}`;
       const { data } = await axios.get(url);
       setLoading(false);
-
       setUser(data.user);
     } catch (error) {
       setLoading(false);

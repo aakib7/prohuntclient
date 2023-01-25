@@ -61,6 +61,11 @@ const JobHome = () => {
                   rating={job?.price}
                   image={`http://localhost:4000/${job?.image?.url}`}
                   deliveredTime={job?.deliveredTime}
+                  createdAt={
+                    job?.createdAt
+                      ? job.createdAt
+                      : "2023-01-16T08:28:26.028+00:00"
+                  }
                 />
               </Link>
             </Grid>

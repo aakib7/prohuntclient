@@ -8,10 +8,10 @@ const DeshboardEmployer = () => {
     <>
       <Grid container spacing={2}>
         <Grid item xs={6} md={4} lg={3}>
-          <Card text={"Order  Completed"} count={user?.completedProject} />
+          <Card text={"Jobs Completed"} count={user?.completedProject} />
         </Grid>
         <Grid item xs={6} md={4} lg={3}>
-          <Card text={"Order in Progress"} count={user?.onGoingProject} />
+          <Card text={"Pending Jobs"} count={user?.onGoingProject} />
         </Grid>
         <Grid item xs={6} md={4} lg={3}>
           <Card text={"Active Jobs"} count={user?.jobs?.length} />
