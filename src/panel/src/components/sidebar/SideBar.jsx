@@ -12,6 +12,7 @@ import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import PeopleIcon from "@mui/icons-material/People";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
+import PaidIcon from "@mui/icons-material/Paid";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,6 +47,11 @@ const Sidebar = () => {
       path: "portfolio",
       name: "Portfolio",
       icon: <WorkHistoryIcon />,
+    },
+    {
+      path: "payments",
+      name: "Payments",
+      icon: <PaidIcon />,
     },
     {
       path: "changePassword",

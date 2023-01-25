@@ -10,7 +10,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
-import BlockIcon from "@mui/icons-material/Block";
+
+import PaidIcon from "@mui/icons-material/Paid";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,6 +36,11 @@ const Sidebar = () => {
       path: "blogs",
       name: "Blogs",
       icon: <FeedIcon />,
+    },
+    {
+      path: "payments",
+      name: "Payments",
+      icon: <PaidIcon />,
     },
     {
       path: "changePassword",
@@ -114,21 +120,6 @@ const Sidebar = () => {
                 Create Meeting
               </div>
             </a>
-          </div>
-          {/* // deactive */}
-
-          <div>
-            <NavLink className="link" activeclassName="active">
-              <div className="icon">
-                <BlockIcon />
-              </div>
-              <div
-                style={{ display: isOpen ? "block" : "none" }}
-                className="link_text"
-              >
-                Deavtivate Account
-              </div>
-            </NavLink>
           </div>
 
           {/* //x/ */}

@@ -45,7 +45,13 @@ import Team from "./panel/src/components/team/Team";
 import Howitworks from "./HowItWorks/Howitworks";
 import Portfolio from "./panel/src/components/portfolio/Portfolio";
 import PortfolioPage from "./panel/src/components/portfolio/PortfolioPage";
-
+import Payment from "./panel/src/components/payment/Payment";
+import PaymentEmployer from "./EmployeerPanel/src/components/payment/PaymentEmployer";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+const promise = loadStripe(
+  "pk_test_51MUGpoHrDuPWRVVLLrluFA3QKudHdW2NOyh8Xx3UiZJLS0o0vAPb2oTRBBPnvcGa6owKrauYJ0Bpbf4db4zq5w5X00GDT7wo9R"
+);
 function App() {
   const dispatch = useDispatch();
   // const user = useSelector((state) => state.user);
@@ -107,6 +113,7 @@ function App() {
           <Route exact path="portfolio" element={<Portfolio />} />
           <Route exact path="team" element={<Team />} />
           <Route exact path="changePassword" element={<ChangePassword />} />
+          <Route exact path="payments" element={<Payment />} />
         </Route>
         {/* {Employer} */}
         <Route
@@ -128,6 +135,15 @@ function App() {
           <Route exact path="jobs" element={<Job />} />
           <Route exact path="orders" element={<OrdersEmployer />} />
           <Route exact path="blogs" element={<Blog />} />
+          <Route
+            exact
+            path="payments"
+            element={
+              <Elements stripe={promise}>
+                <PaymentEmployer />
+              </Elements>
+            }
+          />
           <Route exact path="changePassword" element={<ChangePassword />} />
         </Route>
 
