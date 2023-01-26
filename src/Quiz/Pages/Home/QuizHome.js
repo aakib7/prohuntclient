@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 
 const QuizHome = ({ name, setName, fetchQuestions }) => {
   const { user } = useSelector((state) => state.user);
-  const name1 = user?.firstName;
 
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
@@ -18,7 +17,7 @@ const QuizHome = ({ name, setName, fetchQuestions }) => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    if (!category || !difficulty || !name) {
+    if (!category || !difficulty) {
       setError(true);
       return;
     } else {
@@ -45,8 +44,8 @@ const QuizHome = ({ name, setName, fetchQuestions }) => {
             {error && <ErrorMessage>Please Fill all the feilds</ErrorMessage>}
             <TextField
               style={{ marginBottom: 25 }}
-              label="User Name"
               variant="outlined"
+              value={user?.userName ? user?.userName : name}
               onChange={(e) => setName(e.target.value)}
             />
             <TextField
@@ -81,14 +80,6 @@ const QuizHome = ({ name, setName, fetchQuestions }) => {
                 Hard
               </MenuItem>
             </TextField>
-            {/* <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={handleSubmit}
-            >
-              Start Quiz
-            </Button> */}
             <StyledButton
               fullWidth
               variant="contained"

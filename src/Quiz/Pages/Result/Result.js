@@ -5,15 +5,36 @@ import Header from "../../../components/Header/Header";
 import "./Result.css";
 import ReplayIcon from "@mui/icons-material/Replay";
 import { styled } from "@mui/system";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const Result = ({ name, score }) => {
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (!name) {
-      navigate("/");
-    }
-  }, [name, navigate]);
+    const config = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+    axios
+      .put(
+        `http://localhost:4000/user/quiz`,
+        {
+          quizScore: score,
+        },
+        config
+      )
+      .then((response) => {
+        //console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, []);
 
   return (
     <>
@@ -38,6 +59,19 @@ const Result = ({ name, score }) => {
         >
           Retake Quiz
           <ReplayIcon />
+        </StyledButton>{" "}
+        <StyledButton
+          variant="contained"
+          color="secondary"
+          size="large"
+          style={{ alignSelf: "center", marginTop: 20 }}
+          onClick={() => {
+            user?.role === "freelancer"
+              ? navigate("/panel")
+              : navigate("/employer");
+          }}
+        >
+          Back To Dashboard
         </StyledButton>
       </div>
     </>

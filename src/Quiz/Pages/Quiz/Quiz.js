@@ -4,10 +4,12 @@ import Footer from "../../../components/Footer/Footer";
 import Header from "../../../components/Header/Header";
 import Question from "../../components/Question/Question";
 import "./Quiz.css";
+import { useSelector } from "react-redux";
 
 const Quiz = ({ name, questions, score, setScore, setQuestions }) => {
   const [options, setOptions] = useState();
   const [currQues, setCurrQues] = useState(0);
+  const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
     setOptions(
@@ -18,8 +20,6 @@ const Quiz = ({ name, questions, score, setScore, setQuestions }) => {
         ])
     );
   }, [currQues, questions]);
-
-  console.log(questions);
 
   const handleShuffle = (options) => {
     return options.sort(() => Math.random() - 0.5);
@@ -47,7 +47,7 @@ const Quiz = ({ name, questions, score, setScore, setQuestions }) => {
             padding: " 5px 10px",
           }}
         >
-          Welcome, {name}
+          Welcome, {user?.userName ? user?.userName : name}
         </Typography>
 
         {questions ? (
@@ -66,7 +66,6 @@ const Quiz = ({ name, questions, score, setScore, setQuestions }) => {
                 {questions[currQues].category}
               </span>
               <span style={{ marginRight: "60px", fontWeight: 600 }}>
-                {/* {questions[currQues].difficulty} */}
                 Score : {score}
               </span>
             </Box>

@@ -10,6 +10,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
+import QuizIcon from "@mui/icons-material/Quiz";
 
 import PaidIcon from "@mui/icons-material/Paid";
 
@@ -41,6 +42,11 @@ const Sidebar = () => {
       path: "payments",
       name: "Payments",
       icon: <PaidIcon />,
+    },
+    {
+      path: "/quiz",
+      name: "Take Quiz",
+      icon: <QuizIcon />,
     },
     {
       path: "changePassword",

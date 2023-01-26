@@ -13,6 +13,7 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import PeopleIcon from "@mui/icons-material/People";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import PaidIcon from "@mui/icons-material/Paid";
+import QuizIcon from "@mui/icons-material/Quiz";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,6 +53,11 @@ const Sidebar = () => {
       path: "payments",
       name: "Payments",
       icon: <PaidIcon />,
+    },
+    {
+      path: "/quiz",
+      name: "Take Quiz",
+      icon: <QuizIcon />,
     },
     {
       path: "changePassword",

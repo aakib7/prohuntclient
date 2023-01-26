@@ -19,10 +19,10 @@ import LanguageIcon from "@mui/icons-material/Language";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import moment from "moment";
 import RememberMeIcon from "@mui/icons-material/RememberMe";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import QuizIcon from "@mui/icons-material/Quiz";
 const SideBar = () => {
   const { user } = useSelector((state) => state.user);
-  const { navigate } = useNavigate();
 
   return (
     <Container component={"main"} maxWidth="xs">
@@ -62,14 +62,12 @@ const SideBar = () => {
               {user.country}
             </Typography>
           </Stack>
-
           <Stack direction="row" marginLeft={1.5} spacing={1} mt={2.25}>
             <DoneIcon fontSize="small" />
             <Typography variant="p" alignItems={"center"}>
               {user?.verified ? "varified" : ""}
             </Typography>
           </Stack>
-
           <Stack direction="row" marginLeft={1.5} spacing={1} mt={2.25}>
             <LanguageIcon fontSize="small" />
             <Typography variant="p" alignItems={"center"}>
@@ -80,6 +78,12 @@ const SideBar = () => {
             <RememberMeIcon fontSize="small" />
             <Typography variant="p" alignItems={"center"}>
               {user.joined ? moment(user.joined).format("MMMM Do YYYY") : ""}
+            </Typography>
+          </Stack>
+          <Stack direction="row" marginLeft={1.5} spacing={1} mt={2.25}>
+            <QuizIcon fontSize="small" />
+            <Typography variant="p" alignItems={"center"}>
+              {user.quizScore ? user.quizScore : ""} last quiz score
             </Typography>
           </Stack>
         </Grid>

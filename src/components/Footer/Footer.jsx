@@ -1,5 +1,13 @@
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import React from "react";
+import {
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  Snackbar,
+  Alert as MuiAlert,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -9,10 +17,52 @@ import logo from "../../assests/images/logo.png";
 import { Link } from "react-router-dom";
 import "./footer.css";
 import { Stack } from "@mui/system";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const Footer = () => {
+  const { isAuthenticated } = useSelector((state) => state.user);
+  const [email, setEmail] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const [severity, setSeverity] = React.useState("error");
+  const [message, setMessage] = React.useState("");
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (!email) {
+      setOpen(true);
+      setSeverity("error");
+      setMessage("Please Provide email");
+      return;
+    }
+    axios
+      .post(`http://localhost:4000/admin/subsecription`, {
+        email,
+      })
+      .then((response) => {
+        //console.log(response.data)
+        setOpen(true);
+        setSeverity("success");
+        setMessage("Thanks For Subscription");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   return (
     <>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert
+          onClose={() => setOpen(false)}
+          severity={severity}
+          sx={{ width: "100%" }}
+        >
+          {message}
+        </Alert>
+      </Snackbar>
       <Grid
         container
         sx={{
@@ -62,11 +112,14 @@ const Footer = () => {
                   placeholder="Enter your email..."
                   size="small"
                   sx={{ backgroundColor: "white", borderRadius: 2 }}
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
                 />
 
                 <Button
                   sx={{ backgroundColor: "red", ml: 1 }}
                   variant="contained"
+                  onClick={(e) => handleClick(e)}
                 >
                   SUBSCRIBE
                 </Button>
@@ -134,9 +187,11 @@ const Footer = () => {
               md={6}
               sx={{ display: "flex", justifyContent: "flex-end" }}
             >
-              <Button sx={{ background: "#F2A71B", color: "black" }}>
-                Get Started
-              </Button>
+              {!isAuthenticated && (
+                <Button sx={{ background: "#F2A71B", color: "black" }}>
+                  Get Started
+                </Button>
+              )}
             </Grid>
           </Stack>
         </Grid>
@@ -171,3 +226,6 @@ const InstagramIconStyled = styled(InstagramIcon)`
     color: #f2a71b;
   }
 `;
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});

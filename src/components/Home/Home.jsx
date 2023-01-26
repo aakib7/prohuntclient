@@ -122,7 +122,7 @@ const Home = () => {
           <Box style={{ marginTop: "50px" }}>
             <Box display={"flex"} justifyContent={"space-between"}>
               <Typography sx={{ pl: 8 }} variant="h4">
-                Top Jobs
+                Recent Jobs
               </Typography>
               <Typography
                 sx={{ pr: 8, marginTop: 3, textDecoration: "underline" }}

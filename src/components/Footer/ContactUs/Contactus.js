@@ -11,7 +11,8 @@ import EmailIcon from "@mui/icons-material/Email";
 import { styled } from "@mui/system";
 import Header from "../../Header/Header";
 import Footer from "../Footer";
-import { Box } from "@mui/material";
+import { Box, Snackbar, Alert as MuiAlert } from "@mui/material";
+import axios from "axios";
 
 const Contactus = () => {
   const [user, setUser] = useState({
@@ -19,6 +20,10 @@ const Contactus = () => {
     email: "",
     message: "",
   });
+  const [open, setOpen] = React.useState(false);
+  const [severity, setSeverity] = React.useState("error");
+  const [message, setMessage] = React.useState("");
+
   const [validation, setValidation] = useState({ email: "" });
   let errors = { ...validation };
   const checkValidation = () => {
@@ -34,7 +39,27 @@ const Contactus = () => {
   };
   const Handler = (e) => {
     e.preventDefault();
-    console.log(user);
+    if (!user.email || !user.name || !user.message) {
+      setOpen(true);
+      setSeverity("error");
+      setMessage("Please Provide data correctly");
+      return;
+    }
+    axios
+      .post(`http://localhost:4000/admin/contact`, {
+        email: user.email,
+        name: user.name,
+        message: user.message,
+      })
+      .then((response) => {
+        //console.log(response.data)
+        setOpen(true);
+        setSeverity("success");
+        setMessage("Thanks Yoy Feedback/Query is Recorded");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
   const handleChange = (e) => {
     setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -44,6 +69,19 @@ const Contactus = () => {
   }, [user]);
   return (
     <>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert
+          onClose={() => setOpen(false)}
+          severity={severity}
+          sx={{ width: "100%" }}
+        >
+          {message}
+        </Alert>
+      </Snackbar>
       <Header />
       <div className="slider1">
         <Grid sx={{ p: 2 }} className="about">
@@ -161,3 +199,6 @@ const StyledButton = styled(Button)`
     background-color: #025e73;
   }
 `;
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
