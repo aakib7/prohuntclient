@@ -36,15 +36,14 @@ const Quiz = ({ name, questions, score, setScore, setQuestions }) => {
           backgroundImage:
             "linear-gradient(to right, #fff,rgba(2, 94, 115, 0.4))",
           alignItems: "center",
-          marginTop: "50px",
+          height: "90vh",
         }}
       >
         <Typography
           className="subtitle"
           style={{
             fontSize: "25px",
-            border: "1px solid black",
-            boxShadow: "4px 4px 2px black",
+            marginTop: "20px",
             padding: " 5px 10px",
           }}
         >
@@ -60,11 +59,13 @@ const Quiz = ({ name, questions, score, setScore, setQuestions }) => {
                 display: "flex",
                 justifyContent: "spacebetween",
                 textTransform: "uppercase",
-                margin: "10px",
+                marginX: "10px",
               }}
             >
-              <span>{questions[currQues].category}</span>
-              <span>
+              <span style={{ marginLeft: "40px", fontWeight: 600 }}>
+                {questions[currQues].category}
+              </span>
+              <span style={{ marginRight: "60px", fontWeight: 600 }}>
                 {/* {questions[currQues].difficulty} */}
                 Score : {score}
               </span>

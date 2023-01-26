@@ -1,0 +1,18 @@
+.footer-img{
+    width: 180px;
+    height: auto;
+    padding-bottom: 10px;
+}
+
+.form-field{
+    border: 1px;
+    border-color: white;
+    background-color: aquas;
+    
+}
+
+.bottom-bar{
+    border-top: 2px solid white;
+    padding-top: 14px;
+    padding-bottom: 20px;
+}

@@ -1,0 +1,36 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  height: 100%;
+  border-radius: 20px;
+  box-shadow: 10px 40px 47px -19px rgba(0, 0, 0, 0.48);
+  -webkit-box-shadow: 10px 40px 47px -19px rgba(0, 0, 0, 0.48);
+  -moz-box-shadow: 10px 40px 47px -19px rgba(0, 0, 0, 0.48);
+  margin-bottom: 50px;
+}
+
+.btn1 {
+  background-color: black;
+  color: white;
+  width: 120px;
+  padding: 8px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.img {
+  max-width: 80%;
+}
+
+.step {
+  background-color: white;
+  padding-bottom: 80px;
+}
+
+.step:hover {
+  box-shadow: -1px 22px 31px -13px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -1px 22px 31px -13px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 22px 31px -13px rgba(0, 0, 0, 0.75);
+  padding-bottom: 80px;
+}

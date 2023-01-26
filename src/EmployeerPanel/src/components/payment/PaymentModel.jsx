@@ -7,6 +7,7 @@ import { styled, Stack, Divider, Snackbar, Alert } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
+
 const style = {
   position: "absolute",
   top: "30%",

@@ -1,10 +1,9 @@
-import SingleBlogPost from "../cards/SingleBlogPost";
 import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Typography } from "@mui/material";
 import SingleGigCard from "../cards/SingleGigCard";
+import { Box, Skeleton, Stack, Typography } from "@mui/material";
 
 const GigHome = () => {
   const [loading, setLoading] = useState(false);
@@ -37,7 +36,54 @@ const GigHome = () => {
   }, []);
   return (
     <>
-      {loading && <Typography>Loading ...</Typography>}
+      {loading && (
+        <Stack direction="row" spacing={3.5}>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1}>
+              <Skeleton variant="rectangular" width={310} height={200} />
+              <Skeleton variant="rectangular" width={310} height={100} />
+              <Stack direction="row" spacing={2}>
+                <Skeleton variant="circular" width={40} height={40} />
+                <Skeleton variant="rectangular" width={250} height={40} />
+              </Stack>
+              <Skeleton variant="rectangular" width={310} height={20} />
+            </Stack>
+          </Box>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1}>
+              <Skeleton variant="rectangular" width={310} height={200} />
+              <Skeleton variant="rectangular" width={310} height={100} />
+              <Stack direction="row" spacing={2}>
+                <Skeleton variant="circular" width={40} height={40} />
+                <Skeleton variant="rectangular" width={250} height={40} />
+              </Stack>
+              <Skeleton variant="rectangular" width={310} height={20} />
+            </Stack>
+          </Box>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1}>
+              <Skeleton variant="rectangular" width={310} height={200} />
+              <Skeleton variant="rectangular" width={310} height={100} />
+              <Stack direction="row" spacing={2}>
+                <Skeleton variant="circular" width={40} height={40} />
+                <Skeleton variant="rectangular" width={250} height={40} />
+              </Stack>
+              <Skeleton variant="rectangular" width={310} height={20} />
+            </Stack>
+          </Box>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1}>
+              <Skeleton variant="rectangular" width={310} height={200} />
+              <Skeleton variant="rectangular" width={310} height={100} />
+              <Stack direction="row" spacing={2}>
+                <Skeleton variant="circular" width={40} height={40} />
+                <Skeleton variant="rectangular" width={250} height={40} />
+              </Stack>
+              <Skeleton variant="rectangular" width={310} height={20} />
+            </Stack>
+          </Box>
+        </Stack>
+      )}
       {!loading && error && <Typography>No gigs ...</Typography>}
       <Grid
         container

@@ -3,9 +3,10 @@ import Carousel from "react-elastic-carousel";
 import FreelancerCard from "../cards/FreelancerCard";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Skeleton, Box, Stack } from "@mui/material";
 
 const FreelancerCardsSlider = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [freelancers, setFreelancers] = useState([]);
   const [page, setPage] = useState(1);
@@ -35,13 +36,46 @@ const FreelancerCardsSlider = () => {
   }, []);
   return (
     <Carousel breakPoints={breakPoints} pagination={false}>
-      {freelancers.map((freelancer) => {
-        return (
-          <Link to={`/profile/${freelancer._id}`}>
-            <FreelancerCard freelancer={freelancer} />
-          </Link>
-        );
-      })}
+      {loading ? (
+        <Stack direction="row" spacing={3.5}>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1} justifyContent="center" alignItems="center">
+              <Skeleton variant="circular" width={110} height={110} />
+              <Skeleton variant="rectangular" width={310} height={250} />
+              <Skeleton variant="rectangular" width={310} height={70} />
+            </Stack>
+          </Box>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1} justifyContent="center" alignItems="center">
+              <Skeleton variant="circular" width={110} height={110} />
+              <Skeleton variant="rectangular" width={310} height={250} />
+              <Skeleton variant="rectangular" width={310} height={70} />
+            </Stack>
+          </Box>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1} justifyContent="center" alignItems="center">
+              <Skeleton variant="circular" width={110} height={110} />
+              <Skeleton variant="rectangular" width={310} height={250} />
+              <Skeleton variant="rectangular" width={310} height={70} />
+            </Stack>
+          </Box>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1} justifyContent="center" alignItems="center">
+              <Skeleton variant="circular" width={110} height={110} />
+              <Skeleton variant="rectangular" width={310} height={250} />
+              <Skeleton variant="rectangular" width={310} height={70} />
+            </Stack>
+          </Box>
+        </Stack>
+      ) : (
+        freelancers.map((freelancer) => {
+          return (
+            <Link to={`/profile/${freelancer._id}`}>
+              <FreelancerCard freelancer={freelancer} />
+            </Link>
+          );
+        })
+      )}
     </Carousel>
   );
 };

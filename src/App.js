@@ -42,13 +42,17 @@ import QuizHome from "./Quiz/Pages/Home/QuizHome";
 import Quiz from "./Quiz/Pages/Quiz/Quiz";
 import Result from "./Quiz/Pages/Result/Result";
 import Team from "./panel/src/components/team/Team";
-import Howitworks from "./HowItWorks/Howitworks";
 import Portfolio from "./panel/src/components/portfolio/Portfolio";
 import PortfolioPage from "./panel/src/components/portfolio/PortfolioPage";
 import Payment from "./panel/src/components/payment/Payment";
 import PaymentEmployer from "./EmployeerPanel/src/components/payment/PaymentEmployer";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import Howitworks from "./components/Footer/HowItWorks/Howitworks";
+import About from "./components/Footer/AboutUs/About";
+import Contactus from "./components/Footer/ContactUs/Contactus";
+import PrivacyPolicy from "./components/Footer/Policy/PrivacyPolicy";
+import Teams from "./components/Footer/Team/Team";
 const promise = loadStripe(
   "pk_test_51MUGpoHrDuPWRVVLLrluFA3QKudHdW2NOyh8Xx3UiZJLS0o0vAPb2oTRBBPnvcGa6owKrauYJ0Bpbf4db4zq5w5X00GDT7wo9R"
 );
@@ -209,6 +213,11 @@ function App() {
         <Route path={"/freelancers"} element={<AllFreelancers />} />
         <Route path={"/how"} element={<Howitworks />} />
         <Route path={"/portfolio/:id"} element={<PortfolioPage />} />
+        <Route path={"/howtowork"} element={<Howitworks />} />
+        <Route path={"/aboutus"} element={<About />} />
+        <Route path={"/contactus"} element={<Contactus />} />
+        <Route path={"/policy"} element={<PrivacyPolicy />} />
+        <Route path={"/team"} element={<Teams />} />
 
         {/* {Chat Routes} */}
         <Route path="/chat" element={isAuthenticated ? <Chat /> : <Login />} />

@@ -1,4 +1,4 @@
-import { Button, MenuItem, TextField } from "@mui/material";
+import { Button, MenuItem, TextField, styled } from "@mui/material";
 import { useState } from "react";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Categories from "../../Data/Categories";
@@ -36,10 +36,11 @@ const QuizHome = ({ name, setName, fetchQuestions }) => {
         style={{
           backgroundImage:
             "linear-gradient(to right, #fff,rgba(2, 94, 115, 0.4))",
+          height: "90vh",
         }}
       >
         <div className="settings">
-          <span style={{ fontSize: 30 }}>Quiz Settings</span>
+          <span style={{ fontSize: 30, fontWeight: 500 }}>Quiz Settings</span>
           <div className="settings__select">
             {error && <ErrorMessage>Please Fill all the feilds</ErrorMessage>}
             <TextField
@@ -80,17 +81,25 @@ const QuizHome = ({ name, setName, fetchQuestions }) => {
                 Hard
               </MenuItem>
             </TextField>
-            <Button
+            {/* <Button
               variant="contained"
               color="primary"
               size="large"
               onClick={handleSubmit}
             >
               Start Quiz
-            </Button>
+            </Button> */}
+            <StyledButton
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={handleSubmit}
+            >
+              Start Quiz
+            </StyledButton>
           </div>
         </div>
-        <img src="/pic.png" className="banner" alt="quiz app" />
+        <img src={"/pic.png"} className="banner" alt="quiz app" />
       </div>
       <Footer />
     </>
@@ -98,3 +107,10 @@ const QuizHome = ({ name, setName, fetchQuestions }) => {
 };
 
 export default QuizHome;
+const StyledButton = styled(Button)`
+  background-color: #025e73;
+  color: #fff;
+  &:hover {
+    background-color: #f2a71b;
+  }
+`;

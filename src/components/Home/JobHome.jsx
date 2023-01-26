@@ -1,14 +1,12 @@
-import SingleBlogPost from "../cards/SingleBlogPost";
 import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Typography } from "@mui/material";
 import SingleJobCard from "../cards/SingleJobCard";
-import image from "../../assests/images/main-banner.jpg";
+import { Box, Skeleton, Stack, Typography } from "@mui/material";
 
 const JobHome = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
@@ -38,7 +36,54 @@ const JobHome = () => {
   }, []);
   return (
     <>
-      {loading && <Typography>Loading ...</Typography>}
+      {loading && (
+        <Stack direction="row" spacing={3.5}>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1}>
+              <Skeleton variant="rectangular" width={310} height={250} />
+              <Skeleton variant="rectangular" width={310} height={100} />
+              <Stack direction="row" spacing={2}>
+                <Skeleton variant="circular" width={40} height={40} />
+                <Skeleton variant="rectangular" width={250} height={40} />
+              </Stack>
+              <Skeleton variant="rectangular" width={310} height={20} />
+            </Stack>
+          </Box>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1}>
+              <Skeleton variant="rectangular" width={310} height={250} />
+              <Skeleton variant="rectangular" width={310} height={100} />
+              <Stack direction="row" spacing={2}>
+                <Skeleton variant="circular" width={40} height={40} />
+                <Skeleton variant="rectangular" width={250} height={40} />
+              </Stack>
+              <Skeleton variant="rectangular" width={310} height={20} />
+            </Stack>
+          </Box>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1}>
+              <Skeleton variant="rectangular" width={310} height={250} />
+              <Skeleton variant="rectangular" width={310} height={100} />
+              <Stack direction="row" spacing={2}>
+                <Skeleton variant="circular" width={40} height={40} />
+                <Skeleton variant="rectangular" width={250} height={40} />
+              </Stack>
+              <Skeleton variant="rectangular" width={310} height={20} />
+            </Stack>
+          </Box>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1}>
+              <Skeleton variant="rectangular" width={310} height={250} />
+              <Skeleton variant="rectangular" width={310} height={100} />
+              <Stack direction="row" spacing={2}>
+                <Skeleton variant="circular" width={40} height={40} />
+                <Skeleton variant="rectangular" width={250} height={40} />
+              </Stack>
+              <Skeleton variant="rectangular" width={310} height={20} />
+            </Stack>
+          </Box>
+        </Stack>
+      )}
       {!loading && error && <Typography>No gigs ...</Typography>}
       <Grid
         container
@@ -61,11 +106,6 @@ const JobHome = () => {
                   rating={job?.price}
                   image={`http://localhost:4000/${job?.image?.url}`}
                   deliveredTime={job?.deliveredTime}
-                  createdAt={
-                    job?.createdAt
-                      ? job.createdAt
-                      : "2023-01-16T08:28:26.028+00:00"
-                  }
                 />
               </Link>
             </Grid>

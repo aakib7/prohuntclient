@@ -5,6 +5,7 @@ import PersonSearchTwoToneIcon from "@mui/icons-material/PersonSearchTwoTone";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import StackedLineChartIcon from "@mui/icons-material/StackedLineChart";
+import "./aboutcard.css";
 const AboutCards = () => {
   return (
     <>
@@ -13,74 +14,67 @@ const AboutCards = () => {
         sx={{
           display: "flex",
           justifyContent: "space-evenly",
-          bgcolor: "#a5a692",
         }}
+        className="sec-box"
       >
         <Grid item xs={12} md={3}>
           <Box
+            className="boxes"
             sx={{
-              height: "130px",
-              backgroundColor: "#a5a692",
               mt: 5,
               pl: 2,
-              boxShadow: "2px 2px black",
             }}
           >
-            <Typography variant="h2" sx={{ color: "#011f26", padding: "10px" }}>
-              3 Million
+            <Typography variant="h2" sx={{ padding: "10px" }}>
+              2 Million
             </Typography>
-            <Typography variant="p" sx={{ color: "#011f26" }}>
-              3 rated freelancers, covering 8,766 skills
-            </Typography>
+            <Typography variant="p">Users active on site</Typography>
           </Box>
         </Grid>
 
         <Grid item xs={12} md={3}>
           <Box
+            className="boxes"
             sx={{
-              height: "130px",
-              backgroundColor: "#a5a692",
               mt: 5,
               pl: 2,
-              boxShadow: "2px 2px black",
             }}
           >
-            <Typography variant="h2" sx={{ color: "#011f26", padding: "10px" }}>
+            <Typography variant="h2" sx={{ padding: "10px" }}>
               3 Million
             </Typography>
-            <Typography variant="p" sx={{ color: "#011f26" }}>
-              3 rated freelancers, covering 8,766 skills
-            </Typography>
+            <Typography variant="p">Order placed</Typography>
           </Box>
         </Grid>
 
         <Grid item xs={12} md={3}>
           <Box
+            className="boxes"
             sx={{
-              height: "130px",
-              backgroundColor: "#a5a692",
               mt: 5,
               pl: 2,
-              boxShadow: "2px 2px black",
             }}
           >
-            <Typography variant="h2" sx={{ color: "#011f26", padding: "10px" }}>
+            <Typography variant="h2" sx={{ padding: "10px" }}>
               3 Million
             </Typography>
-            <Typography variant="p" sx={{ color: "#011f26" }}>
-              3 rated freelancers, covering 8,766 skills
+            <Typography variant="p">
+              Rated freelancers, covering 8,766 skills
             </Typography>
           </Box>
         </Grid>
 
-        <Grid container sx={{ mt: 10 }}>
+        <Grid container sx={{ mt: 10, mb: 4, justifyContent: "center" }}>
           <Grid item>
-            <Typography variant="h4" sx={{ paddingX: "90px" }}>
+            <Typography
+              variant="h3"
+              sx={{ paddingX: "90px", mb: 4, justifyContent: "center" }}
+            >
               What's great about it?
             </Typography>
           </Grid>
 
-          <Grid container sx={{ marginLeft: 2, mt: 5 }}>
+          <Grid container sx={{ marginLeft: 4, mt: 5 }}>
             <Grid item xs={12} md={3}>
               <Box>
                 <Typography
@@ -91,8 +85,11 @@ const AboutCards = () => {
                     alignItems: "center",
                   }}
                 >
-                  <span style={{ marginRight: "10px" }}>
-                    <PersonSearchTwoToneIcon fontSize="medium" />
+                  <span style={{ marginRight: "20px", marginTop: "10px" }}>
+                    <PersonSearchTwoToneIcon
+                      fontSize="medium"
+                      paddingBottom="20px"
+                    />
                   </span>
                   Browse portfolios
                 </Typography>
@@ -115,7 +112,7 @@ const AboutCards = () => {
                     alignItems: "center",
                   }}
                 >
-                  <span style={{ marginRight: "10px" }}>
+                  <span style={{ marginRight: "20px", marginTop: "10px" }}>
                     <PortraitIcon />
                   </span>
                   Fast bids
@@ -139,7 +136,7 @@ const AboutCards = () => {
                     alignItems: "center",
                   }}
                 >
-                  <span style={{ marginRight: "10px" }}>
+                  <span style={{ marginRight: "20px", marginTop: "10px" }}>
                     <HomeRepairServiceIcon />
                   </span>
                   Quality work
@@ -159,10 +156,11 @@ const AboutCards = () => {
                   variant="h6"
                   sx={{
                     display: "flex",
+                    paddingTop: "10px",
                     alignItems: "center",
                   }}
                 >
-                  <span style={{ marginRight: "10px" }}>
+                  <span style={{ marginRight: "20px", marginTop: "10px" }}>
                     <StackedLineChartIcon />
                   </span>
                   Track progress

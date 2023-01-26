@@ -1,0 +1,17 @@
+.boxes {
+  padding: 30px;
+  border-radius: 10px;
+  color: black;
+}
+
+.boxes:hover {
+  padding: 30px;
+  border-radius: 10px;
+  background-color: rgb(63, 58, 58);
+  color: white;
+}
+
+.sec-box {
+  background-color: rgb(238, 238, 238);
+  padding: 80px;
+}

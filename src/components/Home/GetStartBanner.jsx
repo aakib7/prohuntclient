@@ -3,7 +3,6 @@ import Grid from "@mui/material/Grid";
 import React from "react";
 import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
-
 import Button from "@mui/material/Button";
 import BannerImage from "../../assests/images/main-banner.jpg";
 import { Link } from "react-router-dom";
@@ -12,7 +11,7 @@ const GetStartBanner = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   return (
     <>
-      <Grid container sx={{ backgroundColor: "#a5a692" }}>
+      <Grid container sx={{ backgroundColor: "rgb(238, 238, 238)" }}>
         <Grid item xs={12} md={6}>
           <Box>
             <img src={BannerImage} style={{ width: "100%", height: "100%" }} />
@@ -44,7 +43,7 @@ const GetStartBanner = () => {
                   marginTop: "20px",
                 }}
               >
-                Get matched with expert freelancers in minutes
+                <h3>Easy employee handling</h3>
               </Typography>
             </Grid>
 
@@ -57,7 +56,7 @@ const GetStartBanner = () => {
                   marginTop: "20px",
                 }}
               >
-                Get matched with expert freelancers in minutes
+                <h3>Get matched with expert freelancers in minutes</h3>
               </Typography>
             </Grid>
             <Grid item xs={12} sx={{ marginLeft: 6 }}>
@@ -69,7 +68,7 @@ const GetStartBanner = () => {
                   marginTop: "20px",
                 }}
               >
-                Get matched with expert freelancers in minutes
+                <h3>Services on palm</h3>
               </Typography>
             </Grid>
             <Grid item xs={12} sx={{ marginLeft: { xs: 10, md: 6 } }}>

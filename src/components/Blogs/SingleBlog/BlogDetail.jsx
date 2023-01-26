@@ -51,18 +51,21 @@ const BlogDetail = ({
       <Grid container>
         <Grid item xs={12} bgcolor={"#f7f7f7"}>
           <Typography
-            variant="h4"
+            variant="h5"
             fontWeight={600}
-            lineHeight={"50px"}
-            style={{ whiteSpace: "pre-line" }}
+            style={{
+              whiteSpace: "pre-wrap",
+              overflowWrap: "break-word",
+            }}
           >
-            <pre>{title}</pre>
+            {title}
           </Typography>
           <img
             style={{
               marginTop: "25px",
               width: "100%",
               height: "auto",
+              objectFit: "contain",
             }}
             src={image}
             alt="Blog Cover Picture"
@@ -127,7 +130,7 @@ const BlogDetail = ({
           <hr style={{ height: "2px", paddingRight: "5px" }} />
         </Grid>
 
-        <Grid item xs={12} bgcolor={"white"}>
+        <Grid item xs={12} bgcolor={"#F9F9F9"}>
           <Typography
             padding={4}
             sx={{ padding: { xs: 2, md: 4 }, textAlign: "justify" }}
@@ -136,15 +139,13 @@ const BlogDetail = ({
             {blogDescription}
           </Typography>
         </Grid>
-        <Grid item xs={12} bgcolor={"white"}>
-          <Typography variant="h5" paddingLeft={5}>
-            Reviews and Ratings
-          </Typography>
+        <Grid item xs={12} bgcolor={"white"} paddingTop={3}>
+          <Typography variant="h5">Reviews and Ratings</Typography>
         </Grid>
         <Grid item xs={12} bgcolor={"white"}>
           {isAuthenticated ? <Comments handleComment={handleComment} /> : ""}
         </Grid>
-        <Grid item xs={12} bgcolor={"white"}>
+        <Grid item xs={12} bgcolor={"white"} paddingLeft={2}>
           {!loading && (
             <Typography variant="h6">{reviews?.length} Reviews</Typography>
           )}

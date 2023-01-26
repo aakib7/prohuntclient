@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Footer from "../../../components/Footer/Footer";
 import Header from "../../../components/Header/Header";
 import "./Result.css";
+import ReplayIcon from "@mui/icons-material/Replay";
+import { styled } from "@mui/system";
 
 const Result = ({ name, score }) => {
   const navigate = useNavigate();
@@ -22,24 +23,32 @@ const Result = ({ name, score }) => {
         style={{
           backgroundImage:
             "linear-gradient(to right, #fff,rgba(2, 94, 115, 0.4))",
+          height: "90vh",
         }}
       >
         <span className="title">Final Score : {score}</span>
-        <Button
+        <StyledButton
           variant="contained"
           color="secondary"
           size="large"
           style={{ alignSelf: "center", marginTop: 20 }}
           onClick={() => {
-            navigate("/");
+            navigate("/quiz");
           }}
         >
-          Go to homepage
-        </Button>
+          Retake Quiz
+          <ReplayIcon />
+        </StyledButton>
       </div>
-      <Footer />
     </>
   );
 };
 
 export default Result;
+const StyledButton = styled(Button)`
+  background-color: #025e73;
+  color: #fff;
+  &:hover {
+    background-color: #f2a71b;
+  }
+`;

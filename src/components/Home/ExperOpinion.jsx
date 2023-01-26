@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Typography } from "@mui/material";
+import { Box, Skeleton, Stack, Typography } from "@mui/material";
 
 const ExperOpinion = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [blogs, setBlogs] = useState([]);
   const [page, setPage] = useState(1);
@@ -38,7 +38,34 @@ const ExperOpinion = () => {
   }, []);
   return (
     <>
-      {loading && <Typography>Loading ...</Typography>}
+      {loading && (
+        <Stack direction="row" spacing={2}>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1}>
+              <Skeleton variant="rectangular" width={310} height={190} />
+              <Skeleton variant="rectangular" width={310} height={190} />
+            </Stack>
+          </Box>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1}>
+              <Skeleton variant="rectangular" width={310} height={190} />
+              <Skeleton variant="rectangular" width={310} height={190} />
+            </Stack>
+          </Box>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1}>
+              <Skeleton variant="rectangular" width={310} height={190} />
+              <Skeleton variant="rectangular" width={310} height={190} />
+            </Stack>
+          </Box>
+          <Box sx={{ pt: 0.5 }}>
+            <Stack spacing={1}>
+              <Skeleton variant="rectangular" width={310} height={190} />
+              <Skeleton variant="rectangular" width={310} height={190} />
+            </Stack>
+          </Box>
+        </Stack>
+      )}
       {!loading && error && <Typography>No Blogs ...</Typography>}
       <Grid
         container

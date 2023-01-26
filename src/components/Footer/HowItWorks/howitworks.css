@@ -1,0 +1,42 @@
+.slider1{    background-color: black;
+}
+
+.about{
+ text-align: center;
+ color: aliceblue;
+}
+
+.tc{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btn1{
+    background-color: black;
+    color: white;
+    width: 120px;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.img{
+   max-width: 110%;
+}
+
+.imgsmall{
+    width: 50%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.step{
+    background-color: #53EAB4;
+    padding: 25px;
+    border-radius: 10px;
+    margin: 10px;
+    height: 80%;
+    text-align: center;
+}
