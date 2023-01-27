@@ -72,17 +72,18 @@ const About = () => {
           </Typography>
         </Grid>
 
-        <Grid item xs={12}>
-          <Stack direction={"row"} spacing={2}>
-            <Typography>Rating</Typography>
-            <Rating
-              name="read-only"
-              value={user?.rating ? user?.rating : 0}
-              readOnly
-            />
-          </Stack>
-        </Grid>
-
+        {user?.role === "freelancer" && (
+          <Grid item xs={12}>
+            <Stack direction={"row"} spacing={2}>
+              <Typography>Rating</Typography>
+              <Rating
+                name="read-only"
+                value={user?.rating ? user?.rating : 0}
+                readOnly
+              />
+            </Stack>
+          </Grid>
+        )}
         <Grid item xs={6}>
           <Stack direction="row" spacing={1} alignItems={"center"}>
             <Typography variant="h6" color={"green"}>

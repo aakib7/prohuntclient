@@ -3,25 +3,18 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { styled, Stack, Divider } from "@mui/material";
+import {
+  styled,
+  Stack,
+  Divider,
+  Snackbar,
+  Alert,
+  TextField,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import moment from "moment/moment";
-const modalWrapper = {
-  overflow: "auto",
-  maxHeight: "100vh",
-  display: "flex",
-};
-
-const modalBlock = {
-  position: "relative",
-  zIndex: 0,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  margin: "auto",
-};
-
+import axios from "axios";
 const style = {
   position: "absolute",
   top: "40%",
@@ -33,8 +26,67 @@ const style = {
 };
 
 export default function OrderDetailModel({ handleClose, open, order }) {
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [severity, setSeverity] = React.useState("error");
+  const [message, setMessage] = React.useState("");
+  const [complain, setComplain] = React.useState("");
+  const [openReport, setOpenReport] = React.useState(false);
+  const handleOpenReport = () => {
+    setOpenReport(true);
+  };
+  const handleCloseReport = () => {
+    setOpenReport(false);
+  };
+  const handleReports = (id) => {
+    if (!complain) {
+      setOpenAlert(true);
+      setSeverity("error");
+      setMessage("Enter Complain");
+      return;
+    }
+    const config = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+    axios
+      .post(
+        `http://localhost:4000/report/user`,
+        {
+          message: complain,
+          reportedUser: id,
+        },
+        config
+      )
+      .then((response) => {
+        setOpenAlert(true);
+        setSeverity("success");
+        setMessage("Report user Successfully");
+      })
+      .catch((error) => {
+        setOpenAlert(true);
+        setSeverity("error");
+        setMessage("Try again");
+      });
+  };
+
   return (
     <div>
+      <Snackbar
+        open={openAlert}
+        autoHideDuration={6000}
+        onClose={() => setOpenAlert(false)}
+      >
+        <Alert
+          onClose={() => setOpenAlert(false)}
+          severity={severity}
+          sx={{ width: "100%" }}
+        >
+          {message}
+        </Alert>
+      </Snackbar>
       <Modal
         open={open}
         onClose={() => handleClose()}
@@ -102,6 +154,46 @@ export default function OrderDetailModel({ handleClose, open, order }) {
             </Typography>
             <Typography>{order?.description}</Typography>
           </Box>
+          <Box style={{ marginTop: 10, fontWeight: 600 }}>
+            <Link
+              onClick={() => {
+                handleOpenReport();
+              }}
+            >
+              Report User
+            </Link>
+          </Box>
+          {openReport && (
+            <Box style={{ width: "100%", magrinTop: 15, display: "flex" }}>
+              <TextField
+                id="outlined-basic"
+                variant="outlined"
+                placeholder="complain"
+                fullWidth
+                onChange={(e) => {
+                  setComplain(e.target.value);
+                }}
+              />
+              <Button
+                variant="contained"
+                style={{ marginLeft: 3 }}
+                onClick={() => {
+                  handleReports(order?.owner?._id);
+                }}
+              >
+                Report
+              </Button>
+              <Button
+                style={{ marginLeft: 3 }}
+                variant="contained"
+                onClick={() => {
+                  handleCloseReport();
+                }}
+              >
+                Cancel
+              </Button>
+            </Box>
+          )}
         </Box>
       </Modal>
     </div>

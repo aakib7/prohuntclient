@@ -52,14 +52,16 @@ const About = ({ user, id }) => {
         </Grid>
 
         <Grid item xs={12}>
-          <Stack direction={"row"} spacing={2}>
-            <Typography>Rating</Typography>
-            <Rating
-              name="read-only"
-              value={user?.rating ? user?.rating : 0}
-              readOnly
-            />
-          </Stack>
+          {user?.role === "freelancer" && (
+            <Stack direction={"row"} spacing={2}>
+              <Typography>Rating</Typography>
+              <Rating
+                name="read-only"
+                value={user?.rating ? user?.rating : 0}
+                readOnly
+              />
+            </Stack>
+          )}
         </Grid>
 
         <Grid item xs={6}>
