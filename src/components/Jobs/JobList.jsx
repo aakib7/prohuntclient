@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import image from "../../assests/images/main-banner1.jpg";
 import SingleJobCard from "../cards/SingleJobCard";
 import axios from "axios";
-import CircularProgress from "@mui/material/CircularProgress";
+import FilterButton from "../SubCategories/FilterButton";
 import FullPageLoading from "../others/FullPageLoading";
 const JobList = ({ search }) => {
   const { subcategory } = useParams();
@@ -29,6 +29,14 @@ const JobList = ({ search }) => {
     }
     fetchCategories();
   }, [search]);
+  const minprice = () => {
+    const numDescending = [...jobs].sort((a, b) => b.price - a.price);
+    setJobs(numDescending);
+  };
+  const maxprice = () => {
+    const numDescending = [...jobs].sort((a, b) => a.price - b.price);
+    setJobs(numDescending);
+  };
   return (
     <Box>
       {loading && (
@@ -62,6 +70,16 @@ const JobList = ({ search }) => {
           <Typography>No Jobs To show</Typography>
         </Box>
       )}
+      <Box
+        sx={{
+          marginRight: "30px",
+          marginTop: "20px",
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <FilterButton onClick={minprice} onClick1={maxprice} />
+      </Box>
       <Box
         sx={{
           display: "flex",

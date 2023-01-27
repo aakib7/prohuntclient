@@ -59,7 +59,6 @@ const ListHeader = () => {
           ml: { xs: 4, md: 10 },
         }}
       >
-        {blogButton ? "" : <FilterSideBar />}
         <StyledButton
           autoFocus
           startIcon={<BadgeIcon />}

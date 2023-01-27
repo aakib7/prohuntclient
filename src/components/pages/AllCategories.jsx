@@ -43,33 +43,6 @@ const AllCategories = () => {
   }, [search, page]);
   return (
     <>
-      {loading && <FullPageLoading />}
-      {!loading && error && (
-        <Box
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <Typography>Somthing happend bad try again Later</Typography>
-        </Box>
-      )}
-      {!loading && categories.length <= 0 && (
-        <Box
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <Typography>No Categories To show</Typography>
-        </Box>
-      )}
       <Header />
       <SubHeader />
       <HeroSection setSearch={(search) => setSearch(search)} />

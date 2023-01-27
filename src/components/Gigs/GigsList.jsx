@@ -5,6 +5,7 @@ import image from "../../assests/images/main-banner1.jpg";
 import SingleGigCard from "../cards/SingleGigCard";
 import axios from "axios";
 import FullPageLoading from "../others/FullPageLoading";
+import FilterButton from "../SubCategories/FilterButton";
 const GigsList = ({ search }) => {
   const { subcategory } = useParams();
   const [gigs, setGigs] = useState();
@@ -28,6 +29,15 @@ const GigsList = ({ search }) => {
     }
     fetchCategories();
   }, [search]);
+  const minprice = () => {
+    const numDescending = [...gigs].sort((a, b) => b.price - a.price);
+    setGigs(numDescending);
+  };
+  const maxprice = () => {
+    const numDescending = [...gigs].sort((a, b) => a.price - b.price);
+    setGigs(numDescending);
+  };
+
   return (
     <Box>
       {loading && (
@@ -61,6 +71,16 @@ const GigsList = ({ search }) => {
           <Typography>No Gigs To show</Typography>
         </Box>
       )}
+      <Box
+        sx={{
+          marginRight: "30px",
+          marginTop: "20px",
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <FilterButton onClick={minprice} onClick1={maxprice} />
+      </Box>
       {/* Cards */}
       <Box
         sx={{
