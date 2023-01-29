@@ -70,16 +70,18 @@ const JobList = ({ search }) => {
           <Typography>No Jobs To show</Typography>
         </Box>
       )}
-      <Box
-        sx={{
-          marginRight: "30px",
-          marginTop: "20px",
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <FilterButton onClick={minprice} onClick1={maxprice} />
-      </Box>
+      {!loading && jobs?.length > 0 && (
+        <Box
+          sx={{
+            marginRight: "30px",
+            marginTop: "20px",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <FilterButton onClick={minprice} onClick1={maxprice} />
+        </Box>
+      )}
       <Box
         sx={{
           display: "flex",

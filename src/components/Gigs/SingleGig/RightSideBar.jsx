@@ -24,6 +24,7 @@ const RightSideBar = ({
   authorImage,
   gig,
   createdAt,
+  block,
 }) => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const [openGigModel, setOpenGigModel] = React.useState(false);
@@ -44,6 +45,7 @@ const RightSideBar = ({
           <StyledButton
             variant="contained"
             fullWidth={true}
+            disabled={block}
             onClick={() => {
               handleOpenHireModel();
             }}

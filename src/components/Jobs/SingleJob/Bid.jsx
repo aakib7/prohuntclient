@@ -104,6 +104,7 @@ const Bid = ({ bid, ownerId, job }) => {
               ? user._id.toString() === ownerId && (
                   <StyledButton
                     fullWidth
+                    disabled={bid?.owner?.isBlocked}
                     startIcon={<CheckCircleOutlineIcon />}
                     onClick={() => {
                       handleOpenHireModel();

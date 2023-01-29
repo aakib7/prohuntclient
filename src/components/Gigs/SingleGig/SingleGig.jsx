@@ -142,6 +142,7 @@ const SingleGig = () => {
                 } ${gig.owner?.lastName ? gig.owner.lastName : "user"}`}
                 loading={loading}
                 userId={gig?.owner?._id}
+                block={gig?.owner?.isBlocked}
               />
             </Grid>
           </Grid>

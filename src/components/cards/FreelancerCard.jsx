@@ -135,7 +135,7 @@ const FreelancerCard = ({ freelancer }) => {
                 }}
               >
                 <Typography component="legend"></Typography>
-                <Rating name="read-only" value={3} readOnly />
+                <Rating name="read-only" value={freelancer?.rating} readOnly />
                 <Typography
                   sx={{
                     fontSize: "12px",
@@ -144,7 +144,7 @@ const FreelancerCard = ({ freelancer }) => {
                     marginTop: "2px",
                   }}
                 >
-                  (34 people's revies)
+                  ({freelancer?.numReviews} people's revies)
                 </Typography>
               </div>
             </div>
@@ -164,30 +164,34 @@ const FreelancerCard = ({ freelancer }) => {
                     flexWrap: "wrap",
                   }}
                 >
-                  <StyledTypography1
-                    sx={{
-                      fontSize: "12px",
-                      fontWeight: 300,
-                      color: "white",
-                      bgcolor: "#025e73",
-                      padding: "4px 8px",
-                      marginLeft: 5,
-                    }}
-                  >
-                    {freelancer?.skills ? freelancer?.skills[0] : "animation"}
-                  </StyledTypography1>
-                  <StyledTypography
-                    sx={{
-                      fontSize: "12px",
-                      fontWeight: 300,
-                      color: "white",
-                      bgcolor: "#f2a71b",
-                      padding: "5px 10px",
-                      marginLeft: 5,
-                    }}
-                  >
-                    {freelancer?.skills ? freelancer?.skills[0] : "animation"}
-                  </StyledTypography>
+                  {freelancer?.skills[0] && (
+                    <StyledTypography1
+                      sx={{
+                        fontSize: "12px",
+                        fontWeight: 300,
+                        color: "white",
+                        bgcolor: "#025e73",
+                        padding: "4px 8px",
+                        marginLeft: 5,
+                      }}
+                    >
+                      {freelancer?.skills ? freelancer?.skills[0] : "animation"}
+                    </StyledTypography1>
+                  )}
+                  {freelancer?.skills[1] && (
+                    <StyledTypography
+                      sx={{
+                        fontSize: "12px",
+                        fontWeight: 300,
+                        color: "white",
+                        bgcolor: "#f2a71b",
+                        padding: "5px 10px",
+                        marginLeft: 5,
+                      }}
+                    >
+                      {freelancer?.skills ? freelancer?.skills[1] : "animation"}
+                    </StyledTypography>
+                  )}
                 </div>
               )}
             </div>
@@ -214,12 +218,9 @@ const FreelancerCard = ({ freelancer }) => {
                   marginRight: "10px",
                 }}
               >
-                231 Project Completed
+                {freelancer?.completedProject} Project Completed
               </Typography>
             </div>
-            {/* <div style={{display:'flex',alignItems:'center'}}>
-                <CustomText label={'$22/hr'} fontSize={14} fontWeight={500}/>
-            </div> */}
           </div>
         </div>
       </Card>

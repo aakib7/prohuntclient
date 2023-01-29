@@ -71,16 +71,18 @@ const GigsList = ({ search }) => {
           <Typography>No Gigs To show</Typography>
         </Box>
       )}
-      <Box
-        sx={{
-          marginRight: "30px",
-          marginTop: "20px",
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <FilterButton onClick={minprice} onClick1={maxprice} />
-      </Box>
+      {!loading && gigs.length > 0 && (
+        <Box
+          sx={{
+            marginRight: "30px",
+            marginTop: "20px",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <FilterButton onClick={minprice} onClick1={maxprice} />
+        </Box>
+      )}
       {/* Cards */}
       <Box
         sx={{

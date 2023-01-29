@@ -211,6 +211,7 @@ const SingleJob = () => {
                     variant="contained"
                     color="success"
                     style={{ width: "50%", marginRight: 34 }}
+                    disabled={job?.owner?.isBlocked}
                     onClick={() => {
                       isAuthenticated
                         ? user.role === "freelancer"

@@ -35,9 +35,9 @@ const HeroSections = ({ setSearch, setKeyword, keyword }) => {
                 sx={{
                   margin: "15px 0",
                   color: "black",
-                  fontSize: "64px",
-                  fontWeight: "500",
-                  lineHeight: "74px",
+                  fontSize: { xs: "33px", md: "64px" },
+                  lineHeight: { xs: "33px", md: "74px" },
+                  fontWeight: { xs: "400", md: "500" },
                 }}
               >
                 Say hello to professional life.
