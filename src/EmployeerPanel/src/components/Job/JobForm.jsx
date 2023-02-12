@@ -75,10 +75,8 @@ function JobForm({ open, handleOpen, handleClose }) {
     } else {
       errors.jobTitle = "";
     }
-
-    var intRegex = /^[1-9]+\d*$/;
-
-    if (!job.jobBudget.match(intRegex)) {
+    const cond3 = /^[1-9]+\d*$/;
+    if (!job.jobBudget.match(cond3)) {
       errors.jobBudget = "Job budget must be number greater than 1.";
     } else {
       errors.jobBudget = "";

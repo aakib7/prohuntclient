@@ -221,6 +221,7 @@ function App() {
 
         {/* {Chat Routes} */}
         <Route path="/chat" element={isAuthenticated ? <Chat /> : <Login />} />
+        <Route path="/chat" element={<Chat />} />
         {/* {manage project Route} */}
         <Route path="/manageproject/:id" element={<Todo />} />
 
@@ -249,7 +250,6 @@ function App() {
           }
         />
         <Route path="/result" element={<Result name={name} score={score} />} />
-        {/* <Route path="/result" element={<Result name={name} score={score} />} /> */}
 
         {/* // quiz end */}
         <Route path={"*"} element={<NotFound />} />

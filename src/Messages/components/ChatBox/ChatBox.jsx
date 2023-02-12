@@ -147,7 +147,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
             </div>
             {/* chat-sender */}
             <div className="chat-sender">
-              <div onClick={() => imageRef.current.click()}>+</div>
+              {/* <div onClick={() => imageRef.current.click()}>+</div> */}
               <InputEmoji value={newMessage} onChange={handleChange} />
               <div className="send-button button" onClick={handleSend}>
                 Send

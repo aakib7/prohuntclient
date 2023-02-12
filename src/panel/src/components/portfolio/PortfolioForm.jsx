@@ -123,7 +123,7 @@ function PortfolioForm({ open, handleOpen, handleClose }) {
     //   return;
     // }
     let formData = new FormData();
-    formData.append("introduction", "LOL");
+    formData.append("introduction", blog.introduction);
     Array.from(image).forEach((item) => {
       console.log(item);
       formData.append("portfolio", item);

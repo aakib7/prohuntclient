@@ -16,7 +16,7 @@ const AllBlogs = ({ header = true, homeSearch }) => {
   const [error, setError] = useState(false);
   const [blogs, setBlogs] = useState([]);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(9);
   const [search, setSearch] = useState("");
   const [total, setTotla] = useState(0);
 

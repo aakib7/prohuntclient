@@ -70,9 +70,9 @@ function EditForm({ open, handleOpen, handleClose, id }) {
     } else {
       errors.jobTitle = "";
     }
-    const cond3 = /[0-9]|\./;
+    const cond3 = /^[1-9]+\d*$/;
     if (!job.jobBudget.match(cond3)) {
-      errors.jobBudget = "Jobbudget must be number";
+      errors.jobBudget = "Jobbudget must be number, and greater than 0";
     } else {
       errors.jobBudget = "";
     }

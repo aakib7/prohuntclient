@@ -61,14 +61,14 @@ const BuyGig = ({ open, handleClose, name, gig }) => {
         setMessage(error.response.data.message);
       });
   };
-  React.useEffect(() => {
-    if (success) {
-      const interval = setInterval(() => {
-        navigate("/employer");
-      }, 2000);
-      return () => clearInterval(interval);
-    }
-  }, [success]);
+  // React.useEffect(() => {
+  //   if (success ) {
+  //     const interval = setInterval(() => {
+  //       navigate("/employer");
+  //     }, 2000);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [success]);
   return (
     <div>
       <Snackbar

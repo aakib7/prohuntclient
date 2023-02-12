@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-import image from "../../assests/images/main-banner1.jpg";
+// import image from "../../assests/images/main-banner1.jpg";
 import SingleGigCard from "../cards/SingleGigCard";
 import axios from "axios";
 import FullPageLoading from "../others/FullPageLoading";
@@ -102,8 +102,8 @@ const GigsList = ({ search }) => {
                 >
                   <SingleGigCard
                     title={gig.title}
-                    imgage={image}
-                    avatar={image}
+                    imgage={"http://localhost:4000/" + gig?.image?.url}
+                    avatar={"http://localhost:4000/" + gig?.owner?.avatar.url}
                     price={gig.price}
                     author={`${
                       gig?.owner?.firstName ? gig?.owner?.firstName : "user"

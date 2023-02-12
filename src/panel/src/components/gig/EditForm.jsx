@@ -88,9 +88,10 @@ export default function EditForm({ open, handleOpen, handleClose, id }) {
     } else {
       errors.gigTitle = "";
     }
-    const cond3 = /[0-9]|\./;
+
+    const cond3 = /^[1-9]+\d*$/;
     if (!gig.gigPrice.match(cond3)) {
-      errors.gigPrice = "Gig Price must be number";
+      errors.gigPrice = "Gig Price must be number and greater than zero.";
     } else {
       errors.gigPrice = "";
     }

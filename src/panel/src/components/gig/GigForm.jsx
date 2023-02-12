@@ -77,9 +77,9 @@ export default function GigForm({ open, handleOpen, handleClose }) {
     } else {
       errors.gigTitle = "";
     }
-    var intRegex = /^[1-9]+\d*$/;
-    if (!gig.gigPrice.match(intRegex)) {
-      errors.budget = "Price value should be a number, greater than 0.";
+    const cond3 = /^[1-9]+\d*$/;
+    if (!gig.gigPrice.match(cond3)) {
+      errors.gigPrice = "Price value should be a number, greater than 0.";
     } else {
       errors.gigPrice = "";
     }

@@ -83,7 +83,7 @@ const SideBar = () => {
           <Stack direction="row" marginLeft={1.5} spacing={1} mt={2.25}>
             <QuizIcon fontSize="small" />
             <Typography variant="p" alignItems={"center"}>
-              {user.quizScore ? user.quizScore : ""} last quiz score
+              {user.quizScore ? user.quizScore : 0} last quiz score
             </Typography>
           </Stack>
         </Grid>

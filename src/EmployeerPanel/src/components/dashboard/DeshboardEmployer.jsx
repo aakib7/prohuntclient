@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import Card from "./Card";
 const DeshboardEmployer = () => {
   const { user } = useSelector((state) => state.user);
@@ -17,7 +17,7 @@ const DeshboardEmployer = () => {
           <Card text={"Active Jobs"} count={user?.jobs?.length} />
         </Grid>
         <Grid item xs={6} md={4} lg={3}>
-          <Card text={"Bids on Jobs"} count={user?.jobs?.length} />
+          <Card text={"Blogs"} count={user?.blogs?.length} />
         </Grid>
       </Grid>
     </>

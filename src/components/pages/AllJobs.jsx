@@ -17,7 +17,7 @@ const AllJobs = ({ header = true, homeSearch }) => {
   const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(9);
   const [search, setSearch] = useState("");
   useEffect(() => {
     setSearch(homeSearch ? homeSearch : "");
@@ -124,7 +124,7 @@ const AllJobs = ({ header = true, homeSearch }) => {
         >
           {header && (
             <Pagination
-              count={Math.ceil(total / 10)}
+              count={Math.ceil(total / limit)}
               onChange={(event, value) => {
                 setPage(value);
               }}

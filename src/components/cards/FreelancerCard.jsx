@@ -78,23 +78,21 @@ const FreelancerCard = ({ freelancer }) => {
             <div
               style={{
                 display: "flex",
-                width: "20%",
                 justifyContent: "center",
                 alignItems: "center",
+                fontWeight: "bolder",
               }}
             >
-              <img
-                src={BannerImage}
-                style={{
-                  height: "70%",
-                  width: "50%",
-                  borderRadius: "50px",
-                  textTransform: "capitalize",
-                }}
-              />
+              Country:
             </div>
             <div
-              style={{ display: "flex", width: "80%", alignItems: "center" }}
+              style={{
+                display: "flex",
+                width: "80%",
+                alignItems: "center",
+                paddingLeft: 2,
+                textTransform: "capitalize",
+              }}
             >
               {freelancer?.country ? freelancer.country : "Pakistan"}
             </div>

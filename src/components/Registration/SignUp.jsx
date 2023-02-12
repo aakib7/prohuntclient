@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import axios from "axios";
@@ -425,30 +425,35 @@ export default function SignUp() {
                       handleChange(e);
                     }}
                   >
-                    <MenuItem value={"pakistan"}>Pakistan</MenuItem>
-                    <MenuItem value={"india"}>India</MenuItem>
+                    <MenuItem value={"Pakistan"}>Pakistan</MenuItem>
+                    <MenuItem value={"India"}>India</MenuItem>
                     <MenuItem value={"Bangladesh"}>Bangladesh</MenuItem>
                     <MenuItem value={"Srilanks"}>Srilanks</MenuItem>
-                    <MenuItem value={"india"}>India</MenuItem>
-                    {/* <MenuItem value={"india"}>India</MenuItem>
-                    <MenuItem value={"india"}>India</MenuItem>
-                    <MenuItem value={"india"}>India</MenuItem>
-                    <MenuItem value={"india"}>India</MenuItem>
-                    <MenuItem value={"india"}>India</MenuItem> */}
+                    <MenuItem value={"Nepal"}>Nepal</MenuItem>
+                    <MenuItem value={"England"}>England</MenuItem>
+                    <MenuItem value={"Austrila"}>Austrila</MenuItem>
+                    <MenuItem value={"Germeny"}>Germeny</MenuItem>
+                    <MenuItem value={"Austria"}>Austria</MenuItem>
+                    <MenuItem value={"Italy"}>Italy</MenuItem>
+                    <MenuItem value={"Spain"}>Spain</MenuItem>
+                    <MenuItem value={"UAE"}>UAE</MenuItem>
+                    <MenuItem value={"USA"}>USA</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value="Term And Conditions"
-                      color="primary"
-                      required
-                    />
-                  }
-                  label="Agree terms and condition"
+                <Checkbox
+                  value="Term And Conditions"
+                  color="primary"
+                  required
                 />
+                <Link
+                  to="/policy"
+                  variant="body2"
+                  style={{ textDecoration: "underline" }}
+                >
+                  Agree terms and condition
+                </Link>
               </Grid>
             </Grid>
 
@@ -474,7 +479,11 @@ export default function SignUp() {
 
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/login" variant="body2">
+                <Link
+                  to="/login"
+                  variant="body2"
+                  style={{ textDecoration: "underline" }}
+                >
                   Already have an account? Sign in
                 </Link>
               </Grid>

@@ -16,7 +16,7 @@ const AllGigs = ({ header = true, homeSearch }) => {
   const [gigs, setGigs] = useState([]);
   //pagination and search
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(9);
   const [search, setSearch] = useState("");
   const [total, setTotal] = useState(0);
   useEffect(() => {
@@ -26,7 +26,7 @@ const AllGigs = ({ header = true, homeSearch }) => {
   const fetchGigs = async () => {
     try {
       setLoading(true);
-      const url = `http://localhost:4000/gigs?page=${page}&limit=${limit}&search=${""}`;
+      const url = `http://localhost:4000/gigs?page=${page}&limit=${limit}&search=${search}`;
       const { data } = await axios.get(url);
       console.log(data);
       setLoading(false);

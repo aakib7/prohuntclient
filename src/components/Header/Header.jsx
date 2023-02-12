@@ -11,7 +11,6 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import DesktopMacIcon from "@mui/icons-material/DesktopMac";
 import { Snackbar, Alert } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import { Link } from "react-router-dom";
@@ -136,26 +135,14 @@ export default function Header() {
             aria-label="show 4 new mails"
             color="inherit"
           >
-            <Badge badgeContent={4} color="error">
+            <Badge>
               <MailIcon />
             </Badge>
           </IconButton>
-
           <p>Messages</p>
         </MenuItem>
       </Link>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
+
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -166,7 +153,6 @@ export default function Header() {
         >
           <AccountCircle />
         </IconButton>
-        {/* // response */}
         <p>Profile</p>
       </MenuItem>
     </Menu>
@@ -259,20 +245,11 @@ export default function Header() {
                     aria-label="show 4 new mails"
                     color="inherit"
                   >
-                    <Badge badgeContent={4} color="error">
+                    <Badge>
                       <MailIcon />
                     </Badge>
                   </IconButton>
                 </Link>
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                >
-                  <Badge badgeContent={17} color="error">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
               </>
             ) : (
               <Box
